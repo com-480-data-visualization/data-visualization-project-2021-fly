@@ -3,8 +3,8 @@
 | Student's name | SCIPER |
 | -------------- | ------ |
 | Lilia Ellouz | 261333|
-| | |
-| | |
+| Feten Ghali| |
+| Yassine Khalfi | |
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
 
