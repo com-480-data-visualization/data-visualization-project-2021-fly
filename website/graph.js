@@ -70,6 +70,7 @@ d3.csv("data/billboard_features_top_100.csv",
         .text("Values of the audio features");
 
 
+
     // Adding the actual data (one line per feature)
     var features = ['danceability', 'energy', 'instrumentalness', 'speechiness', 'acousticness', 'valence', 'mode'];
     var color = d3.scaleOrdinal()
@@ -78,15 +79,14 @@ d3.csv("data/billboard_features_top_100.csv",
        // .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#984eb3','#ff7f10'])
 
     // Add a line for each feature
-
     // define the line
     var valueline = d3.line()
+      .curve(d3.curveBasis)
       .x(function(d) {return x(d.year); })
       .y(function(d) { return y(d[features[i]]); });
-
     // Append the path
     for(var i = 0; i < features.length; i++){
-      svg.append("path")
+      path = svg.append("path")
          .datum(data)
          .attr("fill", "none")
          .attr("stroke", function(d){
@@ -94,7 +94,27 @@ d3.csv("data/billboard_features_top_100.csv",
           })
          .attr("stroke-width", 4)
          // .attr("d", valueline(data))
-         .attr("d",valueline)}
+         .attr("d",valueline)
+      var totalLength = path.node().getTotalLength();
+
+      path
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition()
+        .duration(2000)
+        .ease(d3.easeSin)
+        .attr("stroke-dashoffset", 0);
+
+      svg.on("click", function(){
+        path      
+        .transition()
+        .duration(2000)
+        .ease("easeLinear")
+        .attr("stroke-dashoffset", totalLength);
+      })
+      }
+
+
 
     // Add a legend to the graph
     var lineLegend = svg.selectAll(".lineLegend").data(features)
