@@ -45,7 +45,7 @@ d3.csv("data/billboard_features_top_100.csv",
     // Create X Axis using a time scale
     var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) { return d.year; }))
-            .range([ 0, width ]);
+            .range([ 0, width - 150]);
     
     // Append the X axis to the bottom of the svg object
     svg.append("g")
@@ -65,7 +65,7 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("y", 0 - margin.left)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em") 
-        .attr("font-size", "12px")
+        .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Values of the audio features");
 
@@ -81,7 +81,9 @@ d3.csv("data/billboard_features_top_100.csv",
     // Add a line for each feature
     // define the line
     var valueline = d3.line()
+      // Smoothing the curve
       .curve(d3.curveBasis)
+      // Specifying the data
       .x(function(d) {return x(d.year); })
       .y(function(d) { return y(d[features[i]]); });
     // Append the path
@@ -92,11 +94,13 @@ d3.csv("data/billboard_features_top_100.csv",
          .attr("stroke", function(d){
             return color(features[i]);
           })
+         .attr("class", "line")
          .attr("stroke-width", 4)
          // .attr("d", valueline(data))
          .attr("d",valueline)
-      var totalLength = path.node().getTotalLength();
 
+      // Smooth display animation of lines
+      var totalLength = path.node().getTotalLength();
       path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
@@ -105,13 +109,13 @@ d3.csv("data/billboard_features_top_100.csv",
         .ease(d3.easeSin)
         .attr("stroke-dashoffset", 0);
 
-      svg.on("click", function(){
-        path      
-        .transition()
-        .duration(2000)
-        .ease("easeLinear")
-        .attr("stroke-dashoffset", totalLength);
-      })
+      // svg.on("click", function(){
+      //   path      
+      //   .transition()
+      //   .duration(2000)
+      //   .ease("easeLinear")
+      //   .attr("stroke-dashoffset", totalLength);
+      // })
       }
 
 
@@ -123,7 +127,7 @@ d3.csv("data/billboard_features_top_100.csv",
                       .attr("transform", function (d,i) {
                         // we mult by 4 so that the legend is pushed enough to left
                         position = width - 4 * margin.right
-                          return "translate(" + position + "," + (i*20)+")";
+                          return "translate(" + position + "," + (i*30)+")";
                         });
 
                     lineLegend.append("text").text(function (d) {return d;})
@@ -133,6 +137,102 @@ d3.csv("data/billboard_features_top_100.csv",
                       .attr("width", 10).attr("height", 10);
 
 
-  }
+
+
+    // Add interaction
+    console.log(data)
+
+      var mouseG = svg.append("g")
+      .attr("class", "mouse-over-effects");
+
+    mouseG.append("path") // this is the black vertical line to follow mouse
+      .attr("class", "mouse-line")
+      .style("stroke", "black")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
+
+
+    var lines = document.getElementsByClassName('line');
+
+    var mousePerLine = mouseG.selectAll('.mouse-per-line')
+      .data(features)
+      .enter()
+      .append("g")
+      .attr("class", "mouse-per-line");
+
+    mousePerLine.append("circle")
+      .attr("r", 7)
+      .style("stroke", function(d) {
+        return color(d.name); // ???
+      })
+      .style("fill", "none")
+      .style("stroke-width", "1px")
+      .style("opacity", "0");
+
+    mousePerLine.append("text")
+      .attr("transform", "translate(10,3)");
+
+    mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+      .attr('width', width) // can't catch mouse events on a g element
+      .attr('height', height)
+      .attr('fill', 'none')
+      .attr('pointer-events', 'all')
+      .on('mouseout', function() { // on mouse out hide line, circles and text
+        d3.select(".mouse-line")
+          .style("opacity", "0");
+        d3.selectAll(".mouse-per-line circle")
+          .style("opacity", "0");
+        d3.selectAll(".mouse-per-line text")
+          .style("opacity", "0");
+      })
+      .on('mouseover', function() { // on mouse in show line, circles and text
+        d3.select(".mouse-line")
+          .style("opacity", "1");
+        d3.selectAll(".mouse-per-line circle")
+          .style("opacity", "1");
+        d3.selectAll(".mouse-per-line text")
+          .style("opacity", "1");
+      })
+      .on('mousemove', function() { // mouse moving over canvas
+        var mouse = d3.mouse(this);
+        d3.select(".mouse-line")
+          .attr("d", function() {
+            var d = "M" + mouse[0] + "," + height;
+            d += " " + mouse[0] + "," + 0;
+            return d;
+          });
+
+        d3.selectAll(".mouse-per-line")
+          .attr("transform", function(d, i) {
+            console.log(i)
+            console.log(width/mouse[0])
+            var xDate = x.invert(mouse[0]),
+                bisect = d3.bisector(function(d) { return d.year; }).right;
+                idx = bisect(d.values, xDate);
+            
+            var beginning = 0,
+                end = lines[i].getTotalLength(),
+                target = null;
+
+            while (true){
+              target = Math.floor((beginning + end) / 2);
+              pos = lines[i].getPointAtLength(target);
+              if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+                  break;
+              }
+              if (pos.x > mouse[0])      end = target;
+              else if (pos.x < mouse[0]) beginning = target;
+              else break; //position found
+            }
+            
+            d3.select(this).select('text')
+              .text(y.invert(pos.y).toFixed(2));
+              
+            return "translate(" + mouse[0] + "," + pos.y +")";
+          });
+      });
+
+  },
 
   )
