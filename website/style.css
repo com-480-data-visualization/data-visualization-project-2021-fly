@@ -32,7 +32,7 @@ body {
 	align-content: center;
 
 	/* background behind the plot */
-	background: rgb(75 138 134);
+	/*background: rgb(75 138 134);*/
 
 	/* default text */
 	font-family: -webkit-pictograph;
@@ -45,6 +45,22 @@ We use the class selector ".", so this style will be applied to elements with cl
 The various units of measurement available in CSS:
 	https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
 */
+
+/*svg {
+  background: white;
+}*/
+
+.spiral {
+  fill: none;
+  stroke: #303030;
+  stroke-width: 3px;
+}
+
+.spiral-content {
+    fill: cornsilk;
+    stroke: #120f12;
+    font-size: 80px;
+}
 
 svg {
 	margin: 1rem;
