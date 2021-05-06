@@ -12,32 +12,151 @@ to
 /*
 Make the document fill the whole viewport, this overrides any weird defaults that browsers might have.
 */
-html, body, figure {
-	width: 100%;
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
 
-/* Default font and size */
+
+
 body {
-
-	width: 100vw;
-	height: 100vh;
-
-	/* center vertically */
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: center;
-	align-content: center;
-
-	/* background behind the plot */
-	background: rgb(75 138 134);
-
-	/* default text */
-	font-family: -webkit-pictograph;
-	font-size: 1.1rem;
+    background-color: #203647;
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.17);
+    width: 100%;
+    color: white;
+    margin: auto;
+    line-height: 2em;
+    letter-spacing: 0.1em;
 }
+
+.page-content {
+    width: 80%;
+    margin: auto;
+    letter-spacing: 0.1em;
+}
+
+.title {
+    text-align: center;
+}
+
+.main_title {
+    font-size: 5em;
+}
+
+.scroll-spotify {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto ;
+    padding-bottom:6.25%;
+    position:relative;
+    display:block; 
+
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+    display: block;
+    overflow: hidden;
+    
+
+}
+
+/*Widget 1 CSS */
+#buttons {
+    margin: auto;
+    padding: auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+button {
+    font-family: inherit;
+}
+
+.tick text {
+    fill: #fff;
+}
+
+.axis {
+    font-size: inherit;
+}
+
+.bttn-simple {
+    margin: 0;
+    padding: 0;
+    width: 130px;
+    outline: none;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    font-weight: 400;
+    cursor: pointer;
+    position: relative;
+    font-size: 14px;
+    font-family: inherit;
+    padding: 5px 12px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.bttn-simple:focus {
+    background: rgba(255, 99, 99, 0.5);
+}
+
+.bttn-simple:hover {
+    opacity: 0.4;
+}
+
+#lollipop_d3 {
+    border-radius: 5px;
+    margin: auto;
+    max-width: 700px;
+    padding: -10px 10px 10px 10px;
+}
+
+.collapsible {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border-width: 0;
+    border-color: transparent;
+    background: transparent;
+    font-weight: 400;
+    cursor: pointer;
+    position: relative;
+    font-size: 20px;
+    font-weight: 400;
+    font-family: inherit;
+    padding: 5px 12px;
+    overflow: hidden;
+    border-width: 0;
+    border-radius: 0px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+    transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
+}
+
+.collapsible:focus {}
+
+.collapsible:hover {
+    opacity: 0.4;
+}
+
+#lollipop_d3 {
+    border-radius: 5px;
+    margin: auto;
+    max-width: 700px;
+    padding: -10px 10px 10px 10px;
+}
+
 
 /*
 It is easier to read if the text is not too wide, so we limit the width.
