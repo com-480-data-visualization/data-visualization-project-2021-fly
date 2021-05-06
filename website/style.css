@@ -32,23 +32,27 @@ body {
 	align-content: center;
 
 	/* background behind the plot */
-	/*background: rgb(75 138 134);*/
+	background: black;
 
 	/* default text */
-	font-family: -webkit-pictograph;
-	font-size: 1.1rem;
+	/*font-family: -webkit-pictograph;*/
+	font: 40px Fantasy;
+	/*font-size: 1.1rem;*/
 }
 
-/*
-It is easier to read if the text is not too wide, so we limit the width.
-We use the class selector ".", so this style will be applied to elements with class="width-limited"
-The various units of measurement available in CSS:
-	https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
-*/
 
-/*svg {
-  background: white;
-}*/
+.axis line{
+  stroke: white;
+}
+
+.axis path{
+  stroke: white;
+}
+
+.axis text{
+  fill: white;
+  /*font-size: 100;*/
+}  
 
 .spiral {
   fill: none;
@@ -62,6 +66,23 @@ The various units of measurement available in CSS:
     font-size: 80px;
 }
 
+text,html {
+	stroke:white;
+}
+
 svg {
 	margin: 1rem;
+}
+
+div.tooltip {   
+  
+    position: absolute;
+    text-align: center;
+    font-family: -webkit-pictograph;
+    padding: 2px;
+    font: 20px Fantasy;
+    background: #3ba54a;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;         
 }
