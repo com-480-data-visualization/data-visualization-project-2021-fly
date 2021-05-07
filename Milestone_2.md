@@ -33,6 +33,7 @@ For the final part we want to study the evolution of the lyrics through the deca
  **1. Circular bar chart for sentiment analysis:**
  
 ![](https://lh3.googleusercontent.com/Hb3AT2fzR7W_BTjLTyTUo9eHaDQRzL7B7yb18BwQeMzfeYzxTzmo6WtNS1T8o0NIr6Ph5YuOrt7OFdlgmh01181XfZ7Gt3pWyoxYYMkUY_jf4SPTBTCbM4EFjwKBDo8UEEHstK2o)
+
 The x-axis represents the decades (from 1950 to 2020), and the y-axis shows the percentage of each sentiment in the corpus of lyrics of the corresponding decade.
 
 The visualization can further be improved by adding to it an animation (in spiral) on first appearance, or an interaction: zoom in when hovering over a bar (a decade) to put it in evidence.
