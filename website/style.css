@@ -13,7 +13,12 @@ to
 Make the document fill the whole viewport, this overrides any weird defaults that browsers might have.
 */
 
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 
 body {
     background-color: #203647;
