@@ -1,12 +1,19 @@
 var width = 960,
     height = 500;
 
+
+data = [{"Number": 847, "Event": "Elton John"}]
+         // ,
+         // {"Number": 0, "Event": "X"}]
+
 var centerX = width/2,
     centerY = height/2,
-    radius = 200,
+    radius = 170,
     sides = 200,
     coils = 4,
     rotation = 0;
+
+var transitionDuration = 2000
     
 // How far to step away from center for each side.
 var awayStep = radius/sides; 
@@ -35,39 +42,91 @@ for(var i=100; i<=sides; i++){
   new_time.push({x: x, y: y});
 }
 
-var svg = d3.select("#chart").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g");
+
 
 var lineFunction = d3.line()
                     .x(function(d) { return d.x; })
                     .y(function(d) { return d.y; })
                     .curve(d3.curveCardinal);
 
-path = svg.append("path")
+//Coloring the spiral
+    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
+    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
+
+
+/*
+FIRST SPIRAL
+*/
+
+
+
+var spiral_1 = d3.select("#spiral").append("svg")
+    .attr("width", width)
+    .attr("height", height)
+  .append("g");
+
+path_1 = spiral_1.append("path")
   .attr("d", lineFunction(new_time))
-  .attr("stroke", "red")
+  .attr("stroke", "url(#linear-gradient)")
+  // .attr("stroke", "red")
   .attr("stroke-width", 10)
   .attr("opacity", 0.5)
   .attr("fill", "none")
 
-//Text
-svg.append("text")
-   .attr("y", centerY)
-   .attr("x", centerX)
-   .attr('text-anchor', 'middle')
-   .attr("class", "spiral-content")
-   .text("99%");
+// Define the gradient
+var linearGradient = spiral_1.append("defs")
+        .append("linearGradient")
+        .attr("id", "linear-gradient")
+        .attr("gradientTransform", "rotate(90)");
+
+    linearGradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", color(1));
+
+    linearGradient.append("stop")
+        .attr("offset", "25%")
+        .attr("stop-color", color(2));
+
+    linearGradient.append("stop")
+        .attr("offset", "50%")
+        .attr("stop-color", color(3));
+
+    linearGradient.append("stop")
+        .attr("offset", "75%")
+        .attr("stop-color", color(4));
+
+    linearGradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", color(5));
 
 // Transition
-var totalLength = path.node().getTotalLength();
-path
+var totalLength = path_1.node().getTotalLength();
+path_1
 .attr("stroke-dasharray", totalLength + " " + totalLength)
 .attr("stroke-dashoffset", totalLength)
 .transition()
-  .duration(2000)
+  .duration(transitionDuration)
   .ease(d3.easeSin)
   .attr("stroke-dashoffset", 0);
 
+//Text
+spiral_1.append("text")
+   .attr("y", centerY - 20)
+   .attr("x", centerX)
+   .attr('text-anchor', 'middle')
+   .attr("class", "spiral-content")
+   .text("847")
+   .append("tspan")
+   .attr("y", centerY+40)
+   .attr("x", centerX)
+   .text("entries")
+    .attr( "fill-opacity", 0 )
+    .transition()
+    .duration(transitionDuration )
+    .attr( "fill-opacity", 1 );
+
+
+/*
+SECOND SPIRAL
+*/
 

@@ -4,7 +4,7 @@ var margin = {top: 10, right: 30, bottom: 30, left: 60},
     height = 600 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
-var svg = d3.select("#speechiness")
+var svg = d3.select("#valence")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -19,8 +19,9 @@ d3.csv("data/billboard_features_top_100.csv",
   function (data) {
     return {
       year : d3.timeParse("%Y")(data.year),
-      speechiness: data.speechiness} 
+      valence: data.valence}
     },
+
 
   //Processing
   function (data) {
@@ -33,7 +34,7 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("font-weight", "bold")
         .attr("font-size", "16px")
         .style("text-anchor", "middle")
-        .text("Speechiness");
+        .text("Valence");
 
 
     // Create X Axis using a time scale
@@ -49,7 +50,7 @@ d3.csv("data/billboard_features_top_100.csv",
 
     // Create Y Axis (its domain is (0..1))
     var y = d3.scaleLinear()
-            .domain([0, 0.15])
+            .domain([0.4, 0.7])
             .range([ height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
@@ -67,11 +68,11 @@ d3.csv("data/billboard_features_top_100.csv",
 
 
     // Adding the actual data (one line per feature)
-    var features = ['speechiness']
+    var features = ['valence']
 
     // Add the line
     // define the line
-    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
+    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641'] //['#ffffcc', '#a1dab4', '#41b6c4', '#2c7fb8', '#253494']
     var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
 
     // Define the gradient
@@ -129,14 +130,16 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("stroke-dashoffset", 0);
 
 
+
+      // Adding the main event to the line chart
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
       .style("opacity", 0);
 
 
-      mainEvents = [{"Year": 1979, "Event": "Kurtis Blow was the first rapper signed to Mercury Records", speechiness: 0.050381922},
-                    {"Year": 1991, "Event": "N.W.A.: First time that a rap group claimed top spot on the Billboard 200", speechiness: 0.0531319766134471},
-                    {"Year": 2000, "Event": "Eminem's Album: The Marshall Mathers", speechiness: 0.0730505892081869}]
+      mainEvents = [{"Year": 1979, "Event": "Kurtis Blow was the first rapper signed to Mercury Records", valence: 0.050381922},
+                    {"Year": 1991, "Event": "N.W.A.: First time that a rap group claimed top spot on the Billboard 200", valence: 0.0531319766134471},
+                    {"Year": 2000, "Event": "Eminem's Album: The Marshall Mathers", valence: 0.0730505892081869}]
 
       svg.selectAll("dot")    
           .data(mainEvents)         
@@ -145,7 +148,7 @@ d3.csv("data/billboard_features_top_100.csv",
       .attr("cx", function(d) {
          return x(new Date(d.Year+"-01-01T00:00"))})       
       .attr("cy", function(d) {
-         return y(d.speechiness)})      
+         return y(d.valence)})      
       .attr("stroke", "white")  
       .attr("fill", "black")    
       .on("mouseover", function(d) {      
