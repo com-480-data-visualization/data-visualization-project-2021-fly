@@ -1,9 +1,7 @@
-var width = 960,
+var width = 1000,
     height = 500;
 
 var transitionDuration = 2000
-
-
 
 var lineFunction = d3.line()
                     .x(function(d) { return d.x; })
@@ -15,34 +13,22 @@ var lineFunction = d3.line()
     var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
 
 
-/*
-FIRST SPIRAL
-*/
-
-
-
 var svg = d3.select("#spiral").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g");
 
 
-
-statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/2, "radius": 170, "sides": 200, "coils": 3, "rotation":0},
-{"Number": 847, "Event": "Elton John", "centerX": 3*width/4, "centerY" : height/2, "radius": 170, "sides": 200, "coils": 2, "rotation":0}]
-         // ,
-         // {"Number": 0, "Event": "X"}]
+statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 20, "Event": "Elton John", "centerX": width/2, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
+{"Number": 999, "Event": "James", "centerX": 3*width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0}]
 
 
-// path_1 = svg.append("path")
-//   .attr("d", lineFunction(new_time))
-//   .attr("stroke", "url(#linear-gradient)")
-//   // .attr("stroke", "red")
-//   .attr("stroke-width", 10)
-//   .attr("opacity", 0.5)
-//   .attr("fill", "none")
+/* 
+-----------------SPIRALS-----------------
+*/
 
-svg.selectAll()    
+spirals = svg.selectAll()    
           .data(statistics)         
       .enter().append("path")
       .attr("d", function(d){
@@ -75,27 +61,53 @@ svg.selectAll()
         return lineFunction(new_time);
       })
       .attr("stroke", "url(#linear-gradient)")
-      .attr("stroke-width", 10)
+      .attr("stroke-width", 7)
       .attr("opacity", 0.5)
       .attr("fill", "none")
-      .append("text")
-      .attr("y", function(d){return d.centerY - 20})
-     .attr("x", function(d){return d.centerX - 20})
+
+
+
+// Transition
+var totalLength = svg.selectAll("path").node().getTotalLength();
+svg.selectAll("path")
+.attr("stroke-dasharray", totalLength + " " + totalLength)
+.attr("stroke-dashoffset", totalLength)
+.transition()
+  .duration(transitionDuration)
+  .ease(d3.easeSin)
+  .attr("stroke-dashoffset", 0);
+
+/* 
+-----------------TEXT-----------------
+*/
+
+var texts = svg.selectAll("text")
+                .data(statistics)
+                .enter();
+
+texts.append("text")
+    .attr("y", function(d){return d.centerY})
+     .attr("x", function(d){return d.centerX})
      .attr('text-anchor', 'middle')
      .attr("class", "spiral-content")
-     .text("402")
-     .append("tspan")
-     // .attr("y", centerY+40)
-     .attr("y", function(d){
-        console.log(d.centerX);
-        return d.centerY + 40})
-     // .attr("x", centerX)
-     .attr("y", function(d){return d.centerX})
+     .text(function(d){ return d.Number;})
+      .attr( "fill-opacity", 0 )
+      .transition()
+      .duration(transitionDuration )
+      .attr( "fill-opacity", 1 );
+
+texts.append("text")
+     .attr("dy", function(d){return "62%"})
+      // .attr("y", function(d){return d.centerY - 20})
+      .attr("x", function(d){return d.centerX - 15})
+     .attr("class", "spiral-content")
+     // .attr("x", function(d){return d.centerX})
      .text("entries")
       .attr( "fill-opacity", 0 )
       .transition()
       .duration(transitionDuration )
       .attr( "fill-opacity", 1 );
+
 
 // Define the gradient
 var linearGradient = svg.append("defs")
@@ -122,45 +134,4 @@ var linearGradient = svg.append("defs")
     linearGradient.append("stop")
         .attr("offset", "100%")
         .attr("stop-color", color(5));
-
-// Transition
-var totalLength = svg.selectAll("path").node().getTotalLength();
-svg.selectAll("path")
-.attr("stroke-dasharray", totalLength + " " + totalLength)
-.attr("stroke-dashoffset", totalLength)
-.transition()
-  .duration(transitionDuration)
-  .ease(d3.easeSin)
-  .attr("stroke-dashoffset", 0);
-
-
-
-
-
-
-//Text
-
-// svg.data(statistics)         
-//       .enter().append("text")
-//    .attr("y", function(d){return d.centerY - 20})
-//    .attr("x", function(d){return d.centerX - 20})
-//    .attr('text-anchor', 'middle')
-//    .attr("class", "spiral-content")
-//    .text("402")
-//    .append("tspan")
-//    // .attr("y", centerY+40)
-//    .attr("y", function(d){
-//       return d.centerY + 40})
-//    // .attr("x", centerX)
-//    .attr("y", function(d){return d.centerX})
-//    .text("entries")
-//     .attr( "fill-opacity", 0 )
-//     .transition()
-//     .duration(transitionDuration )
-//     .attr( "fill-opacity", 1 );
-
-
-/*
-SECOND SPIRAL
-*/
 
