@@ -1,7 +1,7 @@
 // https://observablehq.com/@d3/word-cloud@217
 export default function define(runtime, observer) {
   const main = runtime.module();
-  const fileAttachments = new Map([["dream.txt",new URL("./files/929c5d4dc3c28e866a026b7f3403ab748c763dd385322f9dc657a5551e062d09fa5c7eb501b1efa2c0acc476146a9a18a70164806bd844cb4276985c0dd0bf23",import.meta.url)]]);
+  const fileAttachments = new Map([["dream.txt",new URL("./files/2020_lyrics.txt",import.meta.url)]]);
   main.builtin("FileAttachment", runtime.fileAttachments(name => fileAttachments.get(name)));
   main.variable(observer()).define(["md"], function(md){return(
 md`# Word Cloud
