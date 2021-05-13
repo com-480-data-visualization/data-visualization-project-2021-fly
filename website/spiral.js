@@ -1,32 +1,63 @@
-var width = 1000,
-    height = 500;
+var margin = {
+        top: 30,
+        right: 30,
+        bottom: 70,
+        left: 100
+    },
+    width = 1000 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 
 var transitionDuration = 2000
 
-var lineFunction = d3.line()
-                    .x(function(d) { return d.x; })
-                    .y(function(d) { return d.y; })
-                    .curve(d3.curveCardinal);
-
-//Coloring the spiral
-    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
-    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
-
-
+// Create SVG
 var svg = d3.select("#spiral").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g");
 
+/* 
+-----------------TITLES-----------------
+*/
+
+const title = svg.append('g');
+  title.append('g')
+    .call(addTitle, 'Achievements and Milestones in the Billboard 100');
+  title.append('g')
+    .call(addTitle, 'Top Hits & Artists in numbers', 'subtitle');
+
+spiral_description = ['Blabla 1.', 'Blabla 2.']// 'Orange circle indicates that given song was still on the list in a given point of time; gray means that it dropped out of the list.', "When the animation ends there still will be some orange songs – it means that they still were on the list in the last week of Dec 2019."]
+svg.append('g')
+    .call(addDescription, spiral_description);
+
+
+function addTitle(g, title, type = 'title') {
+  return g.attr('transform', `translate(${margin.left}, ${margin.top + (type == 'subtitle' ? 25 : 0)})`)
+  .append('text')
+    .attr('class', type)
+    .text(title)
+}
+
+function addDescription(g, data) {
+  return g.attr('transform', `translate(${margin.left + 7.5}, ${margin.top + 50})`)
+  .selectAll('text-description')
+  .data(data)
+  .enter().append("text")
+    .attr('class', 'description')
+    .attr('y', (d, i) => i * 20)
+    .text(d => d);}
+
+/* 
+-----------------SPIRALS-----------------
+*/
 
 statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
 {"Number": 20, "Event": "Elton John", "centerX": width/2, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
 {"Number": 999, "Event": "James", "centerX": 3*width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0}]
 
-
-/* 
------------------SPIRALS-----------------
-*/
+var lineFunction = d3.line()
+                    .x(function(d) { return d.x; })
+                    .y(function(d) { return d.y; })
+                    .curve(d3.curveCardinal);
 
 spirals = svg.selectAll()    
           .data(statistics)         
@@ -78,38 +109,43 @@ svg.selectAll("path")
   .attr("stroke-dashoffset", 0);
 
 /* 
------------------TEXT-----------------
+-----------------SPIRAL TEXT-----------------
 */
 
-var texts = svg.selectAll("text")
+svg.selectAll("text.number")
                 .data(statistics)
-                .enter();
+                .enter()
+                .append("text")
+                .attr("y", function(d){return d.centerY})
+                 .attr("x", function(d){return d.centerX})
+                 .attr('text-anchor', 'middle')
+                 .attr("class", "spiral-content")
+                 .text(function(d){ return d.Number;})
+                  .attr( "fill-opacity", 0 )
+                  .transition()
+                  .duration(transitionDuration )
+                  .attr( "fill-opacity", 1 );
 
-texts.append("text")
-    .attr("y", function(d){return d.centerY})
-     .attr("x", function(d){return d.centerX})
-     .attr('text-anchor', 'middle')
-     .attr("class", "spiral-content")
-     .text(function(d){ return d.Number;})
-      .attr( "fill-opacity", 0 )
-      .transition()
-      .duration(transitionDuration )
-      .attr( "fill-opacity", 1 );
+svg.selectAll("spiral.description")
+                .data(statistics)
+                .enter()
+                .append("text")
+               .attr("dy", function(d){return "62%"})
+                .attr("x", function(d){return d.centerX - 15})
+               .attr("class", "spiral-content")
+               .text("entries")
+                .attr( "fill-opacity", 0 )
+                .transition()
+                .duration(transitionDuration )
+                .attr( "fill-opacity", 1 );
 
-texts.append("text")
-     .attr("dy", function(d){return "62%"})
-      // .attr("y", function(d){return d.centerY - 20})
-      .attr("x", function(d){return d.centerX - 15})
-     .attr("class", "spiral-content")
-     // .attr("x", function(d){return d.centerX})
-     .text("entries")
-      .attr( "fill-opacity", 0 )
-      .transition()
-      .duration(transitionDuration )
-      .attr( "fill-opacity", 1 );
 
 
 // Define the gradient
+//Coloring the spiral
+    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
+    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
+
 var linearGradient = svg.append("defs")
         .append("linearGradient")
         .attr("id", "linear-gradient")

@@ -32,7 +32,7 @@ body {
 	align-content: center;
 
 	 /*background behind the plot */
-	background: black;
+	background: #1f1e1e;
 
 	/* default text */
 	/*font-family: -webkit-pictograph;*/
@@ -80,6 +80,27 @@ body {
   fill: none;
   stroke: #303030;
   stroke-width: 3px;
+}
+
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  fill: #f5b310;
+}
+
+.subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  fill: cornsilk;
+}
+
+.description {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  fill: cornsilk;
 }
 
 .spiral-content {
