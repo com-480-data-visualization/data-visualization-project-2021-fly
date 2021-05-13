@@ -32,7 +32,7 @@ body {
 	align-content: center;
 
 	 /*background behind the plot */
-	background: #1f1e1e;
+	background: #242424;
 
 	/* default text */
 	/*font-family: -webkit-pictograph;*/
@@ -105,10 +105,9 @@ body {
 
 .spiral-content {
     fill: cornsilk;
-/*    stroke: cornsilk;
-    color: cornsilk;*/
-    font: 10px Helvetica;
+    font: 13px Helvetica;
     opacity: 0.8;
+    text-anchor: middle;
 }
 
 text,html {

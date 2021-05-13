@@ -9,6 +9,8 @@ var margin = {
 
 var transitionDuration = 2000
 
+var lineSeparation = 20
+
 // Create SVG
 var svg = d3.select("#spiral").append("svg")
     .attr("width", width)
@@ -25,7 +27,7 @@ const title = svg.append('g');
   title.append('g')
     .call(addTitle, 'Top Hits & Artists in numbers', 'subtitle');
 
-spiral_description = ['Blabla 1.', 'Blabla 2.']// 'Orange circle indicates that given song was still on the list in a given point of time; gray means that it dropped out of the list.', "When the animation ends there still will be some orange songs – it means that they still were on the list in the last week of Dec 2019."]
+spiral_description = ['Blabla 1.', 'Blabla 2.']
 svg.append('g')
     .call(addDescription, spiral_description);
 
@@ -43,16 +45,35 @@ function addDescription(g, data) {
   .data(data)
   .enter().append("text")
     .attr('class', 'description')
-    .attr('y', (d, i) => i * 20)
+    .attr('y', (d, i) => i * lineSeparation)
+    .text(d => d);}
+
+/* 
+-----------------ROW DESCRIPTION-----------------
+*/
+row_descriptions = ['Row 1.', 'Row 2.']
+svg.append('g')
+    .call(addRowDescription, row_descriptions);
+
+function addRowDescription(g, data) {
+  return g.attr('transform', `translate(${margin.left + 7.5}, ${margin.top + 270})`)
+  .selectAll('text-description')
+  .data(data)
+  .enter().append("text")
+    .attr('class', 'description')
+    .attr('y', (d, i) => i * (lineSeparation + 100))
     .text(d => d);}
 
 /* 
 -----------------SPIRALS-----------------
 */
 
-statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
-{"Number": 20, "Event": "Elton John", "centerX": width/2, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
-{"Number": 999, "Event": "James", "centerX": 3*width/4, "centerY" : height/2, "radius": 50, "sides": 200, "coils": 3, "rotation":0}]
+statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 20, "Event": "Can You Feel", "centerX": width/2, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
+{"Number": 999, "Event": "James", "centerX": 3*width/4, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 847, "Event": "Hello", "centerX": width/4, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 20, "Event": "Hola", "centerX": width/2, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
+{"Number": 999, "Event": "Bof", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0}]
 
 var lineFunction = d3.line()
                     .x(function(d) { return d.x; })
@@ -62,7 +83,7 @@ var lineFunction = d3.line()
 spirals = svg.selectAll()    
           .data(statistics)         
       .enter().append("path")
-      .attr("d", function(d){
+      .attr("d", function(d, i){
 
         // How far to step away from center for each side.
         var awayStep = d.radius/d.sides; 
@@ -95,6 +116,7 @@ spirals = svg.selectAll()
       .attr("stroke-width", 7)
       .attr("opacity", 0.5)
       .attr("fill", "none")
+      // .attr('transform', `translate(${margin.left}, 100)`)
 
 
 
@@ -118,7 +140,6 @@ svg.selectAll("text.number")
                 .append("text")
                 .attr("y", function(d){return d.centerY})
                  .attr("x", function(d){return d.centerX})
-                 .attr('text-anchor', 'middle')
                  .attr("class", "spiral-content")
                  .text(function(d){ return d.Number;})
                   .attr( "fill-opacity", 0 )
@@ -130,10 +151,11 @@ svg.selectAll("spiral.description")
                 .data(statistics)
                 .enter()
                 .append("text")
-               .attr("dy", function(d){return "62%"})
-                .attr("x", function(d){return d.centerX - 15})
+               // .attr("dy", function(d){return "62%"})
+                .attr("x", function(d){return d.centerX})
+                .attr("y", function(d){return d.centerY + 60})
                .attr("class", "spiral-content")
-               .text("entries")
+                 .text(function(d){ return d.Event;})
                 .attr( "fill-opacity", 0 )
                 .transition()
                 .duration(transitionDuration )
@@ -170,4 +192,3 @@ var linearGradient = svg.append("defs")
     linearGradient.append("stop")
         .attr("offset", "100%")
         .attr("stop-color", color(5));
-
