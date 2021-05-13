@@ -29,9 +29,6 @@
 
 <body>
 
-
-
-
 	<main class="mdl-layout__content wrapper"></main>
 
 	<div class="page-content">
@@ -45,9 +42,9 @@
 
 		<!-- Intro -->
 		<div id="intro">
-			<p>Music is an integral part of our lives. On average, people around the world listen to more than an hour of music a day.  
-				Alongside the art of music, there have been several eras of musical genres and artists. Since the 1950s, we have seen genres appear and disappear, but also mark generations. 
-				The Beatles, the Rolling Stones, Madonna, the Bee Gees, Michael Jackson, or more recently Beyoncé or Drake have been listened to by millions of people from different continents and cultures. 
+			<p>Music is an integral part of our lives. On average, people around the world listen to more than an hour of music a day.
+				Alongside the art of music, there have been several eras of musical genres and artists. Since the 1950s, we have seen genres appear and disappear, but also mark generations.
+				The Beatles, the Rolling Stones, Madonna, the Bee Gees, Michael Jackson, or more recently Beyoncé or Drake have been listened to by millions of people from different continents and cultures.
 				But are all these hits, all these artists really different or do we like a particular music?
 			<p>
 			<p>
@@ -70,15 +67,15 @@
 			<h2>Evolution of pop and rock through decades</h2>
 			<hr>
 			<p> Pop, rock, Hip Hop, R&B, Rap, Jazz are all musical genres that we listen to regularly. When we look at these musical genres, only 2 occupy the top charts from the 50's until today, it' s pop and rock.
-				These two musical genres have been among the most listened to for more than 70 years now, but does the pop of the 60's resemble the pop of today. 
+				These two musical genres have been among the most listened to for more than 70 years now, but does the pop of the 60's resemble the pop of today.
 				Does the rock of the 60s with artists like the rolling stones sound like the rock of the 2000s with artists like Radiohead?
 				That's the kind of thing we're going to try to find out in this section.</p>
-				<p>    
+				<p>
 				To identify and compare the audio signature of pop and rock music trough years, we propose to use the following features provided by <a class="link" href="https://developer.spotify.com/documentation/web-api/reference/tracks/get-audio-features/">Spotify</a> that were then normalized:
-				Tempo, Valence, Acousticness, Loudness, Energy and Danceability. 
+				Tempo, Valence, Acousticness, Loudness, Energy and Danceability.
 				Play with the buttons at the top and the bottom of the plot to compare two decade, you can switch between genre with pop and rock buttons.</p>
-	
-	
+
+
 			<!-- Add buttons -->
 			<!-- Add 2 buttons -->
 			<div class="audio_chart">
@@ -87,7 +84,7 @@
 						<button onclick="update_3('Pop')" class="bttn-simple" style="background-color: #000000;">Pop</button>
 						<button onclick="update_3('Rock')" class="bttn-simple" style="background-color: #000000;">Rock</button>
 					</div>
-	
+
 					<div id="buttons">
 						<button onclick="update_2('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
 						<button onclick="update_2('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
@@ -97,12 +94,12 @@
 						<button onclick="update_2('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
 						<button onclick="update_2('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
 					</div>
-	
+
 					<!-- Include D3.js chart -->
 					<div id="lollipop_d3">
 						<script src="lollipop.js"></script>
 					</div>
-	
+
 					<!-- Create a div where the graph will take place -->
 					<div id="buttons">
 						<button onclick="update_1('1950')" class="bttn-simple" style="background-color: #eefbfb8a;">1950</button>
@@ -115,15 +112,11 @@
 					</div>
 				</div>
 			</div>
-	
-	
+
+
 		</div>
-	</div>
 
-	
-
-
-
+		</div>
 
 </body>
 </html>
