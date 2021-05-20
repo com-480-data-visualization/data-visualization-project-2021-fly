@@ -112,7 +112,8 @@ spirals = svg.selectAll()
         }
         return lineFunction(new_time);
       })
-      .attr("stroke", "url(#linear-gradient)")
+      // .attr("stroke", "url(#linear-gradient)")
+      .attr("stroke", "#8aded1")
       .attr("stroke-width", 7)
       .attr("opacity", 0.5)
       .attr("fill", "none")
