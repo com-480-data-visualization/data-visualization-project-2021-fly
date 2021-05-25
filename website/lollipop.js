@@ -1,4 +1,4 @@
-var decade_1 = "1950";
+var decade_1 = "2010";
 var decade_2 = "1950";
 var data_pop = "lollipop_pop.csv";
 var data_rock = "lollipop_rock.csv";
@@ -8,6 +8,8 @@ var genre= "Pop";
 var colors = ["#581845", "#900c3f", "#c70039", "#ff5733", "#FF6363", "#ffbd69"];
 var pop_color = "#000000";
 var rock_color = "#00000";
+
+
 
 // set the dimensions and margins of the graph
 var margin = {
@@ -36,18 +38,21 @@ var lollipop_y = d3.scaleBand()
     .range([height, 0])
     .padding(1);
 
-    var yAxis = svgLollipop.append("g")
+var yAxis = svgLollipop.append("g")
     .attr("stroke-width", 1)
     .attr("class", "axis")
+    
+yAxis.selectAll("text")
+    .style("font-size", "15px") 
+
 svgLollipop.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(lollipop_x))
 
-var yAxis = svgLollipop.append("g")
-    .attr("stroke-width", 1)
-    .attr("class", "axis")
+svgLollipop.append("g").call(d3.axisLeft(lollipop_y)).selectAll("text")
+.style("font-size", "15px") 
 
-svgLollipop.append("g").call(d3.axisLeft(lollipop_y))
+
 
 function update() {
     // Parse the Data
@@ -138,10 +143,39 @@ svgLollipop.append("text")
     .attr("class", "genre")
     .attr("x", 200)
     .attr("y", margin.top - DISTANCE + 10)
-    .text(genre + "'s Music")
+    .text(genre + " Music")
     .style("font-size", "20px")
     .style("fill", "#ffffff");
 
+svgLollipop.append("rect")
+        .attr("x", 520)
+        .attr("y", margin.top - 20 + DISTANCE)
+        .style("fill", "#EEFBFB")
+        .style("height", 10)
+        .style("width", 20);
+
+svgLollipop.append("text")
+        .attr("class", "decade1")
+        .attr("x", 550)
+        .attr("y", margin.top -10 + DISTANCE)
+        .text(decade_1)
+        .style("font-size", "15px")
+        .style("fill", "#EEFBFB");
+
+svgLollipop.append("rect")
+        .attr("x", 520)
+        .attr("y", margin.top - 10)
+        .style("fill", "#007CC7")
+        .style("height", 10)
+        .style("width", 20);
+
+svgLollipop.append("text")
+        .attr("class", "decade2")
+        .attr("x", 550)
+        .attr("y", margin.top)
+        .text(decade_2)
+        .style("font-size", "15px")
+        .style("fill", "#007CC7");
 
 
 /* DEFAULT */
@@ -197,8 +231,8 @@ function update_3(new_genre) {
 svgLollipop.append("text")
     .attr("class", "genre")
     .attr("x", 200)
-    .attr("y", margin.top)
-    .text(new_genre + "'s Music")
+    .attr("y", margin.top - DISTANCE + 10)
+    .text(new_genre + " Music")
     .style("font-size", "20px")
     .style("fill", "#ffffff");
 

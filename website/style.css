@@ -35,22 +35,24 @@ body {
 .page-content {
     width: 80%;
     margin: auto;
-    letter-spacing: 0.1em;
+
+    font-size: 2em;
 }
 
 .title {
     text-align: center;
+    padding-bottom:6.25%;
 }
 
 .main_title {
-    font-size: 5em;
+    font-size: 6em;
+    
 }
 
 .scroll-spotify {
     width: 100%;
     margin-left: auto;
     margin-right: auto ;
-    padding-bottom:6.25%;
     position:relative;
     display:block; 
 
@@ -120,13 +122,6 @@ button {
     opacity: 0.4;
 }
 
-#lollipop_d3 {
-    border-radius: 5px;
-    margin: auto;
-    max-width: 700px;
-    padding: -10px 10px 10px 10px;
-}
-
 .collapsible {
     width: 100%;
     margin: 0;
@@ -164,6 +159,23 @@ button {
     padding: -10px 10px 10px 10px;
 }
 
+.comment {
+    margin: auto;
+}
+
+.comment-title {
+    background-color: rgba(242,118,89);
+    width: max-content;
+    text-align: left;
+    padding: 4px 10px 4px 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.comment-content {
+    background-color: rgba(255, 255, 255, 0.12);
+    padding: 10px 10px 10px 10px;
+}
 
 /*
 It is easier to read if the text is not too wide, so we limit the width.
