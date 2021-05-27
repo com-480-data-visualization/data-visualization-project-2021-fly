@@ -36,7 +36,7 @@ body {
 
 	/* default text */
 	/*font-family: -webkit-pictograph;*/
-	font: 40px Fantasy;
+	font: 20px Fantasy;
 	/*font-size: 1.1rem;*/
 
 	/*position: absolute;*/
@@ -112,6 +112,8 @@ body {
 
 text,html {
 	/*stroke:white;*/
+	/*color: white;*/
+	fill: white;
 }
 
 svg {
@@ -129,4 +131,17 @@ div.tooltip {
     border: 0px;
     border-radius: 8px;
     pointer-events: none;         
+}
+
+.annotation-note-bg {
+	opacity: 0;
+}
+
+.annotation-note-label{
+	font-family: 'Lato';
+}
+
+.connector{
+	fill: none;
+	stroke: white;
 }

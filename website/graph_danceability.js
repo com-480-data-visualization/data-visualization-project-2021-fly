@@ -129,6 +129,7 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("stroke-dashoffset", 0);
 
 
+      // TOOLTIP WHEN INTERACTING WITH CIRCLES
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
       .style("opacity", 0);
@@ -173,6 +174,301 @@ d3.csv("data/billboard_features_top_100.csv",
               .duration(500)      
               .style("opacity", 0);   
       });
+
+/****************LINE CURSOR****************/
+    // This allows to find the closest X index of the mouse:
+    var bisect = d3.bisector(function(d) {return d.year; }).left;
+
+    // Circle that travels along the curve of chart & follows the cursor
+    var focus = svg
+    .append('g')
+    .append('circle')
+      .style("fill", "pink")
+      .attr("stroke", "black")
+      .attr('r', 7)
+      .style("opacity", 0)
+
+    // Text that travels along the curve of chart & follows the cursor
+    var focusText = svg
+    .append('g')
+    .append('text')
+      .style("opacity", 0)   
+      .attr("text-anchor", "left")
+      .attr("alignment-baseline", "middle")
+
+
+    // Append a rect on top of the svg area to detect cursor pos
+    svg
+    .append('rect')
+    .style("fill", "none")
+    .style("pointer-events", "all")
+    .attr('width', width)
+    .attr('height', height)
+    .on('mouseover', curserover)
+    .on('mousemove', cursormove)
+    .on('mouseout', cursorout);
+
+
+    // When the cursor moves, show annotations at correspondings pos
+  function curserover() {
+    focus.style("opacity", 1)
+    focusText.style("opacity",1)
+  }
+
+  function cursormove() {
+    // recover coordinate we need
+    var x0 = x.invert(d3.mouse(this)[0]);
+    var i = bisect(data, x0, 1);
+    selection = data[i]
+    focus
+      .attr("cx", x(selection.year))
+      .attr("cy", y(selection.danceability))
+    focusText
+      .html("Year:" + selection.year.getFullYear() + "  -  " + "Danceability:" + parseFloat(selection.danceability).toFixed(2))
+      .attr("x", x(selection.year)+15)
+      .attr("y", y(selection.danceability))
+    }
+
+  function cursorout() {
+    focus.style("opacity", 0)
+    focusText.style("opacity", 0)
+  }
+/*********************************************/
+
+
+/******************Annotations***************/
+/* Code below relevant for annotations */
+
+
+
+mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)", danceability: 0.594},
+                    {"Year": 1982, "Event": "Arrival of Electro on the Dancefloors: Planet Rock - Afrika Bambaataa", danceability: 0.915},
+                    {"Year": 1985, "Event": "On and On - Jessie Saunders: First House Record", danceability: 0.81},
+                    {"Year": 1986, "Event": "You Be Illin' - Run D.M.C: The rise of danceable hip hop", danceability: 0.962},
+                    {"Year": 1989, "Event": "Funky Cold Medina - Tone-Loc: The most danceable on the billboard", danceability: 0.988},
+                    {"Year": 1996, "Event": "Emergence and Spreading of Trance music", danceability: 0.604},
+                    {"Year": 1997, "Event": "Around the World - Daft Punk: French House goes international", danceability: 0.956},
+                    {"Year": 1998, "Event": "Blue (Da Ba Dee) - Eiffel 65: International success", danceability: 0.956},
+                    {"Year": 2001, "Event": "Sandstorm - Darude: an Iconic EDM Song", danceability: 0.956},
+                    {"Year": 2006, "Event": "Temperature - Sean Paul: Dance pop still at the top of the chart", danceability: 0.951},
+                    {"Year": 2010, "Event": "Alive! - Mondotek: The rise of Tecktonik dance", danceability: 0.74},
+                    {"Year": 2013, "Event": "Harlem Shake - Baauer: Dance & Electro songs develop into memes (n°1 for 5 consecutive weeks)", danceability: 0.951},
+                    {"Year": 2014, "Event": "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard", danceability: 0.74},
+                    {"Year": 2018, "Event": "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake", danceability: 0.922},
+                    {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74},]
+
+        const annotations = [
+        {note: { label: "Hi" },
+    x: 100,
+    y: 100,
+    dy: 400,
+    dx: 162,
+    type: d3.annotationCalloutElbow,
+    connector: { start: "arrow" }
+  },
+        {
+            note: { label: "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)" },
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1974"} //position the x based on an x scale
+          },
+          {
+            note: { label: "Arrival of Electro on the Dancefloors: Planet Rock - Afrika Bambaataa" },
+            subject: {
+              y1: 2,
+              y2: 10
+            },
+            y: y(0.7),
+            type: d3.annotationCalloutElbow,
+            data: { x: "1982"},
+            color: 'red'
+          },
+          {
+            note: { label: "On and On - Jessie Saunders: First House Record"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1985"}
+          },
+          {
+            note: { label: "You Be Illin' - Run D.M.C: The rise of danceable hip hop", 
+              lineType:"none", 
+              orientation: "leftRight", 
+              "align": "middle" },
+            className: "anomaly",
+            type: d3.annotationCalloutCircle,
+            subject: { radius: 35 },
+            data: { x: "1986", y: 76},
+            dx: 40
+          },
+          {
+            note: { label: "Above $100", wrap: 100, },
+            className: "above",
+            disable: ["connector"],
+            subject: {
+              x1: x( new Date('10/1/1999')),
+              x2: x( new Date('8/1/2000'))
+            },
+            x: x( new Date('10/1/1999')),
+            dx: -30,
+            data: { y: 100}
+          },
+          {
+            note: { label: "Funky Cold Medina - Tone-Loc: The most danceable on the billboard"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1989"}
+          },
+          {
+            note: { label: "Emergence and Spreading of Trance music"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1996"}
+          },
+          {
+            note: { label: "Around the World - Daft Punk: French House goes international"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1997"}
+          },
+          {
+            note: { label: "Blue (Da Ba Dee) - Eiffel 65: International succes"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "1998"}
+          },
+          {
+            note: { label: "Sandstorm - Darude: an Iconic EDM Song"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2001"}
+          },
+          {
+            note: { label: "Temperature - Sean Paul: Dance pop still at the top of the chart"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2006"}
+          },
+          {
+            note: { label: "Alive! - Mondotek: The rise of Tecktonik dance"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2010"}
+          },
+          {
+            note: { label: "Harlem Shake - Baauer: Dance & Electro songs develop into memes (n°1 for 5 consecutive weeks)"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2013"}
+          },
+          {
+            note: { label: "Sandstorm - Darude: an Iconic EDM Song"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2001"}
+          },
+          {
+            note: { label: "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2014"}
+          },
+          {
+            note: { label: "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2018"}
+          },
+          {
+            note: { label: "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop"},
+            subject: {
+              y1: margin.top,
+              y2: height - margin.bottom
+            },
+            y: margin.top,
+            data: { x: "2020"}
+          }
+
+          ]
+
+
+
+          //An example of taking the XYThreshold and merging it 
+          //with custom settings so you don't have to 
+          //repeat yourself in the annotations Objects
+          // const type = d3.annotationCustomType(
+          //   d3.annotationXYThreshold, 
+          //   {"note":{
+          //       "lineType":"none",
+          //       "orientation": "top",
+          //       "align":"middle"}
+          //   }
+          // )
+
+          const type = d3.annotationCallout
+
+          const calloutWithArrow = d3.annotationCustomType(d3.annotationCalloutElbow, {
+            connector: { end: "arrow" },
+          });
+
+
+          const makeAnnotations = d3.annotation()
+            .editMode(true)
+            .type(calloutWithArrow)
+            //Gives you access to any data objects in the annotations array
+            .accessors({ 
+              x: function(d){ return x(new Date(d.x))},
+              y: function(d){ return y(d.y) }
+            })
+            .annotations(annotations)
+            .textWrap(1)
+
+          // d3.select("svg")
+          svg
+            .append("g")
+            .attr("class", "annotation-group")
+            .call(makeAnnotations)
+
+/**********************************************/
+
 
       }
   },
