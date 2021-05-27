@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="style.css">
 
     <!-- D3.js -->
-    <script src="https://d3js.org/d3.v4.js"></script> 
+    <script src="https://d3js.org/d3.v4.js"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
 					<p>
 						Our datastory will take you on a journey through the music world, looking at the music that has marked the last decades by listening to the greatest hits,
 						 seeing the evolution of pop and rock music through the ages and the evolution of music in terms of its characteristics.
-		
+
 					<p>
 						To see the evolution of music, what better way than to listen to it first, before diving into the analysis, here is the playlist gathering the biggest musical success of each year.</p>
 				</div>
@@ -92,7 +92,7 @@
 								<button onclick="update_3('Pop')" class="bttn-simple" style="background-color: #000000;">Pop</button>
 								<button onclick="update_3('Rock')" class="bttn-simple" style="background-color: #000000;">Rock</button>
 							</div>
-		
+
 							<div id="buttons">
 								<button onclick="update_2('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
 								<button onclick="update_2('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
@@ -102,12 +102,12 @@
 								<button onclick="update_2('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
 								<button onclick="update_2('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
 							</div>
-		
+
 							<!-- Include D3.js chart -->
 							<div id="lollipop_d3">
 								<script src="lollipop.js"></script>
 							</div>
-		
+
 							<!-- Create a div where the graph will take place -->
 							<div id="buttons">
 								<button onclick="update_1('1950')" class="bttn-simple" style="background-color: #eefbfb8a;">1950</button>
@@ -160,6 +160,15 @@
 					<h2>Word cloud per decade</h2>
 					<hr>
 					<p>We form a cloud of the most frequent words of each decade to show how the language evolves over time. We make the same visualization for each decade and the user can go from one to the other using horizontal scrolling on the website.This visualization can further be improved by adding interaction when hovering over, or by clustering words by topic and use a different color per cluster.</p>
+					<div id="buttons">
+						<button onclick="update_cloud('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
+						<button onclick="update_cloud('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
+						<button onclick="update_cloud('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
+						<button onclick="update_cloud('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
+						<button onclick="update_cloud('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
+						<button onclick="update_cloud('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
+						<button onclick="update_cloud('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
+					</div>
 						<script src="word_cloud.js"></script>
 				</div>
 			</div>
@@ -169,6 +178,7 @@
 
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
 	<script>
 		new fullpage('#fullPage',{
