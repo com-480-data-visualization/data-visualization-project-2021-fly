@@ -129,7 +129,10 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("stroke-dashoffset", 0);
 
 
-      // TOOLTIP WHEN INTERACTING WITH CIRCLES
+
+
+
+/****************TOOLTIP WHEN INTERACTING WITH CIRCLES****************/
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
       .style("opacity", 0);
@@ -151,29 +154,33 @@ d3.csv("data/billboard_features_top_100.csv",
                     {"Year": 2018, "Event": "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake", danceability: 0.922},
                     {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74},]
 
-      svg.selectAll("dot")    
-          .data(mainEvents)         
-      .enter().append("circle")                               
-      .attr("r", 10)       
-      .attr("cx", function(d) {
-        return x(new Date(d.Year+"-01-01T00:00"))})       
-      .attr("cy", function(d) {
-         return y(d.danceability)})      
-      .attr("stroke", "white")  
-      .attr("fill", "black")    
-      .on("mouseover", function(d) {      
-          div.transition()        
-              .duration(100)      
-              .style("opacity", .9);      
-          div .html(d.Year+ "<br/>"  + d.Event)  
-              .style("left", (d3.event.pageX) + "px")     
-              .style("top", (d3.event.pageY - 28) + "px");    
-          })                  
-      .on("mouseout", function(d) {       
-          div.transition()        
-              .duration(500)      
-              .style("opacity", 0);   
-      });
+      // svg.selectAll("dot")    
+      //     .data(mainEvents)         
+      // .enter().append("circle")                               
+      // .attr("r", 10)       
+      // .attr("cx", function(d) {
+      //   return x(new Date(d.Year+"-01-01T00:00"))})       
+      // .attr("cy", function(d) {
+      //    return y(d.danceability)})      
+      // .attr("stroke", "white")  
+      // .attr("fill", "black")    
+      // .on("mouseover", function(d) {      
+      //     div.transition()        
+      //         .duration(100)      
+      //         .style("opacity", .9);      
+      //     div .html(d.Year+ "<br/>"  + d.Event)  
+      //         .style("left", (d3.event.pageX) + "px")     
+      //         .style("top", (d3.event.pageY - 28) + "px");    
+      //     })                  
+      // .on("mouseout", function(d) {       
+      //     div.transition()        
+      //         .duration(500)      
+      //         .style("opacity", 0);   
+      // });
+/********************************************************************************/
+
+
+
 
 /****************LINE CURSOR****************/
     // This allows to find the closest X index of the mouse:
@@ -257,23 +264,18 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
                     {"Year": 2018, "Event": "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake", danceability: 0.922},
                     {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74},]
 
-        const annotations = [
-        {note: { label: "Hi" },
-    x: 100,
-    y: 100,
-    dy: 400,
-    dx: 162,
-    type: d3.annotationCalloutElbow,
-    connector: { start: "arrow" }
-  },
-        {
-            note: { label: "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)" },
+        const annotations = [{
+            note: { label: "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)" , wrap: 200},
             subject: {
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
-            data: { x: "1974"} //position the x based on an x scale
+            y: y(0.594),
+            data: { x: "1974", date: "18-Sep-1974"}, //position the x based on an x scale,
+            connector: {
+              points: 1,
+              end: "arrow" 
+            }
           },
           {
             note: { label: "Arrival of Electro on the Dancefloors: Planet Rock - Afrika Bambaataa" },
@@ -283,18 +285,19 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
             },
             y: y(0.7),
             type: d3.annotationCalloutElbow,
-            data: { x: "1982"},
+            connector: { end: "arrow" },
+            data: { x: "1/1/1982"},
             color: 'red'
           },
-          {
-            note: { label: "On and On - Jessie Saunders: First House Record"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "1985"}
-          },
+          // {
+          //   note: { label: "On and On - Jessie Saunders: First House Record"},
+          //   subject: {
+          //     y1: margin.top,
+          //     y2: height - margin.bottom
+          //   },
+          //   y: y(0.9),
+          //   data: { x: "1985"}
+          // },
           {
             note: { label: "You Be Illin' - Run D.M.C: The rise of danceable hip hop", 
               lineType:"none", 
@@ -307,78 +310,58 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
             dx: 40
           },
           {
-            note: { label: "Above $100", wrap: 100, },
-            className: "above",
-            disable: ["connector"],
-            subject: {
-              x1: x( new Date('10/1/1999')),
-              x2: x( new Date('8/1/2000'))
-            },
-            x: x( new Date('10/1/1999')),
-            dx: -30,
-            data: { y: 100}
-          },
-          {
             note: { label: "Funky Cold Medina - Tone-Loc: The most danceable on the billboard"},
             subject: {
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.8),
             data: { x: "1989"}
           },
-          {
-            note: { label: "Emergence and Spreading of Trance music"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "1996"}
-          },
+          // {
+          //   note: { label: "Emergence and Spreading of Trance music"},
+          //   subject: {
+          //     y1: margin.top,
+          //     y2: height - margin.bottom
+          //   },
+          //   y: y(0.7),
+          //   data: { x: "1996"}
+          // },
           {
             note: { label: "Around the World - Daft Punk: French House goes international"},
             subject: {
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.57),
             data: { x: "1997"}
           },
           {
             note: { label: "Blue (Da Ba Dee) - Eiffel 65: International succes"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "1998"}
+            // subject: {
+            //   y1: margin.top,
+            //   y2: height - margin.bottom
+            // },
+            x: x(new Date(1, 1, 1998)),
+            y: y(0.9),
+            // data: { x: "1998"}  
           },
-          {
-            note: { label: "Sandstorm - Darude: an Iconic EDM Song"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "2001"}
-          },
-          {
-            note: { label: "Temperature - Sean Paul: Dance pop still at the top of the chart"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "2006"}
-          },
+          // {
+          //   note: { label: "Temperature - Sean Paul: Dance pop still at the top of the chart"},
+          //   subject: {
+          //     y1: margin.top,
+          //     y2: height - margin.bottom
+          //   },
+          //   y: y(0.7),
+          //   data: { x: "2006"}
+          // },
           {
             note: { label: "Alive! - Mondotek: The rise of Tecktonik dance"},
             subject: {
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.5),
             data: { x: "2010"}
           },
           {
@@ -387,7 +370,7 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.9),
             data: { x: "2013"}
           },
           {
@@ -396,34 +379,34 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.55),
             data: { x: "2001"}
           },
-          {
-            note: { label: "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "2014"}
-          },
-          {
-            note: { label: "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake"},
-            subject: {
-              y1: margin.top,
-              y2: height - margin.bottom
-            },
-            y: margin.top,
-            data: { x: "2018"}
-          },
+          // {
+          //   note: { label: "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard"},
+          //   subject: {
+          //     y1: margin.top,
+          //     y2: height - margin.bottom
+          //   },
+          //   y: y(0.6),
+          //   data: { x: "2014"}
+          // },
+          // {
+          //   note: { label: "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake"},
+          //   subject: {
+          //     y1: margin.top,
+          //     y2: height - margin.bottom
+          //   },
+          //   y: y(0.7),
+          //   data: { x: "2018"}
+          // },
           {
             note: { label: "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop"},
             subject: {
               y1: margin.top,
               y2: height - margin.bottom
             },
-            y: margin.top,
+            y: y(0.8),
             data: { x: "2020"}
           }
 
@@ -452,14 +435,14 @@ mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using dru
 
           const makeAnnotations = d3.annotation()
             .editMode(true)
-            .type(calloutWithArrow)
+            // .type(calloutWithArrow)
             //Gives you access to any data objects in the annotations array
             .accessors({ 
               x: function(d){ return x(new Date(d.x))},
               y: function(d){ return y(d.y) }
             })
             .annotations(annotations)
-            .textWrap(1)
+            .textWrap(200)
 
           // d3.select("svg")
           svg

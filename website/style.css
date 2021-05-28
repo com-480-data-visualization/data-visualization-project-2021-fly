@@ -36,7 +36,7 @@ body {
 
 	/* default text */
 	/*font-family: -webkit-pictograph;*/
-	font: 20px Fantasy;
+	font: 15px Verdana;
 	/*font-size: 1.1rem;*/
 
 	/*position: absolute;*/
@@ -138,7 +138,7 @@ div.tooltip {
 }
 
 .annotation-note-label{
-	font-family: 'Lato';
+	font-family: 'Verdana';
 }
 
 .connector{
