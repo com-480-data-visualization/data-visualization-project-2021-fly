@@ -169,13 +169,15 @@ svg.selectAll("spiral.description")
                 .append("text")
                // .attr("dy", function(d){return "62%"})
                 .attr("x", function(d){return d.centerX})
-                .attr("y", function(d){return d.centerY + 60})
+                .attr("y", function(d){return d.centerY + 40})
                .attr("class", "spiral-content")
                  .text(function(d){ return d.Event;})
-                .attr( "fill-opacity", 0 )
+                .style( "opacity", 0 )
                 .transition()
-                .duration(transitionDuration )
-                .attr( "fill-opacity", 1 );
+                  .ease(d3.easeBounce)
+                .duration(transitionDuration* 0.4)
+                .style( "opacity", 1 )
+                .attr('y',  function(d){return d.centerY + 60});
 
 /* 
 ---------------------------------------------------*/
