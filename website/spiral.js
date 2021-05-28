@@ -9,7 +9,7 @@ var margin = {
 
 var transitionDuration = 2000
 
-var lineSeparation = 20
+var lineSeparation = 80
 
 // Create SVG
 var svg = d3.select("#spiral").append("svg")
@@ -51,12 +51,12 @@ function addDescription(g, data) {
 /* 
 -----------------ROW DESCRIPTION-----------------
 */
-row_descriptions = ['Row 1.', 'Row 2.']
+row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
 svg.append('g')
     .call(addRowDescription, row_descriptions);
 
 function addRowDescription(g, data) {
-  return g.attr('transform', `translate(${margin.left + 7.5}, ${margin.top + 270})`)
+  return g.attr('transform', `translate(0, ${margin.top + 200})`)
   .selectAll('text-description')
   .data(data)
   .enter().append("text")
@@ -68,12 +68,17 @@ function addRowDescription(g, data) {
 -----------------SPIRALS-----------------
 */
 
-statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
-{"Number": 20, "Event": "Can You Feel", "centerX": width/2, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
-{"Number": 999, "Event": "James", "centerX": 3*width/4, "centerY" : height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
-{"Number": 847, "Event": "Hello", "centerX": width/4, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0},
-{"Number": 20, "Event": "Hola", "centerX": width/2, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 2, "rotation":0},
-{"Number": 999, "Event": "Bof", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 50, "sides": 200, "coils": 3, "rotation":0}]
+statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+
+{"Number": 328, "Event": "Gold - Connie Francis (Album)", "centerX": width/2, "centerY" : height/3, "radius": 100, "sides": 300, "coils": 5, "rotation":0},
+
+{"Number": 87, "Event": "Radioactive - Imagine Dragons", "centerX": 3*width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+
+{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+
+{"Number": 19, "Event": "Old Town Road - Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 2, "rotation":0},
+
+{"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
 
 var lineFunction = d3.line()
                     .x(function(d) { return d.x; })
@@ -114,7 +119,7 @@ spirals = svg.selectAll()
       })
       // .attr("stroke", "url(#linear-gradient)")
       .attr("stroke", "#8aded1")
-      .attr("stroke-width", 7)
+      .attr("stroke-width", 1)
       .attr("opacity", 0.5)
       .attr("fill", "none")
       // .attr('transform', `translate(${margin.left}, 100)`)
@@ -134,19 +139,29 @@ svg.selectAll("path")
 /* 
 -----------------SPIRAL TEXT-----------------
 */
-
+var start_val = 0;
 svg.selectAll("text.number")
                 .data(statistics)
                 .enter()
                 .append("text")
-                .attr("y", function(d){return d.centerY})
+    			.text(start_val)
+                .attr("y", function(d){return d.centerY + 5})
                  .attr("x", function(d){return d.centerX})
                  .attr("class", "spiral-content")
-                 .text(function(d){ return d.Number;})
                   .attr( "fill-opacity", 0 )
                   .transition()
-                  .duration(transitionDuration )
-                  .attr( "fill-opacity", 1 );
+                  .ease(d3.easeLinear)
+                  .duration(transitionDuration)
+                  .attr( "fill-opacity", 1 )
+                  .tween("text", function(d) {
+                  	var node = this;
+                  	let i = d3.interpolate(node.textContent, d.Number);
+                  	return function(t) {
+                  		d3.select(node).text(Math.round(i(t)));
+                  	};
+                  });
+
+
 
 svg.selectAll("spiral.description")
                 .data(statistics)
@@ -161,6 +176,9 @@ svg.selectAll("spiral.description")
                 .transition()
                 .duration(transitionDuration )
                 .attr( "fill-opacity", 1 );
+
+/* 
+---------------------------------------------------*/
 
 
 
