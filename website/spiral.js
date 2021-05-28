@@ -7,7 +7,7 @@ var margin = {
     width = 1000 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-var transitionDuration = 2000
+var transitionDuration = 5000
 
 var lineSeparation = 80
 
@@ -150,7 +150,7 @@ svg.selectAll("text.number")
                  .attr("class", "spiral-content")
                   .attr( "fill-opacity", 0 )
                   .transition()
-                  .ease(d3.easeLinear)
+                  .ease(d3.easeCubicOut)
                   .duration(transitionDuration)
                   .attr( "fill-opacity", 1 )
                   .tween("text", function(d) {
