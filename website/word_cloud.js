@@ -1,31 +1,30 @@
 const fontFamily = "Open Sans",
-    fontScale = d3.scaleLinear().range([20, 60]), // Construction d'une échelle linéaire continue qui va d'une font de 20px à 120px
+    fontScale = d3.scaleLinear().range([20, 60]), // Construction d'une échelle linéaire continue qui va d'une font de 20px à 60px
     fillScale = d3.scaleOrdinal(d3.schemeCategory10); // Construction d'une échelle discrète composée de 10 couleurs différentes
 
-var file = "files/word_count/1950_lyrics.csv"
-
-
-var svgCloud = d3.select("#word-cloud").append("svg").attr("id","cloud-text") // Ajout d'un élément SVG sur un DIV existant de la page
+var file = "files/word_count/1950_lyrics.csv";
+var svgCloud = d3.select("#word-cloud").append("svg"); // Ajout d'un élément SVG sur un DIV existant de la page
 
 
 function draw(words) {
-        svgCloud.attr("class", "svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g") // Ajout du groupe qui contiendra tout les mots
-        .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")") // Centrage du groupe
-        .selectAll("text")
-        .data(words)
-        .enter().append("text") // Ajout de chaque mot avec ses propriétés
-            .style("font-size", d => d.size + "px")
-            .style("font-family", fontFamily)
-            .style("fill", d => fillScale(d.size))
-            .attr("text-anchor", "middle")
-            .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
-            .text(d => d.text);
+  svgCloud.append("svg").attr("id", "cloud-svg")
+          .attr("width", width)
+          .attr("height", height)
+          .append("g") // Ajout du groupe qui contiendra tout les mots
+          .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")") // Centrage du groupe
+          .selectAll("text")
+          .data(words)
+          .enter().append("text") // Ajout de chaque mot avec ses propriétés
+              .style("font-size", d => d.size + "px")
+              .style("font-family", fontFamily)
+              .style("fill", d => fillScale(d.size))
+              .attr("text-anchor", "middle")
+              .attr("transform", d => "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")")
+              .text(d => d.text);
 }
 
-function update(file){
+function update_cloud(decade){
+  file = "files/word_count/"+decade+"_lyrics.csv";
   //Read the data
   d3.csv(file, function(csv) {
       var words = [];
@@ -60,9 +59,3 @@ function update(file){
       // La méthode draw
       draw(words);
 })}
-
-function update_cloud(new_decade) {
-  svgCloud.selectAll("#cloud-text").remove();
-  new_file = "files/word_count/"+new_decade+"_lyrics.csv";
-  update(new_file);
-}
