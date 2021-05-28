@@ -4,12 +4,15 @@ const fontFamily = "Open Sans",
 
 var file = "files/word_count/1950_lyrics.csv"
 
+
+var svgCloud = d3.select("#word-cloud").append("svg").attr("id","cloud-text") // Ajout d'un élément SVG sur un DIV existant de la page
+
+
 function draw(words) {
-d3.select("#word-cloud").append("svg") // Ajout d'un élément SVG sur un DIV existant de la page
-    .attr("class", "svg")
-    .attr("width", width)
-    .attr("height", height)
-    .append("g") // Ajout du groupe qui contiendra tout les mots
+        svgCloud.attr("class", "svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g") // Ajout du groupe qui contiendra tout les mots
         .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")") // Centrage du groupe
         .selectAll("text")
         .data(words)
@@ -23,43 +26,43 @@ d3.select("#word-cloud").append("svg") // Ajout d'un élément SVG sur un DIV ex
 }
 
 function update(file){
-//Read the data
-d3.csv(file, function(csv) {
-    var words = [];
-    csv.forEach(function(e,i) {
-        words.push({"text": e.word, "size": +e.count});
-    });
-    words.length = 100; // Nous ne voulons que les 100 premiers mots
+  //Read the data
+  d3.csv(file, function(csv) {
+      var words = [];
+      csv.forEach(function(e,i) {
+          words.push({"text": e.word, "size": +e.count});
+      });
+      words.length = 100; // Nous ne voulons que les 100 premiers mots
 
-    // Calcul du domain d'entrée de notre fontScale
-    // L'objectif est que la plus petite occurence d'un mot soit associée à une font de 20px
-    // La plus grande occurence d'un mot est associée à une font de 120px
-    let minSize = d3.min(words, d => d.size);
-    let maxSize = d3.max(words, d => d.size);
+      // Calcul du domain d'entrée de notre fontScale
+      // L'objectif est que la plus petite occurence d'un mot soit associée à une font de 20px
+      // La plus grande occurence d'un mot est associée à une font de 120px
+      let minSize = d3.min(words, d => d.size);
+      let maxSize = d3.max(words, d => d.size);
 
-    // Nous projettons le domaine [plus_petite_occurence, plus_grande_occurence] vers le range [20, 120]
-    // Ainsi les mots les moins fréquents seront plus petits et les plus fréquents plus grands
-    fontScale.domain([minSize, maxSize]);
+      // Nous projettons le domaine [plus_petite_occurence, plus_grande_occurence] vers le range [20, 120]
+      // Ainsi les mots les moins fréquents seront plus petits et les plus fréquents plus grands
+      fontScale.domain([minSize, maxSize]);
 
-    d3.layout.cloud()
-        .size([width, height])
-        .words(words)
-        .padding(1)
-        .rotate(function() {
-            return ~~(Math.random() * 2) * 45;
-        })
-        .spiral("rectangular")
-        .font(fontFamily)
-        .fontSize(d => fontScale(d.size))
-        .on("end", draw)
-        .start();
+      d3.layout.cloud()
+          .size([width, height])
+          .words(words)
+          .padding(1)
+          .rotate(function() {
+              return ~~(Math.random() * 2) * 45;
+          })
+          .spiral("rectangular")
+          .font(fontFamily)
+          .fontSize(d => fontScale(d.size))
+          .on("end", draw)
+          .start();
 
-    // La méthode draw
-    draw(words);
+      // La méthode draw
+      draw(words);
 })}
 
 function update_cloud(new_decade) {
-  d3.select(".svg").remove();
-  file = "files/word_count/"+new_decade+"_lyrics.csv";
-  update(file);
+  svgCloud.selectAll("#cloud-text").remove();
+  new_file = "files/word_count/"+new_decade+"_lyrics.csv";
+  update(new_file);
 }
