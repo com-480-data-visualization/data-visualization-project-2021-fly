@@ -85,58 +85,57 @@ statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "center
 // Parameters for the spiral along which circles will move
 var loops = 5;
 var numAnchorPoints = 200;
-var a = 6; // Scaling of the spiral
+var a = 2; // Scaling of the spiral
 // Just a range of integers 1..numAnchorPoints
 var lineData = d3.range(numAnchorPoints);
 
 // Scale for mapping integer numbers 1..numAnchorPoints to radians of the spiral
+
+function scale_(nb_loops){
+  return d3.scaleLinear()
+                    .domain([0,numAnchorPoints])
+                    .range([6.25,nb_loops*2*Math.PI]);
+}
+
 var scale = d3.scaleLinear()
                     .domain([0,numAnchorPoints])
-                    .range([0,loops*2*Math.PI]);
+                    .range([6.25,loops*2*Math.PI]);
 
  // Archimedes spiral
-var spiral = function(t){
-        return {"x":a*scale(t)*Math.cos(scale(t)),
-                "y":a*scale(t)*Math.sin(scale(t))};
+var spiral = function(t, nb_loops){
+        return {"x":a*scale_(nb_loops)(t)*Math.cos(scale_(nb_loops)(t)),
+                "y":a*scale_(nb_loops)(t)*Math.sin(scale_(nb_loops)(t))};
       };
 
 // Accessor function that will calculate svg path of the spiral
-var lineFunction = d3.line()
-                        .x(function(d) { 
-                          console.log(d);
-                          console.log(spiral(d))
-                          return spiral(d).x; })
-                        .y(function(d) { return spiral(d).y; })
-                       .curve(d3.curveBasis); // try with "linear" or "basis"
+var lineFunction = function(size){
+                  return d3.line()
+                  .x(function(d) { return spiral(d, size).x; })
+                  .y(function(d) { return spiral(d, size).y; })
+                 .curve(d3.curveBasis);} // try with "linear" or "basis"}
 
 
 
-
-console.log(lineFunction(lineData));
 
 // Draw the spiral using the accessor function
-var path = svg.append("path")
-                   .attr("d", lineFunction(lineData))
-                   .attr("stroke", "blue")
-                   .attr("stroke-width", 1)
-                   .attr("fill", "none")
-                   .attr("transform", "translate(" + width/2 + "," + height/2+ ")");
-
-// spirals = svg.append("path")
-//     .attr("d", lineRadialGenerator(data))
-//     .attr("fill", "none")
-//     .attr("stroke", "green")
-//     .attr("stroke-width", 10)  
-//     .attr('transform', `translate(${margin.left}, ${margin.top+ 50} )`)
+var path = svg.selectAll("path")
+          .data(statistics)         
+          .enter()
+          .append("path")
+          .attr("d", d => lineFunction(d.Number / 300)(lineData))
+          .attr("stroke", "blue")
+          .attr("stroke-width", 1)
+          .attr("fill", "none")
+          .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")
 
 
-var totalLength = path.node().getTotalLength();
+var totalLength = svg.selectAll("path").node().getTotalLength();
 
 
 path.attr("stroke-dasharray", totalLength + " " + totalLength)
 .attr("stroke-dashoffset", totalLength)
 .transition()
-.duration(transitionDuration*0.2)
+.duration(transitionDuration)
 .ease(d3.easeSin)
 .attr("stroke-dashoffset", 0);
 
