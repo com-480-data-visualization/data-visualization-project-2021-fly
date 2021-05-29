@@ -1,19 +1,49 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Radial Stacked Bar Chart</title>
-<link rel="stylesheet" type="text/css" href="./inspector.css">
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Music Evolution</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+	<!-- Web fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700|Source+Serif+Pro:700" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <!-- favicon.ico. Place these in the root directory. -->
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css">
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+
 <body>
-<script type="module">
+  <div class="section">
+    <div class="page-content">
+      <div id="bar-chart">
+        <h2>Sentiment Analysis</h2>
+        <p>Bla bla bla bla</p>
+        <div id="buttons_col">
+          <button onclick="update_bar_chart('love')" class="bttn-simple" style="background-color: #007CC7;">Love</button>
+          <button onclick="update_bar_chart('hate')" class="bttn-simple" style="background-color: #007CC7;">Hate</button>
+          <button onclick="update_bar_chart('sadness')" class="bttn-simple" style="background-color: #007CC7;">Sadness</button>
+          <button onclick="update_bar_chart('joy')" class="bttn-simple" style="background-color: #007CC7;">Joy</button>
+          <button onclick="update_bar_chart('pain')" class="bttn-simple" style="background-color: #007CC7;">Pain</button>
+        </div>
+        <div id="bar_chart_d3">
+          <script src="index.js"></script>
+        </div>
+      </div>
+    </div>
+  </div>
 
-import define from "./index.js";
-import {Runtime, Library, Inspector} from "./runtime.js";
-
-const runtime = new Runtime();
-const main = runtime.module(define, Inspector.into(document.body));
-
-</script>
-<style>
-body{
-  background: "black"
-}
-</style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+</body>

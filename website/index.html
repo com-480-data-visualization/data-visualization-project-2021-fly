@@ -155,21 +155,31 @@
 		</div>
 
 		<div class="section">
-			<div class="page-content">
-				<div id=sentiment-bar-chart >
-					<h2>Sentiment analysis</h2>
-					<hr>
-					<p>We form a cloud of the most frequent words of each decade to show how the language evolves over time. We make the same visualization for each decade and the user can go from one to the other using horizontal scrolling on the website.This visualization can further be improved by adding interaction when hovering over, or by clustering words by topic and use a different color per cluster.</p>
-						<script src="bar_chart.js"></script>
-				</div>
-			</div>
-		</div>
+	    <div class="page-content">
+	      <div id="bar-chart">
+	        <h2>Sentiment Analysis</h2>
+	        <p>Bla bla bla bla</p>
+	        <div id="buttons">
+	          <button onclick="update_bar_chart('love')" class="bttn-simple" style="background-color: #007CC7;">Love</button>
+	          <button onclick="update_bar_chart('hate')" class="bttn-simple" style="background-color: #007CC7;">Hate</button>
+	          <button onclick="update_bar_chart('pain')" class="bttn-simple" style="background-color: #007CC7;">Pain</button>
+	          <button onclick="update_bar_chart('sadness')" class="bttn-simple" style="background-color: #007CC7;">Sadness</button>
+	          <button onclick="update_bar_chart('joy')" class="bttn-simple" style="background-color: #007CC7;">Joy</button>
+	          <button onclick="update_bar_chart('sadness')" class="bttn-simple" style="background-color: #007CC7;">Sadness</button>
+	          <button onclick="update_bar_chart('joy')" class="bttn-simple" style="background-color: #007CC7;">Joy</button>
+	        <div id="bar_chart_d3">
+	          <script src="bar_chart.js"></script>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
 
 		<div class="section">
 	    <div class="page-content">
 	      <div id="word-cloud">
 	        <h2>Word cloud per decade</h2>
-	        <p>text text text </p>
+					<p>We form a cloud of the most frequent words of each decade to show how the language evolves over time. We make the same visualization for each decade and the user can go from one to the other using horizontal scrolling on the website.This visualization can further be improved by adding interaction when hovering over, or by clustering words by topic and use a different color per cluster.</p>
 	        <div id="buttons">
 	          <button onclick="update_cloud('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
 	          <button onclick="update_cloud('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
