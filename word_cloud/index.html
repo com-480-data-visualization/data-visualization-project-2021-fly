@@ -1,14 +1,51 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-<title>Word Cloud</title>
-<link rel="stylesheet" type="text/css" href="./inspector.css">
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Music Evolution</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.css" />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+	<!-- Web fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700|Source+Serif+Pro:700" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <!-- favicon.ico. Place these in the root directory. -->
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css">
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+</head>
+
+
 <body>
-<script type="module">
+  <div class="section">
+    <div class="page-content">
+      <div id="word-cloud">
+        <h2>Word cloud per decade</h2>
+        <p>Bla bla bla bla</p>
+        <div id="buttons">
+          <button onclick="update_cloud('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
+          <button onclick="update_cloud('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
+          <button onclick="update_cloud('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
+          <button onclick="update_cloud('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
+          <button onclick="update_cloud('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
+          <button onclick="update_cloud('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
+          <button onclick="update_cloud('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
+        </div>
+        <div id="cloud_d3">
+          <script src="index.js"></script>
+        </div>
+      </div>
+    </div>
+  </div>
 
-import define from "./index.js";
-import {Runtime, Library, Inspector} from "./runtime.js";
-
-const runtime = new Runtime();
-const main = runtime.module(define, Inspector.into(document.body));
-
-</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
+</body>
