@@ -163,42 +163,17 @@ d3.csv("data/billboard_features_top_100.csv",
 
 
     }
-
-/****************LINE CURSOR - SPEECHINESS****************/
-
-    // Circle that travels along the curve of chart & follows the cursor
-    var focus = svg
-    .append('g')
-    .append('circle')
-      .style("fill", "pink")
-      .attr("stroke", "black")
-      .attr('r', 7)
-      .style("opacity", 0)
-
-    // Text that travels along the curve of chart & follows the cursor
-    var focusText = svg
-    .append('g')
-    .append('text')
-      .style("opacity", 0)   
-      .attr("text-anchor", "left")
-      .attr("alignment-baseline", "middle")
-
-
-    // // Append a rect on top of the svg area to detect cursor pos
-    // svg
-    // .append('rect')
-    // .style("fill", "none")
-    // .style("pointer-events", "all")
-    // .attr("width", width - 150)
-    // .attr("height", height + margin.top + margin.bottom)
-    // .on('mouseover', curserover)
-    // .on('mousemove', cursormove)
-    // .on('mouseout', cursorout);
-
-
   
 
-/****************LINE CURSOR - DANCEABILITY****************/
+/****************LINE CURSORS****************/
+
+    // Line that follows the cursor 
+    var lineCursor = svg
+    .append('path')
+    .attr("class", "line-bar")
+      // .attr("stroke", "white")
+      .style("opacity", 0)
+
 
     // Circle that travels along the curve of chart & follows the cursor
     var focus_danceability = svg
@@ -244,17 +219,30 @@ d3.csv("data/billboard_features_top_100.csv",
     .attr("height", height + margin.top + margin.bottom)
     .on('mouseover', cursorover)
     .on('mousemove', function() {
+      var mouse = d3.mouse(this);
+      // move the vertical line
+      d3.select(".line-bar")
+      .attr("d", function() {
+        var d = "M" + mouse[0] + "," + height;
+        d += " " + mouse[0] + "," + 0;
+        return d;
+      });
+
       cursormove_danceability(this);
       cursormove_speechiness(this);
     })
     .on('mouseout', cursorout);
 
 function cursorover() {
+  d3.select(".line-bar")
+      .style("opacity", "1");
   curserover_danceability();
   curserover_speechiness();
   }
 
 function cursorout() {
+  d3.select(".line-bar")
+      .style("opacity", "0");
   cursorout_danceability();
   cursorout_speechiness();
   }
@@ -312,44 +300,52 @@ function cursorout() {
     focus_danceability.style("opacity", 0)
     focusText_danceability.style("opacity", 0)
   }
-
-
-
 /*********************************************/
 
+
+
+
 /****************ANNOTATIONS & TOOLTIP WHEN INTERACTING WITH CIRCLES****************/
+
+mainEvents = [//Danceability Events
+              [{"Year": 1974, "Event": "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)", danceability: 0.594},
+              {"Year": 1982, "Event": "Arrival of Electro on the Dancefloors: Planet Rock - Afrika Bambaataa", danceability: 0.915},
+              // {"Year": 1985, "Event": "On and On - Jessie Saunders: First House Record", danceability: 0.81},
+              {"Year": 1986, "Event": "You Be Illin' - Run D.M.C: The rise of danceable hip hop", danceability: 0.962},
+              {"Year": 1989, "Event": "Funky Cold Medina - Tone-Loc: The most danceable on the billboard", danceability: 0.988},
+              {"Year": 1996, "Event": "Emergence and Spreading of Trance music", danceability: 0.604},
+              {"Year": 1997, "Event": "Around the World - Daft Punk: French House goes international", danceability: 0.956},
+              {"Year": 1998, "Event": "Blue (Da Ba Dee) - Eiffel 65: International success", danceability: 0.956},
+              {"Year": 2001, "Event": "Sandstorm - Darude: an Iconic EDM Song", danceability: 0.956},
+              {"Year": 2006, "Event": "Temperature - Sean Paul: Dance pop still at the top of the chart)", danceability: 0.951},
+              {"Year": 2010, "Event": "Alive! - Mondotek: The rise of Tecktonik dance", danceability: 0.74},
+              {"Year": 2013, "Event": "Harlem Shake - Baauer: Dance & Electro songs develop into memes (n°1 for 5 consecutive weeks)", danceability: 0.951},
+              {"Year": 2014, "Event": "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard", danceability: 0.74},
+              {"Year": 2018, "Event": "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake", danceability: 0.922},
+              {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74}],
+              // Speechiness events
+              [{"Year": 1979, "Event": "Kurtis Blow was the first rapper signed to Mercury Records", speechiness: 0.050381922},
+                                  {"Year": 1991, "Event": "N.W.A.: First time that a rap group claimed top spot on the Billboard 200", speechiness: 0.0531319766134471},
+                                  {"Year": 2000, "Event": "Eminem's Album: The Marshall Mathers", speechiness: 0.0730505892081869}]
+              ]
+
+console.log(mainEvents[0])
 for(var i = 0; i < features.length; i++){
+
       //This is the tooltip that will appear when hovering over a circle
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
       .style("opacity", 0);
 
-
-      mainEvents = [{"Year": 1974, "Event": "The Age of Disco: Records start using drum machines (Rock Your Baby - George McCrae)", danceability: 0.594},
-                    {"Year": 1982, "Event": "Arrival of Electro on the Dancefloors: Planet Rock - Afrika Bambaataa", danceability: 0.915},
-                    // {"Year": 1985, "Event": "On and On - Jessie Saunders: First House Record", danceability: 0.81},
-                    {"Year": 1986, "Event": "You Be Illin' - Run D.M.C: The rise of danceable hip hop", danceability: 0.962},
-                    {"Year": 1989, "Event": "Funky Cold Medina - Tone-Loc: The most danceable on the billboard", danceability: 0.988},
-                    {"Year": 1996, "Event": "Emergence and Spreading of Trance music", danceability: 0.604},
-                    {"Year": 1997, "Event": "Around the World - Daft Punk: French House goes international", danceability: 0.956},
-                    {"Year": 1998, "Event": "Blue (Da Ba Dee) - Eiffel 65: International success", danceability: 0.956},
-                    {"Year": 2001, "Event": "Sandstorm - Darude: an Iconic EDM Song", danceability: 0.956},
-                    {"Year": 2006, "Event": "Temperature - Sean Paul: Dance pop still at the top of the chart)", danceability: 0.951},
-                    {"Year": 2010, "Event": "Alive! - Mondotek: The rise of Tecktonik dance", danceability: 0.74},
-                    {"Year": 2013, "Event": "Harlem Shake - Baauer: Dance & Electro songs develop into memes (n°1 for 5 consecutive weeks)", danceability: 0.951},
-                    {"Year": 2014, "Event": "Summer - Calvin Harris: The Scottish DJ-producer is all over the Billboard", danceability: 0.74},
-                    {"Year": 2018, "Event": "Look Alive -  BlocBoy JB ft. Drake: Hip hop and rap still is as danceable, with artists like Drake", danceability: 0.922},
-                    {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74},]
-
       var bisect = d3.bisector(function(d) {return d.year; }).left;
       events = svg.selectAll("dot")    
-          .data(mainEvents)         
+          .data(mainEvents[i])         
       .enter().append("circle")                               
       .attr("r", 10)       
       .attr("cx", function(d) {
         return x(new Date(d.Year+"-01-01T00:00"))})       
       .attr("cy", function(d) {
-         return scales[i](data[bisect(data, new Date(d.Year+"-01-01T00:00"), 1)].danceability);
+         return scales[i](data[bisect(data, new Date(d.Year+"-01-01T00:00"), 1)][features[i]]);
        })      
       .attr("stroke", "white")  
       .attr("fill", "black")
@@ -370,8 +366,7 @@ for(var i = 0; i < features.length; i++){
 
 /********************************************************************************/
       }
-},
-  )
+},)
 
 
 /****************BUTTON FOR DISPLAYING EVENTS****************/

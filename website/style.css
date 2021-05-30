@@ -168,5 +168,5 @@ div.tooltip {
 .line-bar {
 fill: none;
 stroke: white;
-
+stroke-width: 3px;
 }
