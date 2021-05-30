@@ -8,8 +8,9 @@
 
 	<title>Music Evolution</title>
 
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
 	<link rel="stylesheet" href="style.css">
-	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+	<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
 
 </head>
 
@@ -19,14 +20,29 @@
 
 		<!-- <h2 style="color:white;">This is a heading in a div element</h2> -->
 		<input class= "checkbox" type="checkbox" id="eventCheckbox" value="1" Checked>
-		<label for="checkbox"> Toggle Events</label><br>
+		<label for="checkbox" id="eventCheckboxLabel"> Show Events</label><br>
 
-		<div id="danceability" float="top"></div>
+		<!-- <div id="danceability_speechiness" float="top"></div> -->
 
 		<!-- <div id="valence" float="bottom"></div> -->
 		<!-- <div id="speechiness" float="bottom"></div> -->
+	</div>
 
-		<!-- <div id="spiral"></div> -->
+
+	<div class="container">
+
+
+		
+		 <div class="radio-group" id="radio-buttons">
+			<input type="radio" id="top-one" name="selector" value="Number 1" checked>
+			<label for="option-one">Number 1</label>
+			<input type="radio" id="all" name="selector" value="All">
+			<label for="option-two">All</label>
+		  </div>
+
+
+		<div id="spiral" float="bottom"></div>
+
 
 	</div>
 	
@@ -37,13 +53,14 @@
 	<script src="https://d3js.org/d3.v4.min.js"></script> 
 	<!-- Color palettes -->
 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> -->
 
 
 	<!-- Our scripts -->
 	<!-- <script type="text/javascript" src="graph_speechiness.js"></script> -->
 	<!-- <script type="text/javascript" src="graph_valence.js"></script> -->
 	<!-- <script type="text/javascript" src="graph_danceability.js"></script> -->
-	<script type="text/javascript" src="graph_fusion.js"></script>
-	<!-- <script type="text/javascript" src="spiral.js"></script> -->
+	<!-- <script type="text/javascript" src="graph_fusion.js"></script> -->
+	<script type="text/javascript" src="spiral.js"></script>
 </body>
 </html>

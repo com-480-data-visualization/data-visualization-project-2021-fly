@@ -3,8 +3,11 @@ var margin = {top: 10, right: 30, bottom: 30, left: 60},
     width = 1350  - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
+
+transitionDuration = 2000;
+
 // append the svg object to the body of the page
-var svg = d3.select("#danceability")
+var svg = d3.select("#danceability_speechiness")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -60,12 +63,12 @@ d3.csv("data/billboard_features_top_100.csv",
     // Add labels for the Y Axis
     svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0 - margin.left)
+        .attr("y", - margin.left - 5)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em") 
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
-        .text("Values of the audio features");
+        .text("Danceability");
 
 
 
@@ -97,7 +100,7 @@ d3.csv("data/billboard_features_top_100.csv",
 
     // Adding the actual data (one line per feature)
     var features = ['danceability', 'speechiness']
-    var colors = ['orange', 'pink', 'orange']
+    var colors = ['orange', 'pink']
     var scales = [y_danceability, y_speechiness]
 
 
@@ -157,7 +160,7 @@ d3.csv("data/billboard_features_top_100.csv",
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()
-        .duration(2000)
+        .duration(transitionDuration)
         .ease(d3.easeSin)
         .attr("stroke-dashoffset", 0);
 
@@ -179,15 +182,15 @@ d3.csv("data/billboard_features_top_100.csv",
     var focus_danceability = svg
     .append('g')
     .append('circle')
-      .style("fill", "pink")
+      .style("fill", colors[0])
       .attr("stroke", "black")
       .attr('r', 7)
       .style("opacity", 0)
 
-        var focus_speechiness = svg
+    var focus_speechiness = svg
     .append('g')
     .append('circle')
-      .style("fill", "pink")
+      .style("fill", colors[1])
       .attr("stroke", "black")
       .attr('r', 7)
       .style("opacity", 0)
@@ -233,9 +236,10 @@ d3.csv("data/billboard_features_top_100.csv",
     })
     .on('mouseout', cursorout);
 
+
 function cursorover() {
   d3.select(".line-bar")
-      .style("opacity", "1");
+      .style("opacity", "0.2");
   curserover_danceability();
   curserover_speechiness();
   }
@@ -333,6 +337,7 @@ for(var i = 0; i < features.length; i++){
 
       //This is the tooltip that will appear when hovering over a circle
       var div = d3.select("body").append("div")   
+      .attr("id", "event-tooltip")
       .attr("class", "tooltip")               
       .style("opacity", 0);
 
@@ -350,14 +355,15 @@ for(var i = 0; i < features.length; i++){
       .attr("stroke", "white")  
       .attr("fill", "black")
       // .style("display", "none")    
-      .on("mouseover", function(d) {      
-          div.transition()        
-              .duration(100)      
-              .style("opacity", .9);      
-          div .html(d.Year+ "<br/>"  + d.Event)  
-              .style("left", (d3.event.pageX) + "px")     
-              .style("top", (d3.event.pageY - 28) + "px");    
-          })                  
+      .on("mouseover", function(d) {
+        if(d3.select("#eventCheckbox").property("checked")) {     
+                  div.transition()        
+                      .duration(100)      
+                      .style("opacity", .9);      
+                  div .html(d.Year+ "<br/>"  + d.Event)  
+                      .style("left", (d3.event.pageX) + "px")     
+                      .style("top", (d3.event.pageY - 28) + "px");    
+                  }})                  
       .on("mouseout", function(d) {       
           div.transition()        
               .duration(500)      
@@ -365,16 +371,8 @@ for(var i = 0; i < features.length; i++){
       })
       .transition()
       .delay((d, i) => i * 80)             
-      .duration(2000)  
+      .duration(transitionDuration)  
       .style("opacity", .9);
-
-      // events
-      // .data(mainEvents[i])         
-      // .enter()
-      // .transition()
-      // // .delay((d, i) => i)             
-      // .duration(2000)  
-      // .style("opacity", .9)
 
 /********************************************************************************/
       }

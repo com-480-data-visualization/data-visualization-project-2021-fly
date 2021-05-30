@@ -7,7 +7,7 @@ var margin = {
     width = 1000 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-var transitionDuration = 8000
+var transitionDuration = 3000
 
 var lineSeparation = 80
 
@@ -52,33 +52,35 @@ function addDescription(g, data) {
 -----------------ROW DESCRIPTION-----------------
 */
 row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
-svg.append('g')
-    .call(addRowDescription, row_descriptions);
 
 function addRowDescription(g, data) {
   return g.attr('transform', `translate(0, ${margin.top + 200})`)
   .selectAll('text-description')
-  .data(data)
-  .enter().append("text")
+  .append("text")
     .attr('class', 'description')
-    .attr('y', (d, i) => i * (lineSeparation + 100))
-    .text(d => d);}
+    .attr("class", "spiral-element")
+    .attr('y', function(){
+      console.log('hi');
+      return 100;})
+    .text(data);}
 
 /* 
 -----------------SPIRALS-----------------
 */
 
+section = 0;
+
 statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
 
-{"Number": 328, "Event": "Gold - Connie Francis (Album)", "centerX": width/2, "centerY" : height/3, "radius": 100, "sides": 300, "coils": 5, "rotation":0},
+{"Number": 328, "Event": "Gold - Connie Francis (Album)", "centerX": width/2, "centerY" : height/3, "radius": 35, "sides": 300, "coils": 5, "rotation":0},
 
 {"Number": 87, "Event": "Radioactive - Imagine Dragons", "centerX": 3*width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
 
-{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
 
-{"Number": 19, "Event": "Old Town Road - Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 2, "rotation":0},
+{"Number": 19, "Event": "Old Town Road - Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 2, "rotation":0},
 
-{"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
+{"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
 
 
 
@@ -117,48 +119,87 @@ var loop_scale = d3.scaleLog()
                     .domain([1,847])
                     .range([0,4]);
 
-
-
-
-// Draw the spiral using the accessor function
-var path = svg.selectAll("path")
-          .data(statistics)         
+/* 
+-----------------SPIRAL CHOICE-----------------
+*/
+// Function that change a color
+function changeGraph() {
+  if (d3.select("#top-one").property("checked")) {
+    section = 0;
+    d3.selectAll(".spiral-element").remove();
+    var path = svg.selectAll("path")
+          .data(statistics.slice(section * 3, section * 3 + 3))         
           .enter()
           .append("path")
+          .attr("class", "spiral-element")
           .attr("d", d => lineFunction(loop_scale(d.Number))(lineData))
           .attr("stroke", "#f5b310")
           .attr("stroke-width", 3)
           .attr("fill", "none")
           .attr('stroke-linejoin', 'round')
           .attr('stroke-linecap', 'round')
-          .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")
+          .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")  
+        }
+    else{
+      section = 1;
+    d3.selectAll(".spiral-element").remove();
+    var path = svg.selectAll("path")
+            .data(statistics.slice(section * 3, section * 3 + 3))         
+            .enter()
+            .append("path")
+            .attr("class", "spiral-element")
+            .attr("d", d => lineFunction(loop_scale(d.Number))(lineData))
+            .attr("stroke", "#f5b310")
+            .attr("stroke-width", 3)
+            .attr("fill", "none")
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-linecap', 'round')
+            .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")
+    }
 
 
-var totalLength = svg.selectAll("path").node().getTotalLength();
+    var totalLength = svg.selectAll("path").node().getTotalLength();
 
 
-path.attr("stroke-dasharray", totalLength + " " + totalLength)
-.attr("stroke-dashoffset", totalLength)
-.transition()
-.delay(transitionDuration*0.5)
-.duration(transitionDuration)
-.ease(d3.easeSin)
-.attr("stroke-dashoffset", 0);
+    path.attr("stroke-dasharray", totalLength + " " + totalLength)
+    .attr("stroke-dashoffset", totalLength)
+    .transition()
+    .delay(transitionDuration*0.1)
+    .duration(transitionDuration )
+    .ease(d3.easeSin)
+    .attr("stroke-dashoffset", 0);
 
 
+/*-----------------ROW DESCRPTIONS-----------------*/
+// svg.append('g')
+//     .call(addRowDescription, row_descriptions[section]);
+
+svg.append("text")
+               // .attr("dy", function(d){return "62%"})
+                .attr("x", margin.right)
+                .attr("y", 0)
+                .attr("class", "spiral-element")
+                 .text(row_descriptions[section])
+                .style( "opacity", 0 )
+                .transition()
+                .delay((d, i) => i *  0.1 *  transitionDuration)
+                  .ease(d3.easeBounce)
+                .duration(transitionDuration*0.17)
+                .style( "opacity", 1 )
+                .attr('y',  height/3);
+/*----------------------------------------------*/
 
 /* 
------------------SPIRAL TEXT-----------------
-*/
+-----------------SPIRAL TEXT-----------------*/
 var start_val = 0;
 svg.selectAll("text.number")
-                .data(statistics)
+                .data(statistics.slice(section * 3, section * 3 + 3))
                 .enter()
                 .append("text")
-    			.text(start_val)
-                .attr("y", function(d){return d.centerY + 5})
+          .text(start_val)
+                .attr("y", function(d){return d.centerY})
                  .attr("x", function(d){return d.centerX})
-                 .attr("class", "spiral-content")
+                 .attr("class", "spiral-content spiral-element")
                   .attr( "fill-opacity", 0 )
                   .transition()
                 .delay((d, i) => i * 0.1 * transitionDuration)
@@ -166,63 +207,38 @@ svg.selectAll("text.number")
                   .duration(transitionDuration)
                   .attr( "fill-opacity", 1 )
                   .tween("text", function(d) {
-                  	var node = this;
-                  	let i = d3.interpolate(node.textContent, d.Number);
-                  	return function(t) {
-                  		d3.select(node).text(Math.round(i(t)));
-                  	};
+                    var node = this;
+                    let i = d3.interpolate(node.textContent, d.Number);
+                    return function(t) {
+                      d3.select(node).text(Math.round(i(t)));
+                    };
                   });
 
 
 
-svg.selectAll("spiral.description")
-                .data(statistics)
-                .enter()
-                .append("text")
-               // .attr("dy", function(d){return "62%"})
-                .attr("x", function(d){return d.centerX})
-                .attr("y", function(d){return d.centerY + 40})
-               .attr("class", "spiral-content")
-                 .text(function(d){ return d.Event;})
-                .style( "opacity", 0 )
-                .transition()
-                .delay((d, i) => i *  0.1 *  transitionDuration)
-                  .ease(d3.easeBounce)
-                .duration(transitionDuration*0.17)
-                .style( "opacity", 1 )
-                .attr('y',  function(d){return d.centerY + 60});
+  svg.selectAll("spiral.description")
+                  .data(statistics.slice(section * 3, section * 3 + 3))
+                  .enter()
+                  .append("text")
+                  .attr("x", function(d){return d.centerX})
+                  .attr("y", function(d){return d.centerY + 40})
+                  .attr("class", "spiral-content spiral-element")
+                   .text(function(d){ return d.Event;})
+                  .style( "opacity", 0 )
+                  .transition()
+                  .delay((d, i) => i *  0.1 *  transitionDuration)
+                    .ease(d3.easeBounce)
+                  .duration(transitionDuration*0.17)
+                  .style( "opacity", 1 )
+                  .attr('y',  function(d){return d.centerY + 60});
+
+/* ---------------------------------------------------*/
+}
+
+
+// Event listener to the radio button
+changeGraph();
+d3.select("#radio-buttons").on("change", changeGraph )
 
 /* 
 ---------------------------------------------------*/
-
-
-
-// Define the gradient
-//Coloring the spiral
-//     var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
-//     var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
-
-// var linearGradient = svg.append("defs")
-//         .append("linearGradient")
-//         .attr("id", "linear-gradient")
-//         .attr("gradientTransform", "rotate(90)");
-
-//     linearGradient.append("stop")
-//         .attr("offset", "0%")
-//         .attr("stop-color", color(1));
-
-//     linearGradient.append("stop")
-//         .attr("offset", "25%")
-//         .attr("stop-color", color(2));
-
-//     linearGradient.append("stop")
-//         .attr("offset", "50%")
-//         .attr("stop-color", color(3));
-
-//     linearGradient.append("stop")
-//         .attr("offset", "75%")
-//         .attr("stop-color", color(4));
-
-//     linearGradient.append("stop")
-//         .attr("offset", "100%")
-//         .attr("stop-color", color(5));

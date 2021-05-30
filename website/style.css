@@ -44,6 +44,11 @@ body {
 	background-color: black;
 }
 
+
+.container{
+	position: relative;
+}
+
 #valence {
 	max-width: 55rem;
 	position: relative;
@@ -71,13 +76,22 @@ body {
 	opacity: 1;				
 }*/
 
-#eventCheckbox, label
+#eventCheckbox
 {
 	position: relative;
 	top: 20px;
 	right: 60px;
 	float: right;
+	transform: scale(3);
 	
+}
+
+#eventCheckboxLabel
+{
+	position: relative;
+	top: 20px;
+	right: 60px;
+	float: right;
 }
 
 
@@ -122,12 +136,13 @@ body {
   fill: cornsilk;
 }
 
-.spiral-content {
+.spiral-content+.spiral-element{
     fill: cornsilk;
-    font: 13px Helvetica;
+    font: 9px Helvetica;
     opacity: 0.8;
     text-anchor: middle;
 }
+
 
 text,html {
 	/*stroke:white;*/
@@ -169,4 +184,11 @@ div.tooltip {
 fill: none;
 stroke: white;
 stroke-width: 3px;
+}
+
+.radio-group{
+	position: absolute;
+    float: right;
+    margin-top: 5em;
+    margin-left: 40em;
 }
