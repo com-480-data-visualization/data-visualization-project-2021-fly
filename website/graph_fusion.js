@@ -162,9 +162,10 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("stroke-dashoffset", 0);
 
 
+    }
 
+/****************LINE CURSOR - SPEECHINESS****************/
 
-/****************LINE CURSOR****************/
     // Circle that travels along the curve of chart & follows the cursor
     var focus = svg
     .append('g')
@@ -183,48 +184,141 @@ d3.csv("data/billboard_features_top_100.csv",
       .attr("alignment-baseline", "middle")
 
 
+    // // Append a rect on top of the svg area to detect cursor pos
+    // svg
+    // .append('rect')
+    // .style("fill", "none")
+    // .style("pointer-events", "all")
+    // .attr("width", width - 150)
+    // .attr("height", height + margin.top + margin.bottom)
+    // .on('mouseover', curserover)
+    // .on('mousemove', cursormove)
+    // .on('mouseout', cursorout);
+
+
+  
+
+/****************LINE CURSOR - DANCEABILITY****************/
+
+    // Circle that travels along the curve of chart & follows the cursor
+    var focus_danceability = svg
+    .append('g')
+    .append('circle')
+      .style("fill", "pink")
+      .attr("stroke", "black")
+      .attr('r', 7)
+      .style("opacity", 0)
+
+        var focus_speechiness = svg
+    .append('g')
+    .append('circle')
+      .style("fill", "pink")
+      .attr("stroke", "black")
+      .attr('r', 7)
+      .style("opacity", 0)
+
+    // Text that travels along the curve of chart & follows the cursor
+    var focusText_danceability = svg
+    .append('g')
+    .append('text')
+      .style("opacity", 0)   
+      .attr("text-anchor", "left")
+      .attr("alignment-baseline", "middle")
+
+    var focusText_speechiness = svg
+    .append('g')
+    .append('text')
+      .style("opacity", 0)   
+      .attr("text-anchor", "left")
+      .attr("alignment-baseline", "middle")
+
+
+
+
     // Append a rect on top of the svg area to detect cursor pos
-    svg
+  rect = svg
     .append('rect')
     .style("fill", "none")
     .style("pointer-events", "all")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", width - 150)
     .attr("height", height + margin.top + margin.bottom)
-    .on('mouseover', curserover)
-    .on('mousemove', cursormove)
+    .on('mouseover', cursorover)
+    .on('mousemove', function() {
+      cursormove_danceability(this);
+      cursormove_speechiness(this);
+    })
     .on('mouseout', cursorout);
 
+function cursorover() {
+  curserover_danceability();
+  curserover_speechiness();
+  }
+
+function cursorout() {
+  cursorout_danceability();
+  cursorout_speechiness();
+  }
 
     // When the cursor moves, show annotations at correspondings pos
-  function curserover() {
-    focus.style("opacity", 1)
-    focusText.style("opacity",1)
+  function curserover_speechiness() {
+    focus_speechiness.style("opacity", 1)
+    focusText_speechiness.style("opacity",1)
+  }
+
+  function cursormove_speechiness(object) {
+    // recover coordinate we need
+    var x0 = x.invert(d3.mouse(object)[0]);
+    var i = bisect(data, x0, 1);
+    selection = data[i]
+    focus_speechiness
+      .attr("cx", x(selection.year))
+      .attr("cy", y_speechiness(selection["speechiness"]))
+    focusText_speechiness
+      .html("Year:" + selection.year.getFullYear() + "  -  " + "Speechiness:" + parseFloat(selection.speechiness).toFixed(2))
+      .attr("x", x(selection.year)+15)
+      .attr("y", y_speechiness(selection["speechiness"]))
+    }
+
+  function cursorout_speechiness() {
+    focus_speechiness.style("opacity", 0)
+    focusText_speechiness.style("opacity", 0)
+  }
+
+    // When the cursor moves, show annotations at correspondings pos
+  function curserover_danceability() {
+    focus_danceability.style("opacity", 1)
+    focusText_danceability.style("opacity",1)
   }
 
 
   // This allows to find the closest X index of the mouse:
   var bisect = d3.bisector(function(d) {return d.year; }).left;
-  function cursormove() {
-    // recover coordinate we need
-    var x0 = x.invert(d3.mouse(this)[0]);
+
+  function cursormove_danceability(object) {
+    // recover mouse coords
+    var x0 = x.invert(d3.mouse(object)[0]);
     var i = bisect(data, x0, 1);
     selection = data[i]
-    focus
+    focus_danceability
       .attr("cx", x(selection.year))
-      .attr("cy", y(selection.danceability))
-    focusText
+      .attr("cy", y_danceability(selection["danceability"]))
+    focusText_danceability
       .html("Year:" + selection.year.getFullYear() + "  -  " + "Danceability:" + parseFloat(selection.danceability).toFixed(2))
       .attr("x", x(selection.year)+15)
-      .attr("y", y(selection.danceability))
+      .attr("y", y_danceability(selection["danceability"]))
     }
 
-  function cursorout() {
-    focus.style("opacity", 0)
-    focusText.style("opacity", 0)
+  function cursorout_danceability() {
+    focus_danceability.style("opacity", 0)
+    focusText_danceability.style("opacity", 0)
   }
+
+
+
 /*********************************************/
 
 /****************ANNOTATIONS & TOOLTIP WHEN INTERACTING WITH CIRCLES****************/
+for(var i = 0; i < features.length; i++){
       //This is the tooltip that will appear when hovering over a circle
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
