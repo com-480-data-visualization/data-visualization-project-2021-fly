@@ -81,7 +81,9 @@ statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "center
 {"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
 
 var lineFunction = d3.line()
-                    .x(function(d) { return d.x; })
+                    .x(function(d) { 
+                      console.log(d);
+                      return d.x; })
                     .y(function(d) { return d.y; })
                     .curve(d3.curveCardinal);
 
@@ -175,7 +177,7 @@ svg.selectAll("spiral.description")
                 .style( "opacity", 0 )
                 .transition()
                   .ease(d3.easeBounce)
-                .duration(transitionDuration* 0.4)
+                .duration(transitionDuration* 0.001)
                 .style( "opacity", 1 )
                 .attr('y',  function(d){return d.centerY + 60});
 

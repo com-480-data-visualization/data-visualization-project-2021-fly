@@ -7,7 +7,7 @@ var margin = {
     width = 1000 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-var transitionDuration = 5000
+var transitionDuration = 8000
 
 var lineSeparation = 80
 
@@ -83,11 +83,10 @@ statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "center
 
 
 // Parameters for the spiral along which circles will move
-var loops = 5;
-var numAnchorPoints = 200;
-var a = 2; // Scaling of the spiral
-// Just a range of integers 1..numAnchorPoints
+var numAnchorPoints = 50;
 var lineData = d3.range(numAnchorPoints);
+
+var a = 1.75; // Scaling of the spiral
 
 // Scale for mapping integer numbers 1..numAnchorPoints to radians of the spiral
 
@@ -97,9 +96,6 @@ function scale_(nb_loops){
                     .range([6.25,nb_loops*2*Math.PI]);
 }
 
-var scale = d3.scaleLinear()
-                    .domain([0,numAnchorPoints])
-                    .range([6.25,loops*2*Math.PI]);
 
  // Archimedes spiral
 var spiral = function(t, nb_loops){
@@ -116,16 +112,25 @@ var lineFunction = function(size){
 
 
 
+// Scale the number of loops
+var loop_scale = d3.scaleLog()
+                    .domain([1,847])
+                    .range([0,4]);
+
+
+
 
 // Draw the spiral using the accessor function
 var path = svg.selectAll("path")
           .data(statistics)         
           .enter()
           .append("path")
-          .attr("d", d => lineFunction(d.Number / 300)(lineData))
-          .attr("stroke", "blue")
-          .attr("stroke-width", 1)
+          .attr("d", d => lineFunction(loop_scale(d.Number))(lineData))
+          .attr("stroke", "#f5b310")
+          .attr("stroke-width", 3)
           .attr("fill", "none")
+          .attr('stroke-linejoin', 'round')
+          .attr('stroke-linecap', 'round')
           .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")
 
 
@@ -135,6 +140,7 @@ var totalLength = svg.selectAll("path").node().getTotalLength();
 path.attr("stroke-dasharray", totalLength + " " + totalLength)
 .attr("stroke-dashoffset", totalLength)
 .transition()
+.delay(transitionDuration*0.5)
 .duration(transitionDuration)
 .ease(d3.easeSin)
 .attr("stroke-dashoffset", 0);
@@ -155,6 +161,7 @@ svg.selectAll("text.number")
                  .attr("class", "spiral-content")
                   .attr( "fill-opacity", 0 )
                   .transition()
+                .delay((d, i) => i * 0.1 * transitionDuration)
                   .ease(d3.easeCubicOut)
                   .duration(transitionDuration)
                   .attr( "fill-opacity", 1 )
@@ -179,8 +186,9 @@ svg.selectAll("spiral.description")
                  .text(function(d){ return d.Event;})
                 .style( "opacity", 0 )
                 .transition()
+                .delay((d, i) => i *  0.1 *  transitionDuration)
                   .ease(d3.easeBounce)
-                .duration(transitionDuration* 0.001)
+                .duration(transitionDuration*0.17)
                 .style( "opacity", 1 )
                 .attr('y',  function(d){return d.centerY + 60});
 
@@ -191,30 +199,30 @@ svg.selectAll("spiral.description")
 
 // Define the gradient
 //Coloring the spiral
-    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
-    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
+//     var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
+//     var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
 
-var linearGradient = svg.append("defs")
-        .append("linearGradient")
-        .attr("id", "linear-gradient")
-        .attr("gradientTransform", "rotate(90)");
+// var linearGradient = svg.append("defs")
+//         .append("linearGradient")
+//         .attr("id", "linear-gradient")
+//         .attr("gradientTransform", "rotate(90)");
 
-    linearGradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", color(1));
+//     linearGradient.append("stop")
+//         .attr("offset", "0%")
+//         .attr("stop-color", color(1));
 
-    linearGradient.append("stop")
-        .attr("offset", "25%")
-        .attr("stop-color", color(2));
+//     linearGradient.append("stop")
+//         .attr("offset", "25%")
+//         .attr("stop-color", color(2));
 
-    linearGradient.append("stop")
-        .attr("offset", "50%")
-        .attr("stop-color", color(3));
+//     linearGradient.append("stop")
+//         .attr("offset", "50%")
+//         .attr("stop-color", color(3));
 
-    linearGradient.append("stop")
-        .attr("offset", "75%")
-        .attr("stop-color", color(4));
+//     linearGradient.append("stop")
+//         .attr("offset", "75%")
+//         .attr("stop-color", color(4));
 
-    linearGradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", color(5));
+//     linearGradient.append("stop")
+//         .attr("offset", "100%")
+//         .attr("stop-color", color(5));
