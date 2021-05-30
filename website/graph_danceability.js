@@ -13,8 +13,6 @@ var svg = d3.select("#danceability")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-  console.log(d3.selectAll(".graph").node())
-
 //Read the data
 d3.csv("data/billboard_features_top_100.csv", 
 
@@ -52,7 +50,7 @@ d3.csv("data/billboard_features_top_100.csv",
 
     // Create Y Axis (its domain is (0..1))
     var y = d3.scaleLinear()
-            .domain([0.5, 1])
+            .domain([0.5, 0.7])
             .range([ height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
@@ -135,7 +133,6 @@ d3.csv("data/billboard_features_top_100.csv",
 
 
 /****************LINE CURSOR****************/
-
     // Circle that travels along the curve of chart & follows the cursor
     var focus = svg
     .append('g')
@@ -195,8 +192,8 @@ d3.csv("data/billboard_features_top_100.csv",
   }
 /*********************************************/
 
-
-/****************TOOLTIP WHEN INTERACTING WITH CIRCLES****************/
+/****************ANNOTATIONS & TOOLTIP WHEN INTERACTING WITH CIRCLES****************/
+      //This is the tooltip that will appear when hovering over a circle
       var div = d3.select("body").append("div")   
       .attr("class", "tooltip")               
       .style("opacity", 0);
@@ -219,7 +216,7 @@ d3.csv("data/billboard_features_top_100.csv",
                     {"Year": 2020, "Event": "Billie Eilish - Therefore I am: The Age of Billie Eilish & Dark Pop", danceability: 0.74},]
 
       var bisect = d3.bisector(function(d) {return d.year; }).left;
-      svg.selectAll("dot")    
+      events = svg.selectAll("dot")    
           .data(mainEvents)         
       .enter().append("circle")                               
       .attr("r", 10)       
@@ -229,7 +226,8 @@ d3.csv("data/billboard_features_top_100.csv",
          return y(data[bisect(data, new Date(d.Year+"-01-01T00:00"), 1)].danceability);
        })      
       .attr("stroke", "white")  
-      .attr("fill", "black")    
+      .attr("fill", "black")
+      // .style("display", "none")    
       .on("mouseover", function(d) {      
           div.transition()        
               .duration(100)      
@@ -243,17 +241,29 @@ d3.csv("data/billboard_features_top_100.csv",
               .duration(500)      
               .style("opacity", 0);   
       });
+
 /********************************************************************************/
-
-
-
-
-
-
-
-
-
       }
   },
 
   )
+
+
+/****************BUTTON FOR DISPLAYING EVENTS****************/
+
+d3.select("#eventCheckbox").on("click",update);
+update();
+      
+      
+function update(){
+  updateEvents(d3.select("#eventCheckbox").property("checked"));
+}
+
+// This updates the display of the events
+function updateEvents(opacity) {
+  svg.selectAll("circle")
+    .transition()
+    .duration(500)
+    .style("opacity", +opacity)
+}
+/*********************************************/

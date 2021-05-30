@@ -40,6 +40,8 @@ body {
 	/*font-size: 1.1rem;*/
 
 	/*position: absolute;*/
+
+	background-color: black;
 }
 
 #valence {
@@ -62,6 +64,22 @@ body {
 	
 }
 
+/*.btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}*/
+
+#eventCheckbox, label
+{
+	position: relative;
+	top: 20px;
+	right: 60px;
+	float: right;
+	
+}
+
 
 .axis line{
   stroke: white;
@@ -73,7 +91,7 @@ body {
 
 .axis text{
   fill: white;
-  /*font-size: 100;*/
+  font-size: 20px;
 }  
 
 .spiral {
@@ -89,11 +107,12 @@ body {
   fill: #f5b310;
 }
 
-.subtitle {
+.subtitle, label {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 18px;
   fill: cornsilk;
+  color: cornsilk;
 }
 
 .description {

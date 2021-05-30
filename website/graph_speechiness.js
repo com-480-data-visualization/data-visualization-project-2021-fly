@@ -53,7 +53,7 @@ d3.csv("data/billboard_features_top_100.csv",
             .range([ height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
-           .call(d3.axisLeft(y))
+           .call(d3.axisRight(y))
            .attr("class", "axis");
     // Add labels for the Y Axis
     svg.append("text")

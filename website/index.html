@@ -9,6 +9,8 @@
 	<title>Music Evolution</title>
 
 	<link rel="stylesheet" href="style.css">
+	<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+
 </head>
 
 <body>
@@ -16,11 +18,15 @@
 	<div class="container">
 
 		<!-- <h2 style="color:white;">This is a heading in a div element</h2> -->
-		<!-- <div id="danceability" float="top"></div> -->
+		<input class= "checkbox" type="checkbox" id="eventCheckbox" value="1" Checked>
+		<label for="checkbox"> Toggle Events</label><br>
+
+		<div id="danceability" float="top"></div>
 
 		<!-- <div id="valence" float="bottom"></div> -->
+		<div id="speechiness" float="bottom"></div>
 
-		<div id="spiral"></div>
+		<!-- <div id="spiral"></div> -->
 
 	</div>
 	
@@ -32,13 +38,11 @@
 	<!-- Color palettes -->
 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
-	<!-- Anotations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/1.12.1/d3-annotation.min.js"></script>
 
 	<!-- Our scripts -->
-	<!-- <script type="text/javascript" src="graph_speechiness.js"></script> -->
+	<script type="text/javascript" src="graph_speechiness.js"></script>
 	<!-- <script type="text/javascript" src="graph_valence.js"></script> -->
-	<!-- <script type="text/javascript" src="graph_danceability.js"></script> -->
-	<script type="text/javascript" src="spiral.js"></script>
+	<script type="text/javascript" src="graph_danceability.js"></script>
+	<!-- <script type="text/javascript" src="spiral.js"></script> -->
 </body>
 </html>
