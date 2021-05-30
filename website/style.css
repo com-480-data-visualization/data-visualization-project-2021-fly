@@ -23,20 +23,31 @@ Make the document fill the whole viewport, this overrides any weird defaults tha
 body {
     background-color: #203647;
     font-family: 'Roboto';
-    font-size: 13px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.17);
     width: 100%;
     color: white;
     margin: auto;
     line-height: 2em;
     letter-spacing: 0.1em;
+    text-align: justify;
+    text-justify: inter-word;
+    font-weight:lighter;
+}
+
+p{
+    font-size: 15px; 
+    letter-spacing: 0.1em;
+    text-align: justify;
+    text-justify: inter-word;
+    font-weight:lighter;
 }
 
 .page-content {
     width: 80%;
     margin: auto;
 
-    font-size: 2em;
+    font-size: 1em;
 }
 
 .title {
@@ -166,6 +177,19 @@ button {
     border-radius: 5px;
     margin: auto;
     max-width: 700px;
+    padding: -10px 10px 10px 10px;
+}
+
+#bar_chart_d3 {
+    border-radius: 5px;
+    margin: auto;
+    padding: -10px 10px 10px 10px;
+}
+
+
+#word_cloud_d3 {
+    border-radius: 5px;
+    margin: auto;
     padding: -10px 10px 10px 10px;
 }
 

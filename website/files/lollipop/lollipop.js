@@ -1,15 +1,14 @@
 var decade_1 = "2010";
 var decade_2 = "1950";
-var data_pop = "files/lollipop/lollipop_pop.csv";
-var data_rock = "files/lollipop/lollipop_rock.csv";
-var data_file = "files/lollipop/lollipop_pop.csv";
+var data_pop = "lollipop_pop.csv";
+var data_rock = "lollipop_rock.csv";
+var data_file = "lollipop_pop.csv";
 var genre= "Pop";
 
 var colors = ["#581845", "#900c3f", "#c70039", "#ff5733", "#FF6363", "#ffbd69"];
 var pop_color = "#000000";
 var rock_color = "#00000";
 
-var self = this;
 
 
 // set the dimensions and margins of the graph
@@ -55,7 +54,7 @@ svgLollipop.append("g").call(d3.axisLeft(lollipop_y)).selectAll("text")
 
 
 
-function update_lollipop() {
+function update() {
     // Parse the Data
     
     if (genre == "Pop") {
@@ -63,10 +62,7 @@ function update_lollipop() {
       } else {
         data_file = data_rock
       }
-    d3.csv(data_file, function(error, data) {
-        if (error) {
-            throw error;
-        }
+    d3.csv(data_file, function(data) {
         // Add X axis
         // Lines
 
@@ -203,7 +199,7 @@ function update_1(decade) {
         .style("fill", "#EEFBFB");
 
     decade_1 = decade
-    self.update_lollipop()
+    update()
 }
 
 function update_2(decade) {
@@ -225,7 +221,7 @@ function update_2(decade) {
         .style("fill", "#007CC7");
 
     decade_2 = decade
-    self.update_lollipop()
+    update()
 }
 
 function update_3(new_genre) {
@@ -241,8 +237,8 @@ svgLollipop.append("text")
     .style("fill", "#ffffff");
 
     genre = new_genre
-    self.update_lollipop()
+    update()
 }
 
 
-self.update_lollipop()
+update()

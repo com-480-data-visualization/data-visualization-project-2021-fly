@@ -22,7 +22,7 @@ var svgCloud = d3.select("#cloud_d3")
               .attr("transform",
                   "translate(" + margin.left + "," + margin.top + ")");
 
-function update() {
+function update_word_cloud() {
   file = "files/word_count/"+decade+"_lyrics.csv";
   d3.csv(file, function(csv) {
       var words = [];
@@ -66,7 +66,7 @@ function update() {
 function update_cloud(new_decade){
   svgCloud.selectAll("text").remove();
   decade = new_decade;
-  update();
+  update_word_cloud();
 }
 
-update();
+update_word_cloud();
