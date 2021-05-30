@@ -329,7 +329,6 @@ mainEvents = [//Danceability Events
                                   {"Year": 2000, "Event": "Eminem's Album: The Marshall Mathers", speechiness: 0.0730505892081869}]
               ]
 
-console.log(mainEvents[0])
 for(var i = 0; i < features.length; i++){
 
       //This is the tooltip that will appear when hovering over a circle
@@ -340,7 +339,8 @@ for(var i = 0; i < features.length; i++){
       var bisect = d3.bisector(function(d) {return d.year; }).left;
       events = svg.selectAll("dot")    
           .data(mainEvents[i])         
-      .enter().append("circle")                               
+      .enter().append("circle")                
+      .style("opacity", 0)                              
       .attr("r", 10)       
       .attr("cx", function(d) {
         return x(new Date(d.Year+"-01-01T00:00"))})       
@@ -362,7 +362,19 @@ for(var i = 0; i < features.length; i++){
           div.transition()        
               .duration(500)      
               .style("opacity", 0);   
-      });
+      })
+      .transition()
+      .delay((d, i) => i * 80)             
+      .duration(2000)  
+      .style("opacity", .9);
+
+      // events
+      // .data(mainEvents[i])         
+      // .enter()
+      // .transition()
+      // // .delay((d, i) => i)             
+      // .duration(2000)  
+      // .style("opacity", .9)
 
 /********************************************************************************/
       }
