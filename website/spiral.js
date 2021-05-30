@@ -7,7 +7,7 @@ var margin = {
     width = 1000 - margin.left - margin.right,
     height = 700 - margin.top - margin.bottom;
 
-var transitionDuration = 5000
+var transitionDuration = 8000
 
 var lineSeparation = 80
 
@@ -80,63 +80,72 @@ statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "center
 
 {"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : 2*height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
 
-var lineFunction = d3.line()
-                    .x(function(d) { 
-                      console.log(d);
-                      return d.x; })
-                    .y(function(d) { return d.y; })
-                    .curve(d3.curveCardinal);
 
-spirals = svg.selectAll()    
+
+// Parameters for the spiral along which circles will move
+var numAnchorPoints = 50;
+var lineData = d3.range(numAnchorPoints);
+
+var a = 1.75; // Scaling of the spiral
+
+// Scale for mapping integer numbers 1..numAnchorPoints to radians of the spiral
+
+function scale_(nb_loops){
+  return d3.scaleLinear()
+                    .domain([0,numAnchorPoints])
+                    .range([6.25,nb_loops*2*Math.PI]);
+}
+
+
+ // Archimedes spiral
+var spiral = function(t, nb_loops){
+        return {"x":a*scale_(nb_loops)(t)*Math.cos(scale_(nb_loops)(t)),
+                "y":a*scale_(nb_loops)(t)*Math.sin(scale_(nb_loops)(t))};
+      };
+
+// Accessor function that will calculate svg path of the spiral
+var lineFunction = function(size){
+                  return d3.line()
+                  .x(function(d) { return spiral(d, size).x; })
+                  .y(function(d) { return spiral(d, size).y; })
+                 .curve(d3.curveBasis);} // try with "linear" or "basis"}
+
+
+
+// Scale the number of loops
+var loop_scale = d3.scaleLog()
+                    .domain([1,847])
+                    .range([0,4]);
+
+
+
+
+// Draw the spiral using the accessor function
+var path = svg.selectAll("path")
           .data(statistics)         
-      .enter().append("path")
-      .attr("d", function(d, i){
-
-        // How far to step away from center for each side.
-        var awayStep = d.radius/d.sides; 
-        // How far to rotate around center for each side.
-        var aroundStep = d.coils/d.sides;// 0 to 1 based.
-        // Convert aroundStep to radians.
-        var aroundRadians = aroundStep * 2 * Math.PI;
-        // Convert rotation to radians.
-        d.rotation *= 2 * Math.PI;
-
-        var new_time = [];
-
-        // For every side, step around and away from center.
-        for(var i=100; i<=d.sides; i++){
-          // How far away from center
-          var away = i * awayStep ;
-         
-          // How far around the center.
-          var around = i * aroundRadians + d.rotation;
-
-          // Convert 'around' and 'away' to X and Y.
-          var x = d.centerX + Math.cos(around) * away;
-          var y = d.centerY + Math.sin(around) * away;
-          
-          new_time.push({x: x, y: y});
-        }
-        return lineFunction(new_time);
-      })
-      // .attr("stroke", "url(#linear-gradient)")
-      .attr("stroke", "#8aded1")
-      .attr("stroke-width", 1)
-      .attr("opacity", 0.5)
-      .attr("fill", "none")
-      // .attr('transform', `translate(${margin.left}, 100)`)
+          .enter()
+          .append("path")
+          .attr("d", d => lineFunction(loop_scale(d.Number))(lineData))
+          .attr("stroke", "#f5b310")
+          .attr("stroke-width", 3)
+          .attr("fill", "none")
+          .attr('stroke-linejoin', 'round')
+          .attr('stroke-linecap', 'round')
+          .attr("transform", (d, i) => "translate(" + d.centerX + "," + d.centerY+ ")")
 
 
-
-// Transition
 var totalLength = svg.selectAll("path").node().getTotalLength();
-svg.selectAll("path")
-.attr("stroke-dasharray", totalLength + " " + totalLength)
+
+
+path.attr("stroke-dasharray", totalLength + " " + totalLength)
 .attr("stroke-dashoffset", totalLength)
 .transition()
-  .duration(transitionDuration)
-  .ease(d3.easeSin)
-  .attr("stroke-dashoffset", 0);
+.delay(transitionDuration*0.5)
+.duration(transitionDuration)
+.ease(d3.easeSin)
+.attr("stroke-dashoffset", 0);
+
+
 
 /* 
 -----------------SPIRAL TEXT-----------------
@@ -152,6 +161,7 @@ svg.selectAll("text.number")
                  .attr("class", "spiral-content")
                   .attr( "fill-opacity", 0 )
                   .transition()
+                .delay((d, i) => i * 0.1 * transitionDuration)
                   .ease(d3.easeCubicOut)
                   .duration(transitionDuration)
                   .attr( "fill-opacity", 1 )
@@ -176,8 +186,9 @@ svg.selectAll("spiral.description")
                  .text(function(d){ return d.Event;})
                 .style( "opacity", 0 )
                 .transition()
+                .delay((d, i) => i *  0.1 *  transitionDuration)
                   .ease(d3.easeBounce)
-                .duration(transitionDuration* 0.001)
+                .duration(transitionDuration*0.17)
                 .style( "opacity", 1 )
                 .attr('y',  function(d){return d.centerY + 60});
 
@@ -188,30 +199,30 @@ svg.selectAll("spiral.description")
 
 // Define the gradient
 //Coloring the spiral
-    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
-    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
+//     var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
+//     var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
 
-var linearGradient = svg.append("defs")
-        .append("linearGradient")
-        .attr("id", "linear-gradient")
-        .attr("gradientTransform", "rotate(90)");
+// var linearGradient = svg.append("defs")
+//         .append("linearGradient")
+//         .attr("id", "linear-gradient")
+//         .attr("gradientTransform", "rotate(90)");
 
-    linearGradient.append("stop")
-        .attr("offset", "0%")
-        .attr("stop-color", color(1));
+//     linearGradient.append("stop")
+//         .attr("offset", "0%")
+//         .attr("stop-color", color(1));
 
-    linearGradient.append("stop")
-        .attr("offset", "25%")
-        .attr("stop-color", color(2));
+//     linearGradient.append("stop")
+//         .attr("offset", "25%")
+//         .attr("stop-color", color(2));
 
-    linearGradient.append("stop")
-        .attr("offset", "50%")
-        .attr("stop-color", color(3));
+//     linearGradient.append("stop")
+//         .attr("offset", "50%")
+//         .attr("stop-color", color(3));
 
-    linearGradient.append("stop")
-        .attr("offset", "75%")
-        .attr("stop-color", color(4));
+//     linearGradient.append("stop")
+//         .attr("offset", "75%")
+//         .attr("stop-color", color(4));
 
-    linearGradient.append("stop")
-        .attr("offset", "100%")
-        .attr("stop-color", color(5));
+//     linearGradient.append("stop")
+//         .attr("offset", "100%")
+//         .attr("stop-color", color(5));
