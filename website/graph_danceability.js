@@ -20,7 +20,8 @@ d3.csv("data/billboard_features_top_100.csv",
   function (data) {
     return {
       year : d3.timeParse("%Y")(data.year),
-      danceability: data.danceability} 
+      danceability: data.danceability,
+      speechiness: data.speechiness}
     },
 
   //Processing
@@ -34,7 +35,7 @@ d3.csv("data/billboard_features_top_100.csv",
         .attr("font-weight", "bold")
         .attr("font-size", "16px")
         .style("text-anchor", "middle")
-        .text("Danceability");
+        .text("Danceability & Speechiness");
 
 
     // Create X Axis using a time scale
@@ -50,7 +51,7 @@ d3.csv("data/billboard_features_top_100.csv",
 
     // Create Y Axis (its domain is (0..1))
     var y = d3.scaleLinear()
-            .domain([0.5, 0.7])
+            .domain([0.0, 0.7])
             .range([ height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
@@ -67,8 +68,32 @@ d3.csv("data/billboard_features_top_100.csv",
         .text("Values of the audio features");
 
 
+
+    // Speechiness axis ?
+    // Append the Y axis to the left of the svg object
+    svg.append("g")
+          .attr("transform", "translate("+ (width - 150) +", 0)")
+           .call(d3.axisRight(y))
+           .attr("class", "axis");
+    // Add labels for the Y Axis
+
+    // var rotateTranslate = d3Transform().rotate(-45).translate(width - 150, 0);
+
+
+    svg.append("text")
+        // .attr("transform", "translate("+ (width - 150) +", 0)")
+        .attr("transform", "translate("+ (width - 70) +", " + (height/2) + "),rotate(90)")
+        // .attr("y",height/2)
+        // .attr("x",width - 150)
+        .attr("dy", "1em") 
+        // .attr("transform", "rotate(20)")
+        .attr("font-size", "18px")
+        .style("text-anchor", "middle")
+        .text("Speechiness");
+
+
     // Adding the actual data (one line per feature)
-    var features = ['danceability']
+    var features = ['danceability', 'speechiness']
 
     // Add the line
     // define the line
@@ -106,9 +131,9 @@ d3.csv("data/billboard_features_top_100.csv",
     var valueline = d3.line()
       // Smoothing the curve
       .curve(d3.curveBasis)
-      // Specifying the data
       .x(function(d) {return x(d.year); })
       .y(function(d) {return y(d[features[i]]); });
+
     // Append the path
     for(var i = 0; i < features.length; i++){
       path = svg.append("path")
@@ -117,7 +142,7 @@ d3.csv("data/billboard_features_top_100.csv",
          .attr("stroke", "url(#linear-gradient)")
          .attr("class", "line")
          .attr("stroke-width", 4)
-         .attr("d",valueline)
+         .attr("d", valueline)
 
       // Smooth display animation of lines
       var totalLength = path.node().getTotalLength();

@@ -40,19 +40,20 @@ d3.csv("data/billboard_features_top_100.csv",
     var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) { return d.year; }))
             .range([ 0, width - 150])
-
     // Append the X axis to the bottom of the svg object
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x))
         .attr("class", "axis");
 
-    // Create Y Axis (its domain is (0..1))
+
+    // Create Y Axis
     var y = d3.scaleLinear()
             .domain([0, 0.15])
             .range([ height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
+           .attr("transform", "translate("+width - 50+",0)")
            .call(d3.axisRight(y))
            .attr("class", "axis");
     // Add labels for the Y Axis
