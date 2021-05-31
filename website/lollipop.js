@@ -16,7 +16,7 @@ var self = this;
 var margin = {
         top: 30,
         right: 30,
-        bottom: 70,
+        bottom: 30,
         left: 100
     },
     width = 800 - margin.left - margin.right,
