@@ -53,6 +53,25 @@ p{
 .title {
     text-align: center;
     padding-bottom:6.25%;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 10px;
+    fill: #f5b310;
+}
+
+.subtitle, label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  fill: cornsilk;
+  color: cornsilk;
+}
+
+.description {
+  font-family: 'Verdana', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  fill: cornsilk;
 }
 
 .main_title {
@@ -74,8 +93,6 @@ p{
 .content {
     display: block;
     overflow: hidden;
-
-
 
 }
 
@@ -111,6 +128,19 @@ button {
 .axis {
     font-size: inherit;
 }
+
+.axis line{
+  stroke: white;
+}
+
+.axis path{
+  stroke: white;
+}
+
+.axis text{
+  fill: white;
+  font-size: 17px;
+}  
 
 .bttn-simple {
     margin: 0;
@@ -228,12 +258,56 @@ The various units of measurement available in CSS:
   stroke-width: 3px;
 }
 
-.spiral-content {
+.spiral-content+.spiral-element{
     fill: cornsilk;
-    stroke: #120f12;
-    font-size: 80px;
+    font: 9px Helvetica;
+    opacity: 0.8;
+    text-anchor: middle;
 }
 
 svg {
 	margin: 1rem;
+}
+
+#eventCheckbox
+{
+    position: relative;
+    top: 20px;
+    right: 60px;
+    float: right;
+    transform: scale(3);
+    
+}
+
+#eventCheckboxLabel
+{
+    position: relative;
+    top: 20px;
+    right: 60px;
+    float: right;
+}
+
+div.tooltip {   
+    position: absolute;
+    text-align: center;
+    font-family: -webkit-pictograph;
+    padding: 2px;
+    font: 20px Fantasy;
+    background: #3ba54a;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;         
+}
+
+.line-bar {
+fill: none;
+stroke: white;
+stroke-width: 3px;
+}
+
+.radio-group{
+    position: absolute;
+    float: right;
+    margin-top: 5em;
+    margin-left: 40em;
 }

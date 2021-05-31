@@ -141,7 +141,11 @@
 					<h2>Audio features, and what their history tells us about music</h2>
 					<hr>
 					<p>From the audio features data, we gathered several characteristics like speechiness, valence, and instrumentalness. The idea is to plot each of these features and see whether how changes in the people’s taste in music and in the music industry in general affected it. For example, in the plot below, we choose to plot speechiness and show how its changes correlate with rap music.</p>
-					<img src="samples/Speechiness.gif" style="width:1000px;height:500px;" class="center" >
+					<input class= "checkbox" type="checkbox" id="eventCheckbox" value="1" Checked>
+					<label for="checkbox" id="eventCheckboxLabel"> Show Events</label><br>
+					<div id="danceability_speechiness">
+	          <script src="graph_fusion.js"></script>
+	        </div>
 				</div>
 			</div>
 		</div>
@@ -152,7 +156,17 @@
 					<h2>Key achievements and milestones in the Billboard Hot 100 chart </h2>
 					<hr>
 					<p>Ideally, we would like to find the most influential artists and/or songs. We display each key achievement through a number, whether it is the number of times it appeared in the billboard or the number of consecutive weeks it stayed on it. For more intuitiveness, we would like to map the number to the length of its corresponding spiral. </p>
-					<img src="samples/samples.png" style="width:900;height:350px;" >
+					<div class="radio-group" id="radio-buttons">
+						<input type="radio" id="top-one" name="selector" value="Number 1" checked>
+						<label for="option-one">Number 1</label>
+						<input type="radio" id="all" name="selector" value="All">
+						<label for="option-two">All</label>
+				  </div>
+				  
+					<div id="spiral">
+	          <script src="spiral.js"></script>
+	        </div>
+
 				</div>
 			</div>
 		</div>
@@ -207,11 +221,11 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
-	<script>
+	<!-- <script>
 		new fullpage('#fullPage',{
 			autoScrolling : true,
 		})
-	</script>
+	</script> -->
 </body>
 
 <footer>
