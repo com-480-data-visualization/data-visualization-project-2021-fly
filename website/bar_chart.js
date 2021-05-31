@@ -20,7 +20,7 @@ var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
 var g = svgBarChart.append("g")
            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-function update_bar() {
+function update() {
   file = "files/sentiment/"+sentiment+".csv"
   d3.csv(file, function(error, data) {
       if (error) {
@@ -54,7 +54,7 @@ function update_bar() {
 function update_bar_chart(new_sentiment){
   svgBarChart.selectAll(".bar").remove();
   sentiment = new_sentiment;
-  update_bar();
+  update();
 }
 
-update_bar();
+update();
