@@ -22,7 +22,7 @@ Make the document fill the whole viewport, this overrides any weird defaults tha
 
 body {
     background-color: #203647;
-    font-family: 'Roboto';
+    font-family: 'MONTSERRAT';
     font-size: 15px;
     color: rgba(255, 255, 255, 0.17);
     width: 100%;
@@ -261,9 +261,14 @@ The various units of measurement available in CSS:
 
 .spiral-content+.spiral-element{
     fill: cornsilk;
-    font: 9px Helvetica;
-    opacity: 0.8;
+    font: 13px Helvetica;
+    /*opacity: 0.8;*/
     text-anchor: middle;
+}
+
+test.spiral-element{
+
+    fill: cornsilk;
 }
 
 svg {
@@ -309,6 +314,6 @@ stroke-width: 3px;
 .radio-group{
     position: absolute;
     float: right;
-    margin-top: 5em;
+    margin-top: 2em;
     margin-left: 40em;
 }

@@ -1,11 +1,20 @@
+// var margin = {
+//         top: 30,
+//         right: 30,
+//         bottom: 70,
+//         left: 100
+//     },
+//     width = 1000 - margin.left - margin.right,
+//     height = 700 - margin.top - margin.bottom;
+
 var margin = {
         top: 30,
         right: 30,
-        bottom: 70,
+        bottom: 30,
         left: 100
     },
     width = 1000 - margin.left - margin.right,
-    height = 700 - margin.top - margin.bottom;
+    height = 300 - margin.top - margin.bottom;
 
 var transitionDuration = 3000
 
@@ -18,69 +27,22 @@ var svg = d3.select("#spiral").append("svg")
   .append("g");
 
 /* 
------------------TITLES-----------------
-*/
-
-const title = svg.append('g');
-  title.append('g')
-    .call(addTitle, 'Achievements and Milestones in the Billboard 100');
-  title.append('g')
-    .call(addTitle, 'Top Hits & Artists in numbers', 'subtitle');
-
-spiral_description = ['Blabla 1.', 'Blabla 2.']
-svg.append('g')
-    .call(addDescription, spiral_description);
-
-
-function addTitle(g, title, type = 'title') {
-  return g.attr('transform', `translate(${margin.left}, ${margin.top + (type == 'subtitle' ? 25 : 0)})`)
-  .append('text')
-    .attr('class', type)
-    .text(title)
-}
-
-function addDescription(g, data) {
-  return g.attr('transform', `translate(${margin.left + 7.5}, ${margin.top + 50})`)
-  .selectAll('text-description')
-  .data(data)
-  .enter().append("text")
-    .attr('class', 'description')
-    .attr('y', (d, i) => i * lineSeparation)
-    .text(d => d);}
-
-/* 
------------------ROW DESCRIPTION-----------------
-*/
-row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
-
-function addRowDescription(g, data) {
-  return g.attr('transform', `translate(0, ${margin.top + 200})`)
-  .selectAll('text-description')
-  .append("text")
-    .attr('class', 'description')
-    .attr("class", "spiral-element")
-    .attr('y', function(){
-      console.log('hi');
-      return 100;})
-    .text(data);}
-
-/* 
 -----------------SPIRALS-----------------
 */
 
 section = 0;
 
-statistics = [{"Number": 847, "Event": "Elton John", "centerX": width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+statistics = [{"Number": 847, "Event": "Elton John", "Singer" : "", "centerX": width/4, "centerY" : height/2},
 
-{"Number": 328, "Event": "Gold - Connie Francis (Album)", "centerX": width/2, "centerY" : height/3, "radius": 35, "sides": 300, "coils": 5, "rotation":0},
+{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": width/2, "centerY" : height/2},
 
-{"Number": 87, "Event": "Radioactive - Imagine Dragons", "centerX": 3*width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": 3*width/4, "centerY" : height/2},
 
-{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0},
+{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/2},
 
-{"Number": 19, "Event": "Old Town Road - Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 2, "rotation":0},
+{"Number": 19, "Event": "Old Town Road", "Singer" : "Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/2},
 
-{"Number": 29, "Event": "Scorpion - Drake", "centerX": 3*width/4, "centerY" : height/3, "radius": 35, "sides": 200, "coils": 3, "rotation":0}]
+{"Number": 29, "Event": "Scorpion (Album)", "Singer" : "Drake",  "centerX": 3*width/4, "centerY" : height/2}]
 
 
 
@@ -171,8 +133,9 @@ function changeGraph() {
 
 
 /*-----------------ROW DESCRPTIONS-----------------*/
-// svg.append('g')
-//     .call(addRowDescription, row_descriptions[section]);
+
+
+row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
 
 svg.append("text")
                // .attr("dy", function(d){return "62%"})
@@ -181,16 +144,20 @@ svg.append("text")
                 .attr("class", "spiral-element")
                  .text(row_descriptions[section])
                 .style( "opacity", 0 )
+                .style("fill", "cornsilk")
                 .transition()
                 .delay((d, i) => i *  0.1 *  transitionDuration)
                   .ease(d3.easeBounce)
                 .duration(transitionDuration*0.17)
                 .style( "opacity", 1 )
-                .attr('y',  height/3);
+                // .attr('y',  height/4);
+                .attr('y',  margin.top);
 /*----------------------------------------------*/
 
 /* 
 -----------------SPIRAL TEXT-----------------*/
+      /* -----------------Numbers inside spiral-----------------*/
+
 var start_val = 0;
 svg.selectAll("text.number")
                 .data(statistics.slice(section * 3, section * 3 + 3))
@@ -201,11 +168,14 @@ svg.selectAll("text.number")
                  .attr("x", function(d){return d.centerX})
                  .attr("class", "spiral-content spiral-element")
                   .attr( "fill-opacity", 0 )
+                  .style( "fill", "cornsilk" )
+                  .style("font", "10px Helvetica")
+                  .style("text-anchor", "middle")
                   .transition()
                 .delay((d, i) => i * 0.1 * transitionDuration)
                   .ease(d3.easeCubicOut)
                   .duration(transitionDuration)
-                  .attr( "fill-opacity", 1 )
+                  .attr( "fill-opacity", 0.8 )
                   .tween("text", function(d) {
                     var node = this;
                     let i = d3.interpolate(node.textContent, d.Number);
@@ -216,6 +186,7 @@ svg.selectAll("text.number")
 
 
 
+      /* -----------------Labels under spiral-----------------*/
   svg.selectAll("spiral.description")
                   .data(statistics.slice(section * 3, section * 3 + 3))
                   .enter()
@@ -230,7 +201,25 @@ svg.selectAll("text.number")
                     .ease(d3.easeBounce)
                   .duration(transitionDuration*0.17)
                   .style( "opacity", 1 )
+                  .style("font-weight", "bold")
                   .attr('y',  function(d){return d.centerY + 60});
+
+
+  svg.selectAll("spiral.description")
+                  .data(statistics.slice(section * 3, section * 3 + 3))
+                  .enter()
+                  .append("text")
+                  .attr("x", function(d){return d.centerX})
+                  .attr("y", function(d){return d.centerY + 40})
+                  .attr("class", "spiral-content spiral-element")
+                   .text(function(d){ return d.Singer;})
+                  .style( "opacity", 0 )
+                  .transition()
+                  .delay((d, i) => i *  0.1 *  transitionDuration)
+                    .ease(d3.easeBounce)
+                  .duration(transitionDuration*0.17)
+                  .style( "opacity", 0.9 )
+                  .attr('y',  function(d){return d.centerY + 77});
 
 /* ---------------------------------------------------*/
 }
