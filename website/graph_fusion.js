@@ -1,26 +1,41 @@
 // dimensions and margins of graph
 var margin = {top: 10, right: 10, bottom: 30, left: 100},
-    width = 2000  - margin.left - margin.right,
+    // width = d3.select("#danceability_speechiness").node().getBoundingClientRect().width,
+    width = 1200  - margin.left - margin.right,
+
     height = 800 - margin.top - margin.bottom;
 
+    console.log(height)
+
+
+  console.log(width)
 
 transitionDuration = 2000;
 
 // append the svg object to the body of the page
 var svg = d3.select("#danceability_speechiness")
+   // Container class to make it responsive.
+   .classed("svg-container", true) 
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+   // Responsive SVG needs these 2 attributes and no width and height attr.
+   .attr("preserveAspectRatio", "xMinYMin meet")
+   .attr("viewBox", "0 0 1150 800")
+   // Class to make it responsive.
+   .classed("svg-content-responsive", true)
+    // .attr("width", width + margin.left + margin.right)
+    // .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("class", "graph")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
+
 
 //Read the data
 d3.csv("files/features/billboard_features_top_100.csv", 
 
   // Preprocessing
   function (data) {
+
     return {
       year : d3.timeParse("%Y")(data.year),
       danceability: data.danceability,
@@ -95,6 +110,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
         // .attr("x",width - 150)
         .attr("dy", "1em") 
         .attr("class", "axis")
+        .style("fill", "white")
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Speechiness");
@@ -107,36 +123,6 @@ d3.csv("files/features/billboard_features_top_100.csv",
 
 
     // Add the line
-    // define the line
-    var colorRange = ['#d7191c', '#fdae61', '#ffffbf', '#a6d96a', '#1a9641']
-    var color = d3.scaleLinear().range(colorRange).domain([1, 2, 3, 4, 5]);
-
-    // Define the gradient
-    var linearGradient = svg.append("defs")
-            .append("linearGradient")
-            .attr("id", "linear-gradient")
-            .attr("gradientTransform", "rotate(90)");
-
-        linearGradient.append("stop")
-            .attr("offset", "0%")
-            .attr("stop-color", color(1));
-
-        linearGradient.append("stop")
-            .attr("offset", "25%")
-            .attr("stop-color", color(2));
-
-        linearGradient.append("stop")
-            .attr("offset", "50%")
-            .attr("stop-color", color(3));
-
-        linearGradient.append("stop")
-            .attr("offset", "75%")
-            .attr("stop-color", color(4));
-
-        linearGradient.append("stop")
-            .attr("offset", "100%")
-            .attr("stop-color", color(5));
-
 
 
     var valueline = d3.line()
@@ -214,7 +200,6 @@ d3.csv("files/features/billboard_features_top_100.csv",
 
 
 
-
     // Append a rect on top of the svg area to detect cursor pos
   rect = svg
     .append('rect')
@@ -222,13 +207,14 @@ d3.csv("files/features/billboard_features_top_100.csv",
     .style("pointer-events", "all")
     .attr("width", width - 150)
     .attr("height", height + margin.top + margin.bottom)
-    .on('mouseover', cursorover)
-    .on('mousemove', function() {
+    .on('mouseover', cursorover);
+  rect.on('mousemove', function() {
       var mouse = d3.mouse(this);
       // move the vertical line
       d3.select(".line-bar")
       .attr("d", function() {
-        var d = "M" + mouse[0] + "," + height;
+        console.log(rect.attr("width"))
+        var d = "M" + mouse[0] + "," + 400;
         d += " " + mouse[0] + "," + 0;
         return d;
       });
@@ -321,7 +307,7 @@ mainEvents = [//Danceability Events
               {"Year": 1986, "Event": "You Be Illin' - Run D.M.C: The rise of danceable hip hop", danceability: 0.962},
               {"Year": 1989, "Event": "Funky Cold Medina - Tone-Loc: The most danceable on the billboard", danceability: 0.988},
               {"Year": 1996, "Event": "Emergence and Spreading of Trance music", danceability: 0.604},
-              {"Year": 1997, "Event": "Around the World - Daft Punk: French House goes international", danceability: 0.956},
+              {"Year": 1998, "Event": "Around the World - Daft Punk: French House goes international", danceability: 0.956},
               {"Year": 1998, "Event": "Blue (Da Ba Dee) - Eiffel 65: International success", danceability: 0.956},
               {"Year": 2001, "Event": "Sandstorm - Darude: an Iconic EDM Song", danceability: 0.956},
               {"Year": 2006, "Event": "Temperature - Sean Paul: Dance pop still at the top of the chart)", danceability: 0.951},

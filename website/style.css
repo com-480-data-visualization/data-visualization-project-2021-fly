@@ -1,3 +1,7 @@
+:root {
+  --comment-title-color: rgba(242,118,89);
+}
+
 /*
 This makes the border and padding be counted as part of the element's size.
 It switches from
@@ -7,6 +11,21 @@ to
 */
 * {
 	box-sizing: border-box;
+}
+
+.svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-content-responsive {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: 0;
 }
 
 /*
@@ -238,7 +257,7 @@ button {
 }
 
 .comment-title {
-    background-color: rgba(242,118,89);
+    background-color: var(--comment-title-color);
     width: max-content;
     text-align: left;
     padding: 4px 10px 4px 10px;
@@ -307,11 +326,12 @@ div.tooltip {
     position: absolute;
     text-align: center;
     font-family: -webkit-pictograph;
-    padding: 2px;
-    font: 20px Fantasy;
-    background: #3ba54a;
+    padding: 1px;
+    font-size: 15px;
+    /*font: 20px Fantasy;*/
+    background: var(--comment-title-color);
     border: 0px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     pointer-events: none;         
 }
 

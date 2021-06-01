@@ -14,15 +14,16 @@ var margin = {
         left: 100
     },
     width = 1000 - margin.left - margin.right,
-    height = 1000 - margin.top - margin.bottom;
+    height = 800 - margin.top - margin.bottom;
 
 var transitionDuration = 3000
 
 var lineSeparation = 80
 
+
 // Create SVG
 var svgSpiral = d3.select("#spiral").append("svg")
-    .attr("width", width)
+    .attr("width", d3.select("#spiral").node().getBoundingClientRect().width)
     .attr("height", height)
   .append("g");
 
@@ -37,14 +38,14 @@ statistics = [{"Number": 847, "Event": "Elton John", "Singer" : "", "centerX": w
 {"Number": 827, "Event": "Taylor Swift", "Singer" : "", "centerX": width/4, "centerY" : 3*height/4},
 
 
-{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": width/2, "centerY" : height/4},
-{"Number": 259, "Event": "Celebration (Album)", "Singer" : "Madonna", "centerX": width/2, "centerY" : height/2},
-{"Number": 197, "Event": "Beauty Behind The Madness (Album)", "Singer" : "The Weeknd", "centerX": width/2, "centerY" : 3*height/4},
+{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": width/2, "centerY" : height/4},
+{"Number": 79, "Event": "Sail", "Singer" : "Awolnation", "centerX": width/2, "centerY" : height/2},
+{"Number": 76, "Event": "I'm Yours", "Singer" : "Jason Mraz", "centerX": width/2, "centerY" : 3*height/4},
 
 
-{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": 3*width/4, "centerY" : height/4},
-{"Number": 79, "Event": "Sail", "Singer" : "Awolnation", "centerX": 3*width/4, "centerY" : height/2},
-{"Number": 76, "Event": "I'm Yours", "Singer" : "Jason Mraz", "centerX": 3*width/4, "centerY" : 3*height/4},
+{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": 3*width/4, "centerY" : height/4},
+{"Number": 259, "Event": "Celebration (Album)", "Singer" : "Madonna", "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 197, "Event": "Beauty Behind The Madness (Album)", "Singer" : "The Weeknd", "centerX": 3*width/4, "centerY" : 3*height/4},
 
 
 {"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/4},
@@ -101,7 +102,7 @@ var loop_scale = d3.scaleLog()
 */
 // Function that change a color
 function changeGraph() {
-  if (d3.select("#top-one").property("checked")) {
+  if (d3.select("#all").property("checked")) {
     section = 0;
     d3.selectAll(".spiral-element").remove();
     var path = svgSpiral.selectAll("spiral-path")
@@ -141,7 +142,7 @@ function changeGraph() {
     path.attr("stroke-dasharray", totalLength + " " + totalLength)
     .attr("stroke-dashoffset", totalLength)
     .transition()
-    .delay(transitionDuration*0.1)
+    .delay((d, i) => i * transitionDuration*0.1)
     .duration(transitionDuration )
     .ease(d3.easeSin)
     .attr("stroke-dashoffset", 0);
