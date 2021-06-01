@@ -17,7 +17,7 @@ var svg = d3.select("#danceability_speechiness")
           "translate(" + margin.left + "," + margin.top + ")");
 
 //Read the data
-d3.csv("data/billboard_features_top_100.csv", 
+d3.csv("files/features/billboard_features_top_100.csv", 
 
   // Preprocessing
   function (data) {
@@ -145,7 +145,7 @@ d3.csv("data/billboard_features_top_100.csv",
 
     // Append the paths
     for(var i = 0; i < features.length; i++){
-      path = svg.append("path")
+      line_path = svg.append("path")
          .data([data])
          .attr("fill", "none")
          // .attr("stroke", "url(#linear-gradient)")
@@ -155,8 +155,8 @@ d3.csv("data/billboard_features_top_100.csv",
          .attr("d", valueline)
 
       // Smooth display animation of lines
-      var totalLength = path.node().getTotalLength();
-      path
+      var totalLength = line_path.node().getTotalLength();
+      line_path
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition()

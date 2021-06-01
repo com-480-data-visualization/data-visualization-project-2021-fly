@@ -127,7 +127,7 @@ function changeGraph() {
   if (d3.select("#top-one").property("checked")) {
     section = 0;
     d3.selectAll(".spiral-element").remove();
-    var path = svg.selectAll("path")
+    var path = svg.selectAll("spiral-path")
           .data(statistics.slice(section * 3, section * 3 + 3))         
           .enter()
           .append("path")
@@ -143,7 +143,7 @@ function changeGraph() {
     else{
       section = 1;
     d3.selectAll(".spiral-element").remove();
-    var path = svg.selectAll("path")
+    var path = svg.selectAll("spiral-path")
             .data(statistics.slice(section * 3, section * 3 + 3))         
             .enter()
             .append("path")
