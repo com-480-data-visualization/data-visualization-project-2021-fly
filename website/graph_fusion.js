@@ -12,6 +12,8 @@ var margin = {top: 10, right: 10, bottom: 30, left: 100},
 
 transitionDuration = 2000;
 
+var colors = ['#e3b128', '#88446c']
+
 // append the svg object to the body of the page
 var svg = d3.select("#danceability_speechiness")
    // Container class to make it responsive.
@@ -19,7 +21,7 @@ var svg = d3.select("#danceability_speechiness")
   .append("svg")
    // Responsive SVG needs these 2 attributes and no width and height attr.
    .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 1150 800")
+   .attr("viewBox", "0 0 1200 800")
    // Class to make it responsive.
    .classed("svg-content-responsive", true)
     // .attr("width", width + margin.left + margin.right)
@@ -49,11 +51,12 @@ d3.csv("files/features/billboard_features_top_100.csv",
     svg.append("text")
         .attr("y", 0 - margin.top)
         .attr("x",(width / 2))
-        .attr("dy", "1em")
+        .attr("dy", "3em")
         .attr("font-weight", "bold")
         .attr("font-size", "16px")
+        .attr("class", "title")
         .style("text-anchor", "middle")
-        .text("Danceability & Speechiness");
+        .text("Danceability & Speechiness through the years");
 
 
     // Create X Axis using a time scale
@@ -74,7 +77,8 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Append the Y axis to the left of the svg object
     svg.append("g")
            .call(d3.axisLeft(y_danceability))
-           .attr("class", "axis");
+           .attr("class", "axis")
+           .style("stroke", colors[0]);
     // Add labels for the Y Axis
     svg.append("text")
         .attr("transform", "rotate(-90)")
@@ -82,14 +86,14 @@ d3.csv("files/features/billboard_features_top_100.csv",
         .attr("x",0 - (height / 2))
         .attr("dy", "1em") 
         .attr("class", "axis")
-        .style("fill", "white")
+        .style("fill", colors[0])
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Danceability");
 
 
 
-    // Speechiness axis ?
+    // Speechiness axis
     var y_speechiness = d3.scaleLinear()
             .domain([0.0, 0.2])
             .range([ height, 0 ]);
@@ -97,7 +101,8 @@ d3.csv("files/features/billboard_features_top_100.csv",
     svg.append("g")
           .attr("transform", "translate("+ (width - 150) +", 0)")
            .call(d3.axisRight(y_speechiness))
-           .attr("class", "axis");
+           .attr("class", "axis")
+           .style("stroke", colors[1]);
     // Add labels for the Y Axis
 
     // var rotateTranslate = d3Transform().rotate(-45).translate(width - 150, 0);
@@ -110,7 +115,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
         // .attr("x",width - 150)
         .attr("dy", "1em") 
         .attr("class", "axis")
-        .style("fill", "white")
+        .style("fill", colors[1])
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Speechiness");
@@ -118,7 +123,6 @@ d3.csv("files/features/billboard_features_top_100.csv",
 
     // Adding the actual data (one line per feature)
     var features = ['danceability', 'speechiness']
-    var colors = ['orange', 'pink']
     var scales = [y_danceability, y_speechiness]
 
 
@@ -287,6 +291,7 @@ function cursorout() {
       .html("Year:" + selection.year.getFullYear() + "  -  " + "Danceability:" + parseFloat(selection.danceability).toFixed(2))
       .attr("x", x(selection.year)+15)
       .attr("y", y_danceability(selection["danceability"]))
+      .style("fill", "cornsilk")
     }
 
   function cursorout_danceability() {
@@ -335,19 +340,19 @@ for(var i = 0; i < features.length; i++){
           .data(mainEvents[i])         
       .enter().append("circle")                
       .style("opacity", 0)                              
-      .attr("r", 10)       
+      .attr("r", 8)       
       .attr("cx", function(d) {
         return x(new Date(d.Year+"-01-01T00:00"))})       
       .attr("cy", function(d) {
          return scales[i](data[bisect(data, new Date(d.Year+"-01-01T00:00"), 1)][features[i]]);
        })      
-      .attr("stroke", "white")  
-      .attr("fill", "black")
+      // .attr("stroke", "white")  
+      .attr("fill", colors[i])
       // .style("display", "none")    
       .on("mouseover", function(d) {
         if(d3.select("#eventCheckbox").property("checked")) {     
                   div.transition()        
-                      .duration(100)      
+                      .duration(200)      
                       .style("opacity", .9);      
                   div .html(d.Year+ "<br/>"  + d.Event)  
                       .style("left", (d3.event.pageX) + "px")     
@@ -359,7 +364,7 @@ for(var i = 0; i < features.length; i++){
               .style("opacity", 0);   
       })
       .transition()
-      .delay((d, i) => i * 80)             
+      .delay((d, i) => i * transitionDuration * 0.07)             
       .duration(transitionDuration)  
       .style("opacity", .9);
 
