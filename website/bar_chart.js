@@ -14,11 +14,10 @@ var svgBarChart = d3.select("#bar_chart_d3")
                  .attr("width", width + margin.left + margin.right)
                  .attr("height", height + margin.top + margin.bottom)
 
-var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
-    yScale = d3.scaleLinear().range ([height, 0]);
+var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+    yScale = d3.scaleLinear().range([height, 0]);
 
 var g = svgBarChart.append("g")
-           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 function update() {
   file = "files/sentiment/"+sentiment+".csv"
@@ -32,13 +31,7 @@ function update() {
 
       g.append("g")
        .attr("transform", "translate(0," + height + ")")
-       .call(d3.axisBottom(xScale));
-/*
-      g.append("g")
-       .call(d3.axisLeft(yScale).tickFormat(function(d){
-           return d;
-       }).ticks(5));
-*/
+       .call(d3.axisBottom().scale(xScale));
 
       g.selectAll(".bar")
        .data(data)
