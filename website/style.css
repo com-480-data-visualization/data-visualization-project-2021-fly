@@ -50,8 +50,16 @@ p{
     font-size: 1em;
 }
 
+h2{
+    width: 80%; 
+    text-align: center;
+    margin: auto;
+    padding-bottom: 15px;
+}
+
 .title {
     text-align: center;
+    width: 80%
     padding-bottom:6.25%;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
@@ -127,6 +135,7 @@ button {
 
 .axis {
     font-size: inherit;
+    /*fill: white;*/
 }
 
 .axis line{
@@ -138,6 +147,7 @@ button {
 }
 
 .axis text{
+    color: white;
   fill: white;
   font-size: 12px;
 }  

@@ -1,7 +1,7 @@
 // dimensions and margins of graph
-var margin = {top: 10, right: 30, bottom: 30, left: 60},
-    width = 1000  - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+var margin = {top: 10, right: 10, bottom: 30, left: 100},
+    width = 2000  - margin.left - margin.right,
+    height = 800 - margin.top - margin.bottom;
 
 
 transitionDuration = 2000;
@@ -66,6 +66,8 @@ d3.csv("files/features/billboard_features_top_100.csv",
         .attr("y", - margin.left - 5)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em") 
+        .attr("class", "axis")
+        .style("fill", "white")
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Danceability");
@@ -92,7 +94,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
         // .attr("y",height/2)
         // .attr("x",width - 150)
         .attr("dy", "1em") 
-        // .attr("transform", "rotate(20)")
+        .attr("class", "axis")
         .attr("font-size", "18px")
         .style("text-anchor", "middle")
         .text("Speechiness");
@@ -269,6 +271,7 @@ function cursorout() {
       .html("Year:" + selection.year.getFullYear() + "  -  " + "Speechiness:" + parseFloat(selection.speechiness).toFixed(2))
       .attr("x", x(selection.year)+15)
       .attr("y", y_speechiness(selection["speechiness"]))
+      .style("fill", "cornsilk")
     }
 
   function cursorout_speechiness() {

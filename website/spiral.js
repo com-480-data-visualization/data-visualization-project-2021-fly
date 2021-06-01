@@ -14,14 +14,14 @@ var margin = {
         left: 100
     },
     width = 1000 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    height = 1000 - margin.top - margin.bottom;
 
 var transitionDuration = 3000
 
 var lineSeparation = 80
 
 // Create SVG
-var svg = d3.select("#spiral").append("svg")
+var svgSpiral = d3.select("#spiral").append("svg")
     .attr("width", width)
     .attr("height", height)
   .append("g");
@@ -32,17 +32,32 @@ var svg = d3.select("#spiral").append("svg")
 
 section = 0;
 
-statistics = [{"Number": 847, "Event": "Elton John", "Singer" : "", "centerX": width/4, "centerY" : height/2},
+statistics = [{"Number": 847, "Event": "Elton John", "Singer" : "", "centerX": width/4, "centerY" : height/4},
+{"Number": 837, "Event": "Madonna", "Singer" : "", "centerX": width/4, "centerY" : height/2},
+{"Number": 827, "Event": "Taylor Swift", "Singer" : "", "centerX": width/4, "centerY" : 3*height/4},
 
-{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": width/2, "centerY" : height/2},
 
-{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": width/2, "centerY" : height/4},
+{"Number": 259, "Event": "Celebration (Album)", "Singer" : "Madonna", "centerX": width/2, "centerY" : height/2},
+{"Number": 197, "Event": "Beauty Behind The Madness (Album)", "Singer" : "The Weeknd", "centerX": width/2, "centerY" : 3*height/4},
 
-{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/2},
 
-{"Number": 19, "Event": "Old Town Road", "Singer" : "Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/2},
+{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": 3*width/4, "centerY" : height/4},
+{"Number": 79, "Event": "Sail", "Singer" : "Awolnation", "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 76, "Event": "I'm Yours", "Singer" : "Jason Mraz", "centerX": 3*width/4, "centerY" : 3*height/4},
 
-{"Number": 29, "Event": "Scorpion (Album)", "Singer" : "Drake",  "centerX": 3*width/4, "centerY" : height/2}]
+
+{"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/4},
+{"Number": 54, "Event": "The Beatles", "centerX": width/4, "centerY" : height/2},
+{"Number": 33, "Event": "Boyz II Men", "centerX": width/4, "centerY" : 3*height/4},
+
+{"Number": 19, "Event": "Old Town Road", "Singer" : "Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/4},
+{"Number": 16, "Event": "One Sweet Day", "Singer" : "Mariah Carey & Boyz II Men", "centerX": width/2, "centerY" : height/2},
+{"Number": 16, "Event": "Despacito", "Singer" : "Luis Fonsi & Daddy Yankee ft. Justin Bieber", "centerX": width/2, "centerY" : 3*height/4},
+
+{"Number": 29, "Event": "Scorpion (Album)", "Singer" : "Drake",  "centerX": 3*width/4, "centerY" : height/4},
+{"Number": 28, "Event": "The E.N.D. (Album)", "Singer" : "Black Eyed Peas",  "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 29, "Event": "1 (Album)", "Singer" : "The Beatles",  "centerX": 3*width/4, "centerY" : 3*height/4}]
 
 
 
@@ -89,8 +104,8 @@ function changeGraph() {
   if (d3.select("#top-one").property("checked")) {
     section = 0;
     d3.selectAll(".spiral-element").remove();
-    var path = svg.selectAll("spiral-path")
-          .data(statistics.slice(section * 3, section * 3 + 3))         
+    var path = svgSpiral.selectAll("spiral-path")
+          .data(statistics.slice(section * 9, section * 9 + 9))         
           .enter()
           .append("path")
           .attr("class", "spiral-element")
@@ -105,8 +120,8 @@ function changeGraph() {
     else{
       section = 1;
     d3.selectAll(".spiral-element").remove();
-    var path = svg.selectAll("spiral-path")
-            .data(statistics.slice(section * 3, section * 3 + 3))         
+    var path = svgSpiral.selectAll("spiral-path")
+            .data(statistics.slice(section * 9, section * 9 + 9))         
             .enter()
             .append("path")
             .attr("class", "spiral-element")
@@ -120,7 +135,7 @@ function changeGraph() {
     }
 
 
-    var totalLength = svg.selectAll("path").node().getTotalLength();
+    var totalLength = svgSpiral.selectAll("path").node().getTotalLength();
 
 
     path.attr("stroke-dasharray", totalLength + " " + totalLength)
@@ -137,7 +152,7 @@ function changeGraph() {
 
 row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
 
-svg.append("text")
+svgSpiral.append("text")
                // .attr("dy", function(d){return "62%"})
                 .attr("x", margin.right)
                 .attr("y", 0)
@@ -159,8 +174,8 @@ svg.append("text")
       /* -----------------Numbers inside spiral-----------------*/
 
 var start_val = 0;
-svg.selectAll("text.number")
-                .data(statistics.slice(section * 3, section * 3 + 3))
+svgSpiral.selectAll("text.number")
+                .data(statistics.slice(section * 9, section * 9 + 9))
                 .enter()
                 .append("text")
           .text(start_val)
@@ -187,8 +202,8 @@ svg.selectAll("text.number")
 
 
       /* -----------------Labels under spiral-----------------*/
-  svg.selectAll("spiral.description")
-                  .data(statistics.slice(section * 3, section * 3 + 3))
+  svgSpiral.selectAll("spiral.description")
+                  .data(statistics.slice(section * 9, section * 9 + 9))
                   .enter()
                   .append("text")
                   .attr("x", function(d){return d.centerX})
@@ -205,8 +220,8 @@ svg.selectAll("text.number")
                   .attr('y',  function(d){return d.centerY + 60});
 
 
-  svg.selectAll("spiral.description")
-                  .data(statistics.slice(section * 3, section * 3 + 3))
+  svgSpiral.selectAll("spiral.description")
+                  .data(statistics.slice(section * 9, section * 9 + 9))
                   .enter()
                   .append("text")
                   .attr("x", function(d){return d.centerX})
