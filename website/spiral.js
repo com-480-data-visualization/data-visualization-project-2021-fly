@@ -73,7 +73,7 @@ var a = 1.75; // Scaling of the spiral
 function scale_(nb_loops){
   return d3.scaleLinear()
                     .domain([0,numAnchorPoints])
-                    .range([6.25,nb_loops*2*Math.PI]);
+                    .range([6.5,nb_loops*2*Math.PI]);
 }
 
 
@@ -97,6 +97,93 @@ var loop_scale = d3.scaleLog()
                     .domain([1,847])
                     .range([0,4]);
 
+
+
+/*-----------------LEGEND-----------------*/
+
+
+column_legend_names = ['Artists', 'Songs', 'Albums'];
+// legend_spiral_elements = [{"Number": 30, "Event": "Name", "Singer" : "", "centerX": 5*width/6, "centerY" : height/8}];
+
+function addLegend(){
+
+  // var spiral_legend = svgSpiral.selectAll("spiral-path-legend")
+  //         .append("path")
+  //         .attr("class", "spiral-element")
+  //         .attr("d", lineFunction(loop_scale(30))(lineData))
+  //         .attr("stroke", "#f5b310")
+  //         .attr("stroke-width", 3)
+  //         .attr("fill", "none")
+  //         .attr('stroke-linejoin', 'round')
+  //         .attr('stroke-linecap', 'round')
+  //         .attr("transform", "translate(" + 1000 + "," + height/8+ ")")
+
+
+// svgSpiral.selectAll("text.number")
+//                 .data(statistics.slice(section * 9, section * 9 + 9))
+//                 .enter()
+//                 .append("text")
+//           .text(start_val)
+//                 .attr("y", function(d){return d.centerY})
+//                  .attr("x", function(d){return d.centerX})
+//                  .attr("class", "spiral-content spiral-element")
+//                   .attr( "fill-opacity", 0 )
+//                   .style( "fill", "cornsilk" )
+//                   .style("font", "10px Helvetica")
+//                   .style("text-anchor", "middle")
+//                   .transition()
+//                 .delay((d, i) => i * 0.1 * transitionDuration)
+//                   .ease(d3.easeCubicOut)
+//                   .duration(transitionDuration)
+//                   .attr( "fill-opacity", 0.8 )
+//                   .tween("text", function(d) {
+//                     var node = this;
+//                     let i = d3.interpolate(node.textContent, d.Number);
+//                     return function(t) {
+//                       d3.select(node).text(Math.round(i(t)));
+//                     };
+//                   });
+
+  svgSpiral.append("text")
+                .attr("x", margin.left + 120)
+                .attr("y", height/6)
+                .attr("class", "legend")
+                 .text(column_legend_names[0])
+                .style( "opacity", 0 )
+                .style("fill", "cornsilk")
+                .transition()
+                .duration(transitionDuration*0.5)
+                .style( "opacity", 1 )
+                .style("text-anchor", "middle");
+
+  svgSpiral.append("text")
+                  .attr("x", margin.left + 335)
+                  .attr("y", height/6)
+                  .attr("class", "legend")
+                   .text(column_legend_names[1])
+                  .style( "opacity", 0 )
+                  .style("fill", "cornsilk")
+                  .transition()
+                  .duration(transitionDuration*0.5)
+                  .style( "opacity", 1 )
+                  .style("text-anchor", "middle");
+
+  svgSpiral.append("text")
+                  .attr("x", margin.left + 550)
+                  .attr("y", height/6)
+                  .attr("class", "legend")
+                   .text(column_legend_names[2])
+                  .style( "opacity", 0 )
+                  .style("fill", "cornsilk")
+                  .transition()
+                  .duration(transitionDuration*0.5)
+                  .style( "opacity", 1 )
+                  .style("text-anchor", "middle");
+}
+
+
+/*----------------------------------------------*/
+
 /* 
 -----------------SPIRAL CHOICE-----------------
 */
@@ -105,6 +192,8 @@ function changeGraph() {
   if (d3.select("#all").property("checked")) {
     section = 0;
     d3.selectAll(".spiral-element").remove();
+    d3.selectAll(".legend").remove();
+    addLegend();
     var path = svgSpiral.selectAll("spiral-path")
           .data(statistics.slice(section * 9, section * 9 + 9))         
           .enter()
@@ -121,6 +210,8 @@ function changeGraph() {
     else{
       section = 1;
     d3.selectAll(".spiral-element").remove();
+    d3.selectAll(".legend").remove();
+    addLegend();
     var path = svgSpiral.selectAll("spiral-path")
             .data(statistics.slice(section * 9, section * 9 + 9))         
             .enter()
@@ -150,8 +241,8 @@ function changeGraph() {
 
 /*-----------------ROW DESCRPTIONS-----------------*/
 
-
-row_descriptions = ['Top appearences in Billboard', 'Most weeks in Top 1']
+row_descriptions = ['Weeks spent on the Billboard: all positions', "Weeks spent on the Billboard: 1ˢᵗ position"]
+// 1ˢᵗ
 
 svgSpiral.append("text")
                // .attr("dy", function(d){return "62%"})
@@ -169,6 +260,9 @@ svgSpiral.append("text")
                 // .attr('y',  height/4);
                 .attr('y',  margin.top);
 /*----------------------------------------------*/
+
+
+
 
 /* 
 -----------------SPIRAL TEXT-----------------*/

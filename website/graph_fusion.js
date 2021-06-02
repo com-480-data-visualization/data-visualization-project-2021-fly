@@ -21,7 +21,7 @@ var svg = d3.select("#danceability_speechiness")
   .append("svg")
    // Responsive SVG needs these 2 attributes and no width and height attr.
    .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 1200 800")
+   .attr("viewBox", "0 0 1400 800")
    // Class to make it responsive.
    .classed("svg-content-responsive", true)
     // .attr("width", width + margin.left + margin.right)
@@ -144,6 +144,8 @@ d3.csv("files/features/billboard_features_top_100.csv",
          .attr("stroke", colors[i])
          .attr("class", "line")
          .attr("stroke-width", 4)
+        .attr('stroke-linejoin', 'round')
+        .attr('stroke-linecap', 'round')
          .attr("d", valueline)
 
       // Smooth display animation of lines
@@ -218,7 +220,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
       d3.select(".line-bar")
       .attr("d", function() {
         console.log(rect.attr("width"))
-        var d = "M" + mouse[0] + "," + 400;
+        var d = "M" + mouse[0] + "," + 700;
         d += " " + mouse[0] + "," + 0;
         return d;
       });
@@ -258,7 +260,7 @@ function cursorout() {
       .attr("cx", x(selection.year))
       .attr("cy", y_speechiness(selection["speechiness"]))
     focusText_speechiness
-      .html("Year:" + selection.year.getFullYear() + "  -  " + "Speechiness:" + parseFloat(selection.speechiness).toFixed(2))
+      .html(selection.year.getFullYear() + "  -  " + "Speechiness: " + parseFloat(selection.speechiness).toFixed(2))
       .attr("x", x(selection.year)+15)
       .attr("y", y_speechiness(selection["speechiness"]))
       .style("fill", "cornsilk")
@@ -288,7 +290,7 @@ function cursorout() {
       .attr("cx", x(selection.year))
       .attr("cy", y_danceability(selection["danceability"]))
     focusText_danceability
-      .html("Year:" + selection.year.getFullYear() + "  -  " + "Danceability:" + parseFloat(selection.danceability).toFixed(2))
+      .html(selection.year.getFullYear() + "  -  " + "Danceability: " + parseFloat(selection.danceability).toFixed(2))
       .attr("x", x(selection.year)+15)
       .attr("y", y_danceability(selection["danceability"]))
       .style("fill", "cornsilk")
@@ -338,17 +340,16 @@ for(var i = 0; i < features.length; i++){
       var bisect = d3.bisector(function(d) {return d.year; }).left;
       events = svg.selectAll("dot")    
           .data(mainEvents[i])         
-      .enter().append("circle")                
+      .enter().append("ellipse")                
       .style("opacity", 0)                              
-      .attr("r", 8)       
+      .attr("rx", 12)                                   
+      .attr("ry", 15)      
       .attr("cx", function(d) {
         return x(new Date(d.Year+"-01-01T00:00"))})       
       .attr("cy", function(d) {
          return scales[i](data[bisect(data, new Date(d.Year+"-01-01T00:00"), 1)][features[i]]);
        })      
-      // .attr("stroke", "white")  
-      .attr("fill", colors[i])
-      // .style("display", "none")    
+      .attr("fill", colors[i]) 
       .on("mouseover", function(d) {
         if(d3.select("#eventCheckbox").property("checked")) {     
                   div.transition()        
@@ -366,7 +367,7 @@ for(var i = 0; i < features.length; i++){
       .transition()
       .delay((d, i) => i * transitionDuration * 0.07)             
       .duration(transitionDuration)  
-      .style("opacity", .9);
+      .style("opacity", .5);
 
 /********************************************************************************/
       }
@@ -385,9 +386,10 @@ function update(){
 
 // This updates the display of the events
 function updateEvents(opacity) {
-  svg.selectAll("circle")
+  svg.selectAll("ellipse")
     .transition()
-    .duration(500)
-    .style("opacity", +opacity)
+    .delay((d, i) => i * transitionDuration * 0.05)
+    .duration(transitionDuration * 0.2)
+    .style("opacity", +opacity * 0.7)
 }
 /*********************************************/
