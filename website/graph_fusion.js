@@ -26,8 +26,8 @@ var svg = d3.select("#danceability_speechiness")
     // .attr("height", graph_height)
   .append("g")
     .attr("class", "graph")
-    // .attr("transform",
-          // "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
 
 //Read the data
@@ -47,26 +47,29 @@ d3.csv("files/features/billboard_features_top_100.csv",
 
     // Add a title to the graph
     svg.append("text")
-        .attr("y", 0 - margin.top)
-        .attr("x",(graph_width / 2))
+        .attr("y",  - 50)
+        .attr("x",(graph_width / 3))
         .attr("dy", "3em")
         .attr("font-weight", "bold")
-        .attr("font-size", "16px")
+        .attr("font-size", "12px")
         .attr("class", "title")
         .style("text-anchor", "middle")
+        .style("opacity", 0.9)
         .text("Danceability & Speechiness through the years");
 
 
     // Create X Axis using a time scale
     var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) { return d.year; }))
-            .range([ 0, graph_width - 150])
+            .range([ 0, graph_width - 300])
 
     // Append the X axis to the bottom of the svg object
     svg.append("g")
         .attr("transform", "translate(0," + graph_height + ")")
         .call(d3.axisBottom(x))
-        .attr("class", "axis");
+        .attr("class", "axis")
+         .style("opacity", 0.9)
+         .style("font-style", "italic");
 
     // Create Y Axis
     var y_danceability = d3.scaleLinear()
@@ -76,7 +79,8 @@ d3.csv("files/features/billboard_features_top_100.csv",
     svg.append("g")
            .call(d3.axisLeft(y_danceability))
            .attr("class", "axis")
-           .style("stroke", colors[0]);
+           .style("stroke", colors[0])
+           .style("opacity", 0.9);
     // Add labels for the Y Axis
     svg.append("text")
         .attr("transform", "rotate(-90)")
@@ -97,10 +101,11 @@ d3.csv("files/features/billboard_features_top_100.csv",
             .range([ graph_height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
-          .attr("transform", "translate("+ (graph_width - 150) +", 0)")
+          .attr("transform", "translate("+ (graph_width - 300) +", 0)")
            .call(d3.axisRight(y_speechiness))
            .attr("class", "axis")
-           .style("stroke", colors[1]);
+           .style("stroke", colors[1])
+           .style("opacity", 0.9);
     // Add labels for the Y Axis
 
     // var rotateTranslate = d3Transform().rotate(-45).translate(graph_width - 150, 0);
@@ -166,7 +171,6 @@ d3.csv("files/features/billboard_features_top_100.csv",
     var lineCursor = svg
     .append('path')
     .attr("class", "line-bar")
-      // .attr("stroke", "white")
       .style("opacity", 0)
 
 
@@ -209,7 +213,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
     .append('rect')
     .style("fill", "none")
     .style("pointer-events", "all")
-    .attr("width", graph_width - 150)
+    .attr("width", graph_width - 300)
     .attr("height", graph_height + margin.top + margin.bottom)
     .on('mouseover', cursorover);
   rect.on('mousemove', function() {
@@ -217,7 +221,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
       // move the vertical line
       d3.select(".line-bar")
       .attr("d", function() {
-        var d = "M" + mouse[0] + "," + 700;
+        var d = "M" + mouse[0] + "," + 500;
         d += " " + mouse[0] + "," + 0;
         return d;
       });
@@ -362,7 +366,7 @@ for(var i = 0; i < features.length; i++){
               .style("opacity", 0);   
       })
       .transition()
-      .delay((d, i) => i * transitionDuration * 0.07)             
+      .delay((d, i) => i * transitionDuration * 0.05)             
       .duration(transitionDuration)  
       .style("opacity", .7);
 

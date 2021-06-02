@@ -83,7 +83,7 @@ h2{
     padding-bottom:6.25%;
     font-family: 'Montserrat', sans-serif;
     font-weight: 550;
-    font-size: 22px;
+    font-size: 19px;
     fill: #ffffff;
 }
 
@@ -167,8 +167,8 @@ button {
 }
 
 .axis text{
-    color: white;
-  fill: white;
+/*    color: white;
+  fill: white;*/
   font-size: 12px;
 }  
 
