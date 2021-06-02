@@ -5,11 +5,6 @@ var margin = {top: 10, right: 10, bottom: 30, left: 100},
 
     height = 800 - margin.top - margin.bottom;
 
-    console.log(height)
-
-
-  console.log(width)
-
 transitionDuration = 2000;
 
 var colors = ['#e3b128', '#88446c']
@@ -367,7 +362,7 @@ for(var i = 0; i < features.length; i++){
       .transition()
       .delay((d, i) => i * transitionDuration * 0.07)             
       .duration(transitionDuration)  
-      .style("opacity", .5);
+      .style("opacity", .7);
 
 /********************************************************************************/
       }
