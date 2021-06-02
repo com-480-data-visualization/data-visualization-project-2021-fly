@@ -26,8 +26,8 @@ var svg = d3.select("#danceability_speechiness")
     // .attr("height", graph_height)
   .append("g")
     .attr("class", "graph")
-    .attr("transform",
-          "translate(" + margin.left + "," + margin.top + ")");
+    // .attr("transform",
+          // "translate(" + margin.left + "," + margin.top + ")");
 
 
 //Read the data
