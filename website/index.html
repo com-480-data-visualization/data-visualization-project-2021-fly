@@ -29,7 +29,8 @@
 <body>
 		<div id="fullPage">
 
-				<div class="section">
+				<div class="section s1">
+				
 						<div class="title">
 							<h1 class="main_title">From Turntable to Spotify</h1>
 							<h2>How has the music we listen to evolved from the 1950s to nowadays?</h2>
@@ -52,7 +53,7 @@
 						</div>
 				</div>
 
-				<div class="section">
+				<div class="section s2">
 						<div class="page-content">
 								<div class="title">
 									<h2>Greatest hits of the last decades</h2>
@@ -72,7 +73,8 @@
 						</div>
 				</div>
 
-				<div class="section">
+				<div class="section s3">
+					<div class="slide">
 						<div class="page-content">
 								<div id="audio">
 									<h2>Evolution of pop and rock through decades</h2>
@@ -89,57 +91,61 @@
 										at the top and the bottom of the plot to compare two decade, you can switch between genre with pop and rock buttons.</p>
 								</div>
 						</div>
-				</div>
-
-				<div class="section">
+					</div>
+					
+					<div class="slide">
 						<div class="page-content">
-								<div class="audio_chart">
-
-									<div class="lollipop_chart">
-										<div id="buttons">
-											<button onclick="update_3('Pop')" class="bttn-simple" style="background-color: #000000;">Pop</button>
-											<button onclick="update_3('Rock')" class="bttn-simple" style="background-color: #000000;">Rock</button>
-										</div>
-
-										<div id="buttons">
-											<button onclick="update_2('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
-											<button onclick="update_2('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
-											<button onclick="update_2('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
-											<button onclick="update_2('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
-											<button onclick="update_2('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
-											<button onclick="update_2('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
-											<button onclick="update_2('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
-										</div>
-
-										<!-- Include D3.js chart -->
-										<div id="lollipop_d3">
-											<script  src="lollipop.js"></script>
-										</div>
-
-										<div id="buttons">
-											<button onclick="update_1('1950')" class="bttn-simple" style="background-color: #eefbfb8a;">1950</button>
-											<button onclick="update_1('1960')" class="bttn-simple" style="background-color: #eefbfb8a;">1960</button>
-											<button onclick="update_1('1970')" class="bttn-simple" style="background-color: #eefbfb8a;">1970</button>
-											<button onclick="update_1('1980')" class="bttn-simple" style="background-color: #eefbfb8a;">1980</button>
-											<button onclick="update_1('1990')" class="bttn-simple" style="background-color: #eefbfb8a;">1990</button>
-											<button onclick="update_1('2000')" class="bttn-simple" style="background-color: #eefbfb8a;">2000</button>
-											<button onclick="update_1('2010')" class="bttn-simple" style="background-color: #eefbfb8a;">2010</button>
-										</div>
-									</div>
+							<div class="lollipop_chart">
+								<div id="buttons">
+									<button onclick="update_3('Pop')" class="bttn-simple" style="background-color: #000000;">Pop</button>
+									<button onclick="update_3('Rock')" class="bttn-simple" style="background-color: #000000;">Rock</button>
 								</div>
 
-								<div class="comment">
-									<div class="comment-title">What can we see?</div>
-									<div class="comment-content">
-										If we look at the values of the different features, some evolve in a rather small way while others go from one
-										extreme to the other. For example, the tempo of music increases significantly with the appearance of genres such
-										as electro and rap music, whose BPM is very high. It's the opposite of what is happening with Acousticness, where
-										today's music relies mainly on electronic instruments such as samplers and synthesizers reducing the acousticity
-										of today's hits.
-									</div>
+								<div id="buttons">
+									<button onclick="update_2('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
+									<button onclick="update_2('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
+									<button onclick="update_2('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
+									<button onclick="update_2('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
+									<button onclick="update_2('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
+									<button onclick="update_2('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
+									<button onclick="update_2('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
 								</div>
+
+								<!-- Include D3.js chart -->
+								<div id="lollipop_d3">
+									<script  src="lollipop.js"></script>
+								</div>
+
+								<div id="buttons">
+									<button onclick="update_1('1950')" class="bttn-simple" style="background-color: #eefbfb8a;">1950</button>
+									<button onclick="update_1('1960')" class="bttn-simple" style="background-color: #eefbfb8a;">1960</button>
+									<button onclick="update_1('1970')" class="bttn-simple" style="background-color: #eefbfb8a;">1970</button>
+									<button onclick="update_1('1980')" class="bttn-simple" style="background-color: #eefbfb8a;">1980</button>
+									<button onclick="update_1('1990')" class="bttn-simple" style="background-color: #eefbfb8a;">1990</button>
+									<button onclick="update_1('2000')" class="bttn-simple" style="background-color: #eefbfb8a;">2000</button>
+									<button onclick="update_1('2010')" class="bttn-simple" style="background-color: #eefbfb8a;">2010</button>
+								</div>
+							</div>
+					</div>
+					</div>
+					<div class="slide">
+						<div class="page-content">
+							<div class="comment">
+								<div class="comment-title">What can we see?</div>
+								<div class="comment-content">
+									If we look at the values of the different features, some evolve in a rather small way while others go from one
+									extreme to the other. For example, the tempo of music increases significantly with the appearance of genres such
+									as electro and rap music, whose BPM is very high. It's the opposite of what is happening with Acousticness, where
+									today's music relies mainly on electronic instruments such as samplers and synthesizers reducing the acousticity
+									of today's hits.
+								</div>
+							</div>
 						</div>
+					</div>
 				</div>
+
+
+
 
 				<div class="section">
 						<div class="page-content">
@@ -233,6 +239,7 @@
 					          <script src="word_cloud.js"></script>
 					        </div>
 
+
 					      </div>
 			    	</div>
 				</div>
@@ -240,11 +247,14 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
-	<!--script>
+	<script>
 		new fullpage('#fullPage',{
 			autoScrolling : true,
+			navigation : true,
+			controlArrows : false,
+			scrollingSpeed :1000
 		})
-	</script-->
+	</script>
 
 </body>
 
