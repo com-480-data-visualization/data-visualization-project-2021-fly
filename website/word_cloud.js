@@ -15,12 +15,16 @@ var margin = {
     height = 800 - margin.top - margin.bottom;
 
 var svgCloud = d3.select("#cloud_d3")
-              .append("svg")
-              .attr("width", width + margin.left + margin.right)
-              .attr("height", height + margin.top + margin.bottom)
-              .append("g")
-              .attr("transform",
-                  "translate(" + margin.left + "," + margin.top + ")");
+                 .classed("svg-container", true)
+                 .append("svg")
+                 .attr("preserveAspectRatio", "xMinYMin meet")
+                 .attr("viewBox", "0 0 "+width+" "+height+"")
+                 .classed("svg-content-responsive", true)
+                 .append("g")
+                 .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")")
+                 .attr("width", width)
+                 .attr("height", height);
 
 function update_word_cloud() {
   file = "files/word_count/"+decade+"_lyrics.csv";
@@ -50,7 +54,7 @@ function update_word_cloud() {
 
       function draw() {
           svgCloud.append("g") // Ajout du groupe qui contiendra tout les mots
-                  .attr("transform", "translate(" + width / 2 + ", " + height / 2 + ")") // Centrage du groupe
+                  .attr("transform", "translate(" + width / 3 + ", " + height / 2 + ")") // Centrage du groupe
                   .selectAll("text")
                   .data(words)
                   .enter().append("text") // Ajout de chaque mot avec ses propriétés
