@@ -1,23 +1,28 @@
 // set the dimensions of the cloud
 var sentiment = "love";
 var margin = {
-        top: 30,
-        right: 30,
-        bottom: 70,
-        left: 100
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
     },
     width = 1200 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    height = 800 - margin.top - margin.bottom;
 
 var svgBarChart = d3.select("#bar_chart_d3")
+                 .classed("svg-container", true)
                  .append("svg")
-                 .attr("width", width + margin.left + margin.right)
-                 .attr("height", height + margin.top + margin.bottom)
+                 .attr("preserveAspectRatio", "xMinYMin meet")
+                 .attr("viewBox", "0 0 "+width+" "+height+"");
 
 var xScale = d3.scaleBand().range([0, width]).padding(0.4),
     yScale = d3.scaleLinear().range([height, 0]);
 
-var g = svgBarChart.append("g")
+var g = svgBarChart.classed("svg-content-responsive", true)
+                   .append("g")
+                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+                   .attr("width", width)
+                   .attr("height", height);
 
 function update() {
   file = "files/sentiment/"+sentiment+".csv"
