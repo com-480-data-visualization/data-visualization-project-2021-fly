@@ -83,9 +83,10 @@ d3.csv("files/features/billboard_features_top_100.csv",
            .style("opacity", 0.9);
     // Add labels for the Y Axis
     svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", - margin.left + 10)
-        .attr("x",0 - (graph_height / 2))
+      .attr("transform", "translate("+ 0 +", " + 60 + "),rotate(-90)")
+        // .attr("transform", "rotate(-90)")
+        // .attr("y", - margin.left + 10)
+        // .attr("x",0 - (graph_height / 2))
         .attr("dy", "1em") 
         .attr("class", "axis")
         .style("fill", colors[0])
@@ -113,7 +114,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
 
     svg.append("text")
         // .attr("transform", "translate("+ (graph_width - 150) +", 0)")
-        .attr("transform", "translate("+ (graph_width - 70) +", " + (graph_height/2) + "),rotate(90)")
+        .attr("transform", "translate("+ (graph_width - 300) +", " + (graph_height - 60) + "),rotate(90)")
         // .attr("y",graph_height/2)
         // .attr("x",graph_width - 150)
         .attr("dy", "1em") 
