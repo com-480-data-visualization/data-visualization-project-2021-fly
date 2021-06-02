@@ -77,7 +77,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Add labels for the Y Axis
     svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", - margin.left - 5)
+        .attr("y", - margin.left + 10)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em") 
         .attr("class", "axis")

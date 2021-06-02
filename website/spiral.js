@@ -38,27 +38,26 @@ statistics = [{"Number": 847, "Event": "Elton John", "Singer" : "", "centerX": w
 {"Number": 827, "Event": "Taylor Swift", "Singer" : "", "centerX": width/4, "centerY" : 3*height/4},
 
 
-{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "centerX": width/2, "centerY" : height/4},
-{"Number": 79, "Event": "Sail", "Singer" : "Awolnation", "centerX": width/2, "centerY" : height/2},
-{"Number": 76, "Event": "I'm Yours", "Singer" : "Jason Mraz", "centerX": width/2, "centerY" : 3*height/4},
+{"Number": 87, "Event": "Radioactive", "Singer" : "Imagine Dragons", "Date":"2012", "centerX": width/2, "centerY" : height/4},
+{"Number": 79, "Event": "Sail", "Singer" : "Awolnation", "Date":"2010", "centerX": width/2, "centerY" : height/2},
+{"Number": 76, "Event": "I'm Yours", "Singer" : "Jason Mraz", "Date":"2005", "centerX": width/2, "centerY" : 3*height/4},
 
-
-{"Number": 328, "Event": "Gold (Album)", "Singer" : "Connie Francis", "centerX": 3*width/4, "centerY" : height/4},
-{"Number": 259, "Event": "Celebration (Album)", "Singer" : "Madonna", "centerX": 3*width/4, "centerY" : height/2},
-{"Number": 197, "Event": "Beauty Behind The Madness (Album)", "Singer" : "The Weeknd", "centerX": 3*width/4, "centerY" : 3*height/4},
+{"Number": 259, "Event": "Celebration", "Singer" : "Madonna", "Date":"2009", "centerX": 3*width/4, "centerY" : height/4},
+{"Number": 195, "Event": "Night Visions", "Singer" : "Imagine Dragons", "Date":"2012", "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 197, "Event": "Beauty Behind The Madness", "Singer" : "The Weeknd", "Date":"2015", "centerX": 3*width/4, "centerY" : 3*height/4},
 
 
 {"Number": 62, "Event": "Mariah Carey", "centerX": width/4, "centerY" : height/4},
 {"Number": 54, "Event": "The Beatles", "centerX": width/4, "centerY" : height/2},
 {"Number": 33, "Event": "Boyz II Men", "centerX": width/4, "centerY" : 3*height/4},
 
-{"Number": 19, "Event": "Old Town Road", "Singer" : "Lil Nas X ft. Billy Ray Cyrus", "centerX": width/2, "centerY" : height/4},
-{"Number": 16, "Event": "One Sweet Day", "Singer" : "Mariah Carey & Boyz II Men", "centerX": width/2, "centerY" : height/2},
-{"Number": 16, "Event": "Despacito", "Singer" : "Luis Fonsi & Daddy Yankee ft. Justin Bieber", "centerX": width/2, "centerY" : 3*height/4},
+{"Number": 19, "Event": "Old Town Road", "Singer" : "Lil Nas X ft. Billy Ray Cyrus", "Date":"2018", "centerX": width/2, "centerY" : height/4},
+{"Number": 16, "Event": "One Sweet Day", "Singer" : "Mariah Carey & Boyz II Men", "Date":"1995", "centerX": width/2, "centerY" : height/2},
+{"Number": 16, "Event": "Despacito", "Singer" : "Luis Fonsi & Daddy Yankee ft. Justin Bieber", "Date":"2017", "centerX": width/2, "centerY" : 3*height/4},
 
-{"Number": 29, "Event": "Scorpion (Album)", "Singer" : "Drake",  "centerX": 3*width/4, "centerY" : height/4},
-{"Number": 28, "Event": "The E.N.D. (Album)", "Singer" : "Black Eyed Peas",  "centerX": 3*width/4, "centerY" : height/2},
-{"Number": 29, "Event": "1 (Album)", "Singer" : "The Beatles",  "centerX": 3*width/4, "centerY" : 3*height/4}]
+{"Number": 29, "Event": "Scorpion", "Singer" : "Drake", "Date":"2018",  "centerX": 3*width/4, "centerY" : height/4},
+{"Number": 28, "Event": "The E.N.D.", "Singer" : "Black Eyed Peas", "Date":"2009",  "centerX": 3*width/4, "centerY" : height/2},
+{"Number": 29, "Event": "1", "Singer" : "The Beatles", "Date":"1962-1972", "centerX": 3*width/4, "centerY" : 3*height/4}]
 
 
 
@@ -330,6 +329,22 @@ svgSpiral.selectAll("text.number")
                   .duration(transitionDuration*0.17)
                   .style( "opacity", 0.9 )
                   .attr('y',  function(d){return d.centerY + 77});
+
+  svgSpiral.selectAll("spiral.description")
+                  .data(statistics.slice(section * 9, section * 9 + 9))
+                  .enter()
+                  .append("text")
+                  .attr("x", function(d){return d.centerX})
+                  .attr("y", function(d){return d.centerY + 40})
+                  .attr("class", "spiral-content spiral-element")
+                   .text(function(d){ return d.Date;})
+                  .style( "opacity", 0 )
+                  .transition()
+                  .delay((d, i) => i *  0.1 *  transitionDuration)
+                    .ease(d3.easeBounce)
+                  .duration(transitionDuration*0.17)
+                  .style( "opacity", 0.4 )
+                  .attr('y',  function(d){return d.centerY + 94});
 
 /* ---------------------------------------------------*/
 }
