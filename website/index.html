@@ -147,66 +147,88 @@
 
 
 
-				<div class="section">
+				<div class="section active">
+					<div class="slide">
 						<div class="page-content">
-								<div id=speechiness >
 									<h2>Audio features, and what their history tells us about music</h2>
 									<hr>
 									<p>
 										Let's take a step back and have a more general look at two specific features: <b>Danceability</b> and <b>Speechiness</b>.<br>
 										How danceable were the Billboard Hot 100 hits in the last few decades, and how did that evolve through time ?<br>
 										Does does today's music 'wordiness' compare to the 60's, the 70's, or the 80's ?</p>
+						</div>
+					</div>
 
+					<div class="slide">
+						<div class="page-content">
+								<div id=speechiness >
 									<input class= "checkbox" type="checkbox" id="eventCheckbox" value="1" Checked>
 									<label for="checkbox" id="eventCheckboxLabel">Show Events</label>
 									<br>
-
 									<div id="danceability_speechiness">
 					          <script src="graph_fusion.js"></script>
 					        </div>
 
 								</div>
+						</div>
+					</div>
 
-								<div class="comment">
-									<div class="comment-title">A successful song is dancy/More danceable hits...</div>
+					<div class="slide">
+						<div class="page-content">
+							<div class="comment">
+									<div class="comment-title">More danceable hits...</div>
 									<div class="comment-content">
-										All throughout the 50's and 60's, the genres present on the Billboard were a mishmash of <b>mood music</b>, <b>blues</b>, and <b>adult standards</b>, which includes traditional pop music by artists such as Frank Sinatra. Come the 70's, a.k.a. <b>The Age of Disco</b>, the average danceability of successful hits increased with the rise of <b>funk music</b> and <b>Bubblegum pop</b>: catchy, upbeat songs that create a hypnotic, danceable feel. Between <b>classic rock</b>  and <b>hip hop</b>, the most successful hits of the 80's had variable danceability levels, but the nightclubs started to get more heated in the 90's with the arrival of <b>Electro</b> music, and hip hop becoming more and more geared towards dancing. <br>  
+										Throughout the 50's and 60's, genres present on the Billboard were a mishmash of <b>mood music</b>, <b>blues</b>, and <b>adult standards</b>. Come the 70's, a.k.a. <b>The Age of Disco</b>, the average danceability of successful hits went up with the rise of <b>funk music</b> and <b>Bubblegum pop</b>: catchy, upbeat songs that create a hypnotic, danceable feel. Between <b>classic rock</b>  and <b>hip hop</b>, the most successful hits of the 80's had variable danceability levels, but the nightclubs started to get more heated in the 90's with the arrival of <b>Electro</b> music, and hip hop becoming more and more geared towards dancing. <br>  
 
 										The most appreciated tubes of the first decade of the 21st had a lot to do with emo music and indie pop, but <b>Reggaeton</b>  and <b>Latin</b>  pop hits were among the most danceable ones at the time. 
 										In the last 10 years, most of the danceable Billboard 100 hits came out of an association of <b>pop</b>, <b>rap</b>  and <b>hip hop</b> . It seems like <b>genres are becoming a thing of the past</b> : for instance, the song 'Old Town Road', from Lil Nas X ft. Billy Ray Cyrus, was one of the most successful hits in the history of the Billboard. Who would've thought that such a risky crossover between country and hip-hop music would break so many records ?
 									</div>
 								</div>
+								<br>
 								<div class="comment">
-									<div class="comment-title">... and speechy/... and more talkative artists</div>
+									<div class="comment-title">... and more talkative artists</div>
 									<div class="comment-content">
 										Speechy music often rhymes with <b>rap</b> music. By looking at the evolution of the speechiness feature, we can guess when the public started appreciating 'wordy' music. Between 2000 and 2005, Eminem and Lil' Wayne were often present in the top position, and were joined by Kanye West, Drake and Kendrick Lamar in the following years. 
 										Those artists walked in the steps of icons like 2Pac, The Notorious B.I.G., and Ice Cube, who revolutionized rap and hip hop music during the 90's. <br>
 										Starting from the mid-2000's, average danceability and speechiness values more or less follow each other: when observed as a whole, music speechiness throughout the last decades shows how rap music, as a genre that started at block parties in New York City, evolved into mainstream hip hop, and is still rising in popularity nowadays. 
 									</div>
-								</div>
+								</div>							
 						</div>
+					</div>
+
+								
 				</div>
 
 				<div class="section">
+
+					<div class="slide">
 						<div class="page-content">
-								<div id=spirals>
 									<h2>Key achievements and milestones in the Billboard Hot 100 chart</h2>
 									<hr>
 									<p> What makes a hit... a hit ? <br>
 										We don't have access to the secret recipe to fame and glory yet, but one thing is undeniable: <b>songs that last in the Billboard Hot 100 chart for several weeks</b> definitely figured it out.<br>
 										The following visualization is a <b>radial line chart</b> that displays the top artists, albums and songs which lasted the most number of weeks on the Billboard 100. Since a 100 positions might be considered as a big difference, the visualization offers the possibility of looking at the top hits and artists which <b>lasted the longest at position number 1</b> versus the ones that <b>lasted the longest at all rankings combined</b>.  <br></p>
+						</div>
+					</div>
 
+					<div class="slide">
+						<div class="page-content">
+								<div id=spirals>
 									<div class="radio-group" id="radio-buttons">
 										<input type="radio" id="top-one" name="selector" value="Number 1" checked>
 										<label for="option-one">Top 1 position</label>
 										<input type="radio" id="all" name="selector" value="All">
 										<label for="option-two">All positions</label>
 								  </div>
-
 									<div id="spiral">
 					          <script src="spiral.js"></script>
 					        </div>
+								</div>
+						</div>
+					</div>
 
+					<div class="slide">
+						<div class="page-content">
 					        <div class="comment">
 									<div class="comment-title"> Coincidence ?</div>
 									<div class="comment-content">
@@ -215,9 +237,8 @@
 										Another striking fact: the data spans all hot 100 charts from 1958 to 2019. In the age of social media and hyper-connectivity, one would expect trends to change faster than the olden days. However, most top albums and songs in this chart (75% precisely) occur in the last 10 years of the data, which would indicate that <b>hits actually last longer on the charts nowadays</b>. 
 									</div>
 								</div>
-
-								</div>
-						</div>
+						</div>		
+					</div>
 				</div>
 
 				<div class="section">
@@ -274,14 +295,24 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
-<!-- 	<script>
+	<script>
 		new fullpage('#fullPage',{
 			autoScrolling : true,
 			navigation : true,
+			slidesNavigation : true,
 			controlArrows : false,
-			scrollingSpeed :1000
+			scrollingSpeed :1000,
+      navigationTooltips: [
+        "Introduction",
+        "Greatest hits",
+        "Pop and Rock Evolution",
+        "Audio Features History",
+        "Achievements & Milestones",
+        "Sentiment Analysis",
+        "Word Cloud",
+      ],
 		})
-	</script> -->
+	</script>
 
 </body>
 

@@ -17,7 +17,7 @@ to
   display: inline-block;
   position: relative;
   width: 100%;
-  padding-bottom: 100%; /* aspect ratio */
+  padding-bottom: 50%; /* aspect ratio */
   vertical-align: top;
   overflow: hidden;
 }
@@ -268,7 +268,7 @@ button {
 
 .comment-content {
     background-color: rgba(255, 255, 255, 0.12);
-    font-size: 12px;
+    font-size: 14px;
     padding: 10px 10px 10px 10px;
 }
 

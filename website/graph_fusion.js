@@ -1,9 +1,10 @@
 // dimensions and margins of graph
-var margin = {top: 10, right: 10, bottom: 30, left: 100},
-    // width = d3.select("#danceability_speechiness").node().getBoundingClientRect().width,
-    width = 1200  - margin.left - margin.right,
+var margin = {top: 10, right: 100, bottom: 30, left: 100},
+    // graph_width = d3.select("#danceability_speechiness").node().getBoundingClientRect().width,
+    graph_width = 1200  - margin.left - margin.right,
 
-    height = 800 - margin.top - margin.bottom;
+    // graph_height = d3.select("#danceability_speechiness").node().getBoundingClientRect().height,
+    graph_height = 500 - margin.top - margin.bottom;
 
 transitionDuration = 2000;
 
@@ -16,11 +17,13 @@ var svg = d3.select("#danceability_speechiness")
   .append("svg")
    // Responsive SVG needs these 2 attributes and no width and height attr.
    .attr("preserveAspectRatio", "xMinYMin meet")
-   .attr("viewBox", "0 0 1400 800")
+   .attr("viewBox", "0 0 1000 400")
    // Class to make it responsive.
    .classed("svg-content-responsive", true)
-    // .attr("width", width + margin.left + margin.right)
-    // .attr("height", height + margin.top + margin.bottom)
+    // .attr("width", graph_width + margin.left + margin.right)
+    // .attr("height", graph_height + margin.top + margin.bottom)
+    // .attr("width", graph_width)
+    // .attr("height", graph_height)
   .append("g")
     .attr("class", "graph")
     .attr("transform",
@@ -45,7 +48,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Add a title to the graph
     svg.append("text")
         .attr("y", 0 - margin.top)
-        .attr("x",(width / 2))
+        .attr("x",(graph_width / 2))
         .attr("dy", "3em")
         .attr("font-weight", "bold")
         .attr("font-size", "16px")
@@ -57,18 +60,18 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Create X Axis using a time scale
     var x = d3.scaleTime()
             .domain(d3.extent(data, function(d) { return d.year; }))
-            .range([ 0, width - 150])
+            .range([ 0, graph_width - 150])
 
     // Append the X axis to the bottom of the svg object
     svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + graph_height + ")")
         .call(d3.axisBottom(x))
         .attr("class", "axis");
 
     // Create Y Axis
     var y_danceability = d3.scaleLinear()
             .domain([0.5, 0.7])
-            .range([ height, 0 ]);
+            .range([ graph_height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
            .call(d3.axisLeft(y_danceability))
@@ -78,7 +81,7 @@ d3.csv("files/features/billboard_features_top_100.csv",
     svg.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", - margin.left + 10)
-        .attr("x",0 - (height / 2))
+        .attr("x",0 - (graph_height / 2))
         .attr("dy", "1em") 
         .attr("class", "axis")
         .style("fill", colors[0])
@@ -91,23 +94,23 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Speechiness axis
     var y_speechiness = d3.scaleLinear()
             .domain([0.0, 0.2])
-            .range([ height, 0 ]);
+            .range([ graph_height, 0 ]);
     // Append the Y axis to the left of the svg object
     svg.append("g")
-          .attr("transform", "translate("+ (width - 150) +", 0)")
+          .attr("transform", "translate("+ (graph_width - 150) +", 0)")
            .call(d3.axisRight(y_speechiness))
            .attr("class", "axis")
            .style("stroke", colors[1]);
     // Add labels for the Y Axis
 
-    // var rotateTranslate = d3Transform().rotate(-45).translate(width - 150, 0);
+    // var rotateTranslate = d3Transform().rotate(-45).translate(graph_width - 150, 0);
 
 
     svg.append("text")
-        // .attr("transform", "translate("+ (width - 150) +", 0)")
-        .attr("transform", "translate("+ (width - 70) +", " + (height/2) + "),rotate(90)")
-        // .attr("y",height/2)
-        // .attr("x",width - 150)
+        // .attr("transform", "translate("+ (graph_width - 150) +", 0)")
+        .attr("transform", "translate("+ (graph_width - 70) +", " + (graph_height/2) + "),rotate(90)")
+        // .attr("y",graph_height/2)
+        // .attr("x",graph_width - 150)
         .attr("dy", "1em") 
         .attr("class", "axis")
         .style("fill", colors[1])
@@ -206,15 +209,14 @@ d3.csv("files/features/billboard_features_top_100.csv",
     .append('rect')
     .style("fill", "none")
     .style("pointer-events", "all")
-    .attr("width", width - 150)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("width", graph_width - 150)
+    .attr("height", graph_height + margin.top + margin.bottom)
     .on('mouseover', cursorover);
   rect.on('mousemove', function() {
       var mouse = d3.mouse(this);
       // move the vertical line
       d3.select(".line-bar")
       .attr("d", function() {
-        console.log(rect.attr("width"))
         var d = "M" + mouse[0] + "," + 700;
         d += " " + mouse[0] + "," + 0;
         return d;
