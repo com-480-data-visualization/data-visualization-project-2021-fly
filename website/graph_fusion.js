@@ -1,8 +1,7 @@
 function load () {
 
-d3.selectAll("path").remove()
+d3.selectAll("#danceability_speechiness").selectAll("path").remove()
 d3.selectAll("ellipse").remove()
-// d3.selectAll("g").remove()
 
 
 // dimensions and margins of graph

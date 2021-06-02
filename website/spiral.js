@@ -1,12 +1,3 @@
-// var margin = {
-//         top: 30,
-//         right: 30,
-//         bottom: 70,
-//         left: 100
-//     },
-//     width = 1000 - margin.left - margin.right,
-//     height = 700 - margin.top - margin.bottom;
-function load_spiral () {
 var margin = {
         top: 30,
         right: 30,
@@ -102,46 +93,8 @@ var loop_scale = d3.scaleLog()
 
 
 column_legend_names = ['Artists', 'Songs', 'Albums'];
-// legend_spiral_elements = [{"Number": 30, "Event": "Name", "Singer" : "", "centerX": 5*width/6, "centerY" : height/8}];
 
 function addLegend(){
-
-  // var spiral_legend = svgSpiral.selectAll("spiral-path-legend")
-  //         .append("path")
-  //         .attr("class", "spiral-element")
-  //         .attr("d", lineFunction(loop_scale(30))(lineData))
-  //         .attr("stroke", "#f5b310")
-  //         .attr("stroke-width", 3)
-  //         .attr("fill", "none")
-  //         .attr('stroke-linejoin', 'round')
-  //         .attr('stroke-linecap', 'round')
-  //         .attr("transform", "translate(" + 1000 + "," + height/8+ ")")
-
-
-// svgSpiral.selectAll("text.number")
-//                 .data(statistics.slice(section * 9, section * 9 + 9))
-//                 .enter()
-//                 .append("text")
-//           .text(start_val)
-//                 .attr("y", function(d){return d.centerY})
-//                  .attr("x", function(d){return d.centerX})
-//                  .attr("class", "spiral-content spiral-element")
-//                   .attr( "fill-opacity", 0 )
-//                   .style( "fill", "cornsilk" )
-//                   .style("font", "10px Helvetica")
-//                   .style("text-anchor", "middle")
-//                   .transition()
-//                 .delay((d, i) => i * 0.1 * transitionDuration)
-//                   .ease(d3.easeCubicOut)
-//                   .duration(transitionDuration)
-//                   .attr( "fill-opacity", 0.8 )
-//                   .tween("text", function(d) {
-//                     var node = this;
-//                     let i = d3.interpolate(node.textContent, d.Number);
-//                     return function(t) {
-//                       d3.select(node).text(Math.round(i(t)));
-//                     };
-//                   });
 
   svgSpiral.append("text")
                 .attr("x", margin.left + 120)
@@ -356,4 +309,3 @@ d3.select("#radio-buttons").on("change", changeGraph )
 
 /* 
 ---------------------------------------------------*/
-}
