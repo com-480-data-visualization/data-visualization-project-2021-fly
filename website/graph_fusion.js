@@ -1,3 +1,10 @@
+function load () {
+
+d3.selectAll("path").remove()
+d3.selectAll("ellipse").remove()
+// d3.selectAll("g").remove()
+
+
 // dimensions and margins of graph
 var margin = {top: 10, right: 100, bottom: 30, left: 100},
     // graph_width = d3.select("#danceability_speechiness").node().getBoundingClientRect().width,
@@ -395,3 +402,5 @@ function updateEvents(opacity) {
     .style("opacity", +opacity * 0.7)
 }
 /*********************************************/
+}
+load();

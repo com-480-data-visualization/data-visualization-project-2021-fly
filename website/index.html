@@ -147,7 +147,7 @@
 
 
 
-				<div class="section active">
+				<div class="section">
 					<div class="slide">
 						<div class="page-content">
 									<h2>Audio features, and what their history tells us about music</h2>
@@ -297,6 +297,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.1.0/fullpage.min.js"></script>
 	<script>
 		new fullpage('#fullPage',{
+
+			anchors: ['Introduction', 'GreatestHits', 'PopRock', 'AudioFeats', 'Achievements', 'Sentiment', 'WordCloud'],
 			autoScrolling : true,
 			navigation : true,
 			slidesNavigation : true,
@@ -309,8 +311,12 @@
         "Audio Features History",
         "Achievements & Milestones",
         "Sentiment Analysis",
-        "Word Cloud",
-      ],
+        "Word Cloud",],
+        afterSlideLoad: function( section, origin, destination, direction){
+		var loadedSlide = this;
+		load();
+		load_spiral();
+		},
 		})
 	</script>
 

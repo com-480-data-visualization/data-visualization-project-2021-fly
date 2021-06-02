@@ -6,7 +6,7 @@
 //     },
 //     width = 1000 - margin.left - margin.right,
 //     height = 700 - margin.top - margin.bottom;
-
+function load_spiral () {
 var margin = {
         top: 30,
         right: 30,
@@ -356,3 +356,4 @@ d3.select("#radio-buttons").on("change", changeGraph )
 
 /* 
 ---------------------------------------------------*/
+}
