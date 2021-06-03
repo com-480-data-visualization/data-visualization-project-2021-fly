@@ -153,14 +153,12 @@ h2{
 }
 
 
-/* Style the collapsible content. Note: hidden by default */
 .content {
     display: block;
     overflow: hidden;
 
 }
 
-/*Widget 1 CSS */
 #buttons {
     margin: auto;
     padding: auto;
@@ -191,7 +189,7 @@ button {
 
 .axis {
     font-size: inherit;
-    /*fill: white;*/
+
 }
 
 .axis line{
@@ -263,7 +261,6 @@ button {
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
-.collapsible:focus {}
 
 .collapsible:hover {
     opacity: 0.4;
@@ -308,16 +305,6 @@ button {
     padding: 10px 10px 10px 10px;
 }
 
-/*
-It is easier to read if the text is not too wide, so we limit the width.
-We use the class selector ".", so this style will be applied to elements with class="width-limited"
-The various units of measurement available in CSS:
-	https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
-*/
-
-/*svg {
-  background: white;
-}*/
 
 .spiral {
   fill: none;

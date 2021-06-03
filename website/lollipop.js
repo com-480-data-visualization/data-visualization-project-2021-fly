@@ -6,13 +6,8 @@ var data_file = "files/lollipop/lollipop_pop.csv";
 var genre= "Pop";
 
 var colors = ["#581845", "#900c3f", "#c70039", "#ff5733", "#FF6363", "#ffbd69"];
-var pop_color = "#000000";
-var rock_color = "#00000";
 
-var self = this;
-
-
-// set the dimensions and margins of the graph
+// Choose params for margin and size of the chart
 var margin = {
         top: 30,
         right: 30,
@@ -22,7 +17,7 @@ var margin = {
     width = 800 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-// append the svg object to the body of the page
+// Create svg object and give value for different params
 var svgLollipop = d3.select("#lollipop_d3")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -31,106 +26,97 @@ var svgLollipop = d3.select("#lollipop_d3")
     .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
-var lollipop_x = d3.scaleLinear()
-    .domain([0, 1])
-    .range([0, width]);
+// Scale of values for x axis 
+var x_scale = d3.scaleLinear().domain([0, 1]).range([0, width]);
 
-var lollipop_y = d3.scaleBand()
-    .range([height, 0])
-    .padding(1);
+// Scale of values for y axis 
+var y_scale = d3.scaleBand().range([height, 0]).padding(1);
 
-var yAxis = svgLollipop.append("g")
-    .attr("stroke-width", 1)
-    .attr("class", "axis")
-    
-yAxis.selectAll("text")
-    .style("font-size", "15px") 
+// Creation of y axis and set parameters
+var y_axis = svgLollipop.append("g").attr("stroke-width", 1).attr("class", "axis")
+y_axis.selectAll("text").style("font-size", "15px") 
 
-svgLollipop.append("g")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(lollipop_x))
-
-svgLollipop.append("g").call(d3.axisLeft(lollipop_y)).selectAll("text")
-.style("font-size", "15px") 
+// Add the axis to the svg created just before
+svgLollipop.append("g").attr("transform", "translate(0," + height + ")").call(d3.axisBottom(x_scale))
+svgLollipop.append("g").call(d3.axisLeft(y_scale)).selectAll("text").style("font-size", "15px") 
 
 
 
 function update_lollipop() {
-    // Parse the Data
-    
+    // Get chosen genre
     if (genre == "Pop") {
         data_file = data_pop
       } else {
         data_file = data_rock
       }
+    
+    // Read the data
     d3.csv(data_file, function(error, data) {
         if (error) {
             throw error;
         }
-        // Add X axis
-        // Lines
-
-        lollipop_y.domain(data.map(function(d) {
+        // Get the different values of index
+        y_scale.domain(data.map(function(d) {
             return d.group;
         }))
-        yAxis.transition().duration(1000).call(d3.axisLeft(lollipop_y));
+        // Add transition to make cahnges for smooth 
+        y_axis.transition().duration(1000).call(d3.axisLeft(y_scale));
 
-
-        var j = svgLollipop.selectAll(".lineInBetween").data(data)
-        j.enter()
+        // Select line when redrawing and update parameters
+        var lines = svgLollipop.selectAll(".lineInBetween").data(data)
+        lines.enter()
             .append("line")
             .attr("class", "lineInBetween")
-            .merge(j)
+            .merge(lines)
             .transition()
             .duration(1000)
             .attr("x1", function(d) {
-                return lollipop_x(d[decade_1]);
+                return x_scale(d[decade_1]);
             })
             .attr("x2", function(d) {
-                return lollipop_x(d[decade_2]);
+                return x_scale(d[decade_2]);
             })
             .attr("y1", function(d) {
-                return lollipop_y(d.group);
+                return y_scale(d.group);
             })
             .attr("y2", function(d) {
-                return lollipop_y(d.group);
+                return y_scale(d.group);
             })
             .attr("stroke-width", 4)
             .attr("opacity", 0.16)
             .attr("stroke", "white")
 
-
-        // Circles of variable 1
-        var k = svgLollipop.selectAll(".lollipopCircleOne").data(data)
-        k.enter()
+        // Select dots for decade 1 when redrawing and update parameters
+        var circle_1 = svgLollipop.selectAll(".lollipopCircleOne").data(data)
+        circle_1.enter()
             .append("circle")
             .attr("class", "lollipopCircleOne")
-            .merge(k)
+            .merge(circle_1)
             .transition()
             .duration(1000)
             .attr("cx", function(d) {
-                return lollipop_x(d[decade_1]);
+                return x_scale(d[decade_1]);
             })
             .attr("cy", function(d) {
-                return lollipop_y(d.group);
+                return y_scale(d.group);
             })
             .attr("r", "8")
             .style("fill", "#EEFBFB")
             .attr("opacity", 1)
 
-        // Circles of variable 2
-        var l = svgLollipop.selectAll(".lollipopCircleTwo").data(data)
-        l.enter()
+        // Select dots for decade 2 when redrawing and update parameters
+        var circle_2 = svgLollipop.selectAll(".lollipopCircleTwo").data(data)
+        circle_2.enter()
             .append("circle")
             .attr("class", "lollipopCircleTwo")
-            .merge(l)
+            .merge(circle_2)
             .transition()
             .duration(1000)
             .attr("cx", function(d) {
-                return lollipop_x(d[decade_2]);
+                return x_scale(d[decade_2]);
             })
             .attr("cy", function(d) {
-                return lollipop_y(d.group);
+                return y_scale(d.group);
             })
             .attr("r", "8")
             .style("fill", "#007CC7")
@@ -141,8 +127,7 @@ function update_lollipop() {
 
 var DISTANCE = 30;
 
-
-
+// Add graphic element when drawing the first time the graph
 svgLollipop.append("text")
     .attr("class", "genre")
     .attr("x", 200)
@@ -182,8 +167,9 @@ svgLollipop.append("text")
         .style("fill", "#007CC7");
 
 
-/* DEFAULT */
+// Update functions to change either decade1, decade 2 or the genre label
 
+// Function to remove past values, modify class variables and call update_lollipop to redraw
 function update_1(decade) {
     svgLollipop.select(".decade1").remove();
 
@@ -203,7 +189,7 @@ function update_1(decade) {
         .style("fill", "#EEFBFB");
 
     decade_1 = decade
-    self.update_lollipop()
+    update_lollipop()
 }
 
 function update_2(decade) {
@@ -225,7 +211,7 @@ function update_2(decade) {
         .style("fill", "#007CC7");
 
     decade_2 = decade
-    self.update_lollipop()
+    update_lollipop()
 }
 
 function update_3(new_genre) {
@@ -241,8 +227,8 @@ svgLollipop.append("text")
     .style("fill", "#ffffff");
 
     genre = new_genre
-    self.update_lollipop()
+    update_lollipop()
 }
 
 
-self.update_lollipop()
+update_lollipop()
