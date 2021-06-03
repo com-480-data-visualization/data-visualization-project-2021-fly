@@ -33,9 +33,7 @@ function update() {
           throw error;
       }
 
-      maxValue = d3.max(data, function(d) { return d.value; });
       xScale.domain(data.map(function(d) { return d.decade; }));
-      //yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
 
       g.append("g")
        .attr("class", "axis")
@@ -44,11 +42,11 @@ function update() {
 
       g.append("g")
       .attr("class", "axis")
-      //.attr("transform", "translate(0," + chart_height + ")")
       .call(d3.axisLeft().scale(yScale).ticks(10));
 
+      //add y-axis label
       svgBarChart.append("text")
-        .attr("transform", "translate(0, " + chart_height/2 + "),rotate(-90)")
+          .attr("transform", "translate(0, " + chart_height/2 + "),rotate(-90)")
           .attr("dy", "1em")
           .attr("class", "axis")
           .style("fill", "white")
@@ -56,16 +54,38 @@ function update() {
           .style("text-anchor", "middle")
           .text("Lexicon of "+sentiment+" (%)");
 
+          // Max value observed:
+          const max = d3.max(data, function(d) { return +d.value; })
+
+
+       // Set the gradient
+       svgBarChart.append("linearGradient")
+         .attr("id", "line-gradient")
+         .attr("gradientUnits", "userSpaceOnUse")
+         .attr("x1", 0)
+         .attr("y1", yScale(0))
+         .attr("x2", 0)
+         .attr("y2", yScale(max))
+         .selectAll("stop")
+           .data([
+             {offset: "0%", color: "rgb(0, 124, 199)"},
+             {offset: "100%", color: "grey"}
+           ])
+         .enter().append("stop")
+           .attr("offset", function(d) { return d.offset; })
+           .attr("stop-color", function(d) { return d.color; });
+
+      //draw bars
       g.selectAll(".bar")
        .data(data)
        .enter().append("rect")
        .attr("class", "bar")
        .attr("x", function(d) { return xScale(d.decade); })
        .attr("y", function(d) { return yScale(d.value); })
+       .attr("fill", "url(#line-gradient)" )
        .attr("width", xScale.bandwidth())
-       .attr("height", function(d) { return chart_height - yScale(d.value); })
-       .attr("fill", function(d) {return "rgb("+(maxValue - d.value) * 100+", "+(maxValue - d.value) * 100+", " +(maxValue - d.value) * 100 + ")";})
-  });
+       .attr("height", function(d) { return chart_height - yScale(d.value); });
+     });
 }
 
 function update_bar_chart(new_sentiment){
