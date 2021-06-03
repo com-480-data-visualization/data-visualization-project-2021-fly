@@ -57,6 +57,7 @@
 						<div class="page-content">
 								<div class="title">
 									<h2>Greatest hits of the last decades</h2>
+									<hr>
 								</div>
 								<div class="scroll-spotify">
 									<button type="button" class="collapsible">Playlist</button>
@@ -245,17 +246,43 @@
 
 				<div class="section">
 					<div class="slide">
-			    	<div class="page-content">
-			        		<h2>Sentiment Analysis</h2>
-				        	<p>Now how did the lyrics if songs evolve over the decades? This first analysis tells us how the sentiments in the
-										lyrics changed. Which decade was in love the most? which one was the most joyous? We've selected five main feelings:
-										Love, Hate, Pain, Sadness, and Joy. You can choose any of them by clicking on the corresponding button to have a look
-										how much it appears in the lyrics of each decade.</p>
+						<div class="page-content">
+							<div id="word-cloud">
+									<div id="buttons">
+										<button onclick="update_cloud('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
+										<button onclick="update_cloud('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
+										<button onclick="update_cloud('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
+										<button onclick="update_cloud('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
+										<button onclick="update_cloud('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
+										<button onclick="update_cloud('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
+										<button onclick="update_cloud('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
+									</div>
+
+									<div id="cloud_d3">
+										<script src="word_cloud.js"></script>
 									</div>
 								</div>
-								<div class="slide">
-									<div class="page-content">
-									<div id="bar-chart">
+						</div>
+					</div>
+
+					<div class="slide active">
+			    	<div class="page-content">
+			        		<h2>What are we saying?</h2>
+									<hr>
+				        	<p>Now how did the lyrics of songs evolve over the decades? Is it true that the lyrics are getting cheaper and more obscene?
+										This section is dedicated to look more in depth at the evolution of music by analyzing the lyrics.
+
+									<p>Slide to the left to know which decade was in love the most, and which one was the sadest or most joyous? This is done
+										by computing the percentage of appearance of the lexicon related to a certain feeling in the lyrics of songs of each decade combined.
+										We have selected for you five feelings to look at: Love, Hate, Pain, Sadness, and Joy. Choose the one that interests you by clicking on the corresponding button.
+
+									<p>If you want to look more into the language used, slide to the right to see the most common words used in the songs of every decade.</p>
+							</div>
+						</div>
+
+						<div class="slide">
+							<div class="page-content">
+								<div id="bar-chart">
 			        		<div id="buttons">
 										<button onclick="update_bar_chart('love')" class="bttn-simple" style="background-color: #eefbfb8a;">Love</button>
 			          		<button onclick="update_bar_chart('hate')" class="bttn-simple" style="background-color: #eefbfb8a;">Hate</button>
@@ -266,42 +293,10 @@
 									<div id="bar_chart_d3">
 										<script src="bar_chart.js"></script>
 									</div>
-								</div>
-							</div>
-						</div>
-
-				</div>
-
-				<div class="section">
-					<div class="slide">
-			    	<div class="page-content">
-
-					        <h2>Word cloud per decade</h2>
-									<p>Is it true that the lyrics are getting cheaper? To have a more precise look on the evolution of the lyrics, we form a cloud of the most frequent words for each decade.
-										This also shows us how language changed from one era to another.</p>
 							</div>
 					</div>
-
-					<div class="slide">
-						<div class="page-content">
-							<div id="word-cloud">
-									<div id="buttons">
-					          <button onclick="update_cloud('1950')" class="bttn-simple" style="background-color: #007CC7;">1950</button>
-					          <button onclick="update_cloud('1960')" class="bttn-simple" style="background-color: #007CC7;">1960</button>
-					          <button onclick="update_cloud('1970')" class="bttn-simple" style="background-color: #007CC7;">1970</button>
-					          <button onclick="update_cloud('1980')" class="bttn-simple" style="background-color: #007CC7;">1980</button>
-					          <button onclick="update_cloud('1990')" class="bttn-simple" style="background-color: #007CC7;">1990</button>
-					          <button onclick="update_cloud('2000')" class="bttn-simple" style="background-color: #007CC7;">2000</button>
-					          <button onclick="update_cloud('2010')" class="bttn-simple" style="background-color: #007CC7;">2010</button>
-					        </div>
-
-					        <div id="cloud_d3">
-					          <script src="word_cloud.js"></script>
-					        </div>
-					      </div>
-			    	</div>
-					</div>
 				</div>
+			</div>
 		</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.js"></script>
