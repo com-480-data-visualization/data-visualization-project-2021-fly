@@ -23,8 +23,8 @@ var svgCloud = d3.select("#cloud_d3")
                  .append("g")
                  .attr("transform",
                     "translate(" + margin.left + "," + margin.top + ")")
-                 .attr("width", width)
-                 .attr("height", height);
+                  .attr("width", width)
+                  .attr("height", height);
 
 function update_word_cloud() {
   file = "files/word_count/"+decade+"_lyrics.csv";
