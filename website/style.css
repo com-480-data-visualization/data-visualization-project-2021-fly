@@ -26,6 +26,27 @@ to
     margin: auto;
 }
 
+#fp-nav ul li a span, .fp-slidesNav ul li a span {
+    border-radius: 50%;
+    position: absolute;
+    z-index: 1;
+    height: 4px;
+    width: 4px;
+    border: 0;
+    background: #fff;
+    left: 50%;
+    top: 50%;
+    margin: -2px 0 0 -2px;
+    -webkit-transition: all .1s ease-in-out;
+    -moz-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.fp-slidesNav.fp-bottom {
+    bottom: 17px;
+    text-align: center;
+}
 
 .svg-container {
   display: inline-block;
