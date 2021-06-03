@@ -1,4 +1,10 @@
-# Project of Data Visualization (COM-480)
+# 🎵 Music Evolution 🎵
+Project of Data Visualization (COM-480)
+
+<p align="center">
+     <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">Visit the Website</a>
+</p>
+
 
 | Student's name | SCIPER |
 | -------------- | ------ |
