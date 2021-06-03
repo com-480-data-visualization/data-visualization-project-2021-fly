@@ -6,10 +6,7 @@ d3.selectAll("ellipse").remove()
 
 // dimensions and margins of graph
 var margin = {top: 10, right: 100, bottom: 30, left: 100},
-    // graph_width = d3.select("#danceability_speechiness").node().getBoundingClientRect().width,
     graph_width = 1200  - margin.left - margin.right,
-
-    // graph_height = d3.select("#danceability_speechiness").node().getBoundingClientRect().height,
     graph_height = 500 - margin.top - margin.bottom;
 
 transitionDuration = 2000;
@@ -26,10 +23,6 @@ var svg = d3.select("#danceability_speechiness")
    .attr("viewBox", "0 0 1000 400")
    // Class to make it responsive.
    .classed("svg-content-responsive", true)
-    // .attr("width", graph_width + margin.left + margin.right)
-    // .attr("height", graph_height + margin.top + margin.bottom)
-    // .attr("width", graph_width)
-    // .attr("height", graph_height)
   .append("g")
     .attr("class", "graph")
     .attr("transform",
@@ -90,9 +83,6 @@ d3.csv("files/features/billboard_features_top_100.csv",
     // Add labels for the Y Axis
     svg.append("text")
       .attr("transform", "translate("+ 0 +", " + 60 + "),rotate(-90)")
-        // .attr("transform", "rotate(-90)")
-        // .attr("y", - margin.left + 10)
-        // .attr("x",0 - (graph_height / 2))
         .attr("dy", "1em") 
         .attr("class", "axis")
         .style("fill", colors[0])
@@ -113,16 +103,11 @@ d3.csv("files/features/billboard_features_top_100.csv",
            .attr("class", "axis")
            .style("stroke", colors[1])
            .style("opacity", 0.9);
+
+
     // Add labels for the Y Axis
-
-    // var rotateTranslate = d3Transform().rotate(-45).translate(graph_width - 150, 0);
-
-
     svg.append("text")
-        // .attr("transform", "translate("+ (graph_width - 150) +", 0)")
         .attr("transform", "translate("+ (graph_width - 300) +", " + (graph_height - 60) + "),rotate(90)")
-        // .attr("y",graph_height/2)
-        // .attr("x",graph_width - 150)
         .attr("dy", "1em") 
         .attr("class", "axis")
         .style("fill", colors[1])
@@ -402,4 +387,4 @@ function updateEvents(opacity) {
 }
 /*********************************************/
 }
-load();
+// load();

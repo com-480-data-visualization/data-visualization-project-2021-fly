@@ -1,3 +1,5 @@
+function load_spiral(){
+
 var margin = {
         top: 30,
         right: 30,
@@ -14,7 +16,6 @@ var lineSeparation = 80
 
 // Create SVG
 var svgSpiral = d3.select("#spiral")
-  // .classed("svg-container", true) 
     .append("svg")
     .attr("width", d3.select("#spiral").node().getBoundingClientRect().width)
     .attr("height", height)
@@ -80,7 +81,7 @@ var lineFunction = function(size){
                   return d3.line()
                   .x(function(d) { return spiral(d, size).x; })
                   .y(function(d) { return spiral(d, size).y; })
-                 .curve(d3.curveBasis);} // try with "linear" or "basis"}
+                 .curve(d3.curveBasis);}
 
 
 
@@ -196,10 +197,8 @@ function changeGraph() {
 /*-----------------ROW DESCRPTIONS-----------------*/
 
 row_descriptions = ['Weeks spent on the Billboard: all positions', "Weeks spent on the Billboard: 1ˢᵗ position"]
-// 1ˢᵗ
 
 svgSpiral.append("text")
-               // .attr("dy", function(d){return "62%"})
                 .attr("x", margin.right)
                 .attr("y", 0)
                 .attr("class", "spiral-element")
@@ -211,7 +210,6 @@ svgSpiral.append("text")
                   .ease(d3.easeBounce)
                 .duration(transitionDuration*0.17)
                 .style( "opacity", 1 )
-                // .attr('y',  height/4);
                 .attr('y',  margin.top);
 /*----------------------------------------------*/
 
@@ -265,7 +263,6 @@ svgSpiral.selectAll("text.number")
                     .ease(d3.easeBounce)
                   .duration(transitionDuration*0.17)
                   .style( "opacity", 1 )
-                  .style("font-weight", "bold")
                   .attr('y',  function(d){return d.centerY + 60});
 
 
@@ -311,3 +308,4 @@ d3.select("#radio-buttons").on("change", changeGraph )
 
 /* 
 ---------------------------------------------------*/
+}

@@ -13,6 +13,27 @@ to
 	box-sizing: border-box;
 }
 
+#spirals {
+    width: 1000px;
+    height: 700px;
+    /*background-color: red;*/
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0  ;
+    right: 0;
+    /*margin-left: -260px;*/
+
+    /*text-align: center;*/
+    
+    margin: auto;
+}
+
+/*.fp-slide{
+    position:relative;
+}*/
+
 .svg-container {
   display: inline-block;
   position: relative;
@@ -79,10 +100,10 @@ h2{
 
 .title {
     text-align: center;
-    width: 80%
+    width: 80%;
     padding-bottom:6.25%;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 550;
+    font-family: 'Montserrat';
+    font-weight: 300;
     font-size: 19px;
     fill: #ffffff;
 }
@@ -159,11 +180,11 @@ button {
 }
 
 .axis line{
-  stroke: white;
+  stroke: cornsilk;
 }
 
 .axis path{
-  stroke: white;
+  stroke: cornsilk;
 }
 
 .axis text{
