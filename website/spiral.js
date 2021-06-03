@@ -5,7 +5,7 @@ var margin = {
         left: 100
     },
     width = 1000 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    height = 700 - margin.top - margin.bottom;
 
 var transitionDuration = 3000
 
@@ -13,7 +13,9 @@ var lineSeparation = 80
 
 
 // Create SVG
-var svgSpiral = d3.select("#spiral").append("svg")
+var svgSpiral = d3.select("#spiral")
+  // .classed("svg-container", true) 
+    .append("svg")
     .attr("width", d3.select("#spiral").node().getBoundingClientRect().width)
     .attr("height", height)
   .append("g");
