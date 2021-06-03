@@ -1,28 +1,28 @@
 // set the dimensions of the cloud
 var sentiment = "love";
-var margin = {
+var chart_margin = {
         top: 0,
         right: 0,
         bottom: 0,
         left: 0
     },
-    width = 1200 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    chart_width = 1200 - chart_margin.left - chart_margin.right,
+    chart_height = 500 - chart_margin.top - chart_margin.bottom;
 
 var svgBarChart = d3.select("#bar_chart_d3")
                  .classed("svg-container", true)
                  .append("svg")
                  .attr("preserveAspectRatio", "xMinYMin meet")
-                 .attr("viewBox", "0 0 "+width+" "+height+"");
+                 .attr("viewBox", "0 0 "+chart_width+" "+chart_height+"");
 
-var xScale = d3.scaleBand().range([0, width]).padding(0.4),
-    yScale = d3.scaleLinear().range([height, 0]);
+var xScale = d3.scaleBand().range([0, chart_width]).padding(0.4),
+    yScale = d3.scaleLinear().range([chart_height, 0]);
 
 var g = svgBarChart.classed("svg-content-responsive", true)
                    .append("g")
-                   .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-                   .attr("width", width)
-                   .attr("height", height);
+                   .attr("transform", "translate(" + chart_margin.left + "," + chart_margin.top + ")")
+                   .attr("width", chart_width)
+                   .attr("height", chart_height);
 
 function update() {
   file = "files/sentiment/"+sentiment+".csv"
@@ -35,7 +35,7 @@ function update() {
       yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
 
       g.append("g")
-       .attr("transform", "translate(0," + height + ")")
+       .attr("transform", "translate(0," + chart_height + ")")
        .call(d3.axisBottom().scale(xScale));
 
       g.selectAll(".bar")
@@ -45,7 +45,7 @@ function update() {
        .attr("x", function(d) { return xScale(d.decade); })
        .attr("y", function(d) { return yScale(d.value); })
        .attr("width", xScale.bandwidth())
-       .attr("height", function(d) { return height - yScale(d.value); });
+       .attr("height", function(d) { return chart_height - yScale(d.value); });
   });
 }
 
