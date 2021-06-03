@@ -115,6 +115,7 @@ h2{
 .title {
     text-align: center;
     width: 80%;
+    margin: auto;
     padding-bottom:6.25%;
     font-family: 'Montserrat';
     font-weight: 300;
