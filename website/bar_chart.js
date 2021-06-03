@@ -4,7 +4,7 @@ var chart_margin = {
         top: 0,
         right: 0,
         bottom: 0,
-        left: 0
+        left: 70
     },
     chart_width = 1200 - chart_margin.left - chart_margin.right,
     chart_height = 500 - chart_margin.top - chart_margin.bottom;
@@ -16,7 +16,9 @@ var svgBarChart = d3.select("#bar_chart_d3")
                  .attr("viewBox", "0 0 "+chart_width+" "+chart_height+"");
 
 var xScale = d3.scaleBand().range([0, chart_width]).padding(0.4),
-    yScale = d3.scaleLinear().range([chart_height, 0]);
+    yScale = d3.scaleLinear()
+               .domain([0, 1.42])
+               .range([chart_height, 0]);
 
 var g = svgBarChart.classed("svg-content-responsive", true)
                    .append("g")
@@ -31,12 +33,28 @@ function update() {
           throw error;
       }
 
+      maxValue = d3.max(data, function(d) { return d.value; });
       xScale.domain(data.map(function(d) { return d.decade; }));
-      yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+      //yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
 
       g.append("g")
+       .attr("class", "axis")
        .attr("transform", "translate(0," + chart_height + ")")
        .call(d3.axisBottom().scale(xScale));
+
+      g.append("g")
+      .attr("class", "axis")
+      //.attr("transform", "translate(0," + chart_height + ")")
+      .call(d3.axisLeft().scale(yScale).ticks(10));
+
+      svgBarChart.append("text")
+        .attr("transform", "translate(0, " + chart_height/2 + "),rotate(-90)")
+          .attr("dy", "1em")
+          .attr("class", "axis")
+          .style("fill", "white")
+          .attr("font-size", "24px")
+          .style("text-anchor", "middle")
+          .text("Lexicon of "+sentiment+" (%)");
 
       g.selectAll(".bar")
        .data(data)
@@ -46,12 +64,13 @@ function update() {
        .attr("y", function(d) { return yScale(d.value); })
        .attr("width", xScale.bandwidth())
        .attr("height", function(d) { return chart_height - yScale(d.value); })
-       .attr("fill", function(d) {return "rgb(0, 0, " + (d.value * 120) + ")";})
+       .attr("fill", function(d) {return "rgb("+(maxValue - d.value) * 100+", "+(maxValue - d.value) * 100+", " +(maxValue - d.value) * 100 + ")";})
   });
 }
 
 function update_bar_chart(new_sentiment){
   svgBarChart.selectAll(".bar").remove();
+  svgBarChart.selectAll(".axis").remove();
   sentiment = new_sentiment;
   update();
 }
