@@ -16,23 +16,16 @@ to
 #spirals {
     width: 1000px;
     height: 700px;
-    /*background-color: red;*/
     
     position: absolute;
     top:0;
     bottom: 0;
     left: 0  ;
     right: 0;
-    /*margin-left: -260px;*/
-
-    /*text-align: center;*/
     
     margin: auto;
 }
 
-/*.fp-slide{
-    position:relative;
-}*/
 
 .svg-container {
   display: inline-block;

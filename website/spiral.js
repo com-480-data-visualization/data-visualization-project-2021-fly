@@ -1,5 +1,3 @@
-function load_spiral(){
-
 var margin = {
         top: 30,
         right: 30,
@@ -308,4 +306,3 @@ d3.select("#radio-buttons").on("change", changeGraph )
 
 /* 
 ---------------------------------------------------*/
-}
