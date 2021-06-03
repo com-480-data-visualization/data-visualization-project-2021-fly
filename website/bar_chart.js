@@ -45,7 +45,8 @@ function update() {
        .attr("x", function(d) { return xScale(d.decade); })
        .attr("y", function(d) { return yScale(d.value); })
        .attr("width", xScale.bandwidth())
-       .attr("height", function(d) { return chart_height - yScale(d.value); });
+       .attr("height", function(d) { return chart_height - yScale(d.value); })
+       .attr("fill", function(d) {return "rgb(0, 0, " + (d.value * 120) + ")";})
   });
 }
 
