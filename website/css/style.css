@@ -31,6 +31,10 @@ to
   background: none;
 }
 
+#intro{
+    font-size: 15px; 
+}
+
 #spirals {
     width: 1000px;
     height: 700px;
