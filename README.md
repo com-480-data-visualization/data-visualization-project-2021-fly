@@ -1,4 +1,4 @@
-# 🎵 Music Evolution 🎵
+# 🎵 Music Evolution 🎷
 #### From Turntable to Spotify
 Project of Data Visualization (COM-480)
 
