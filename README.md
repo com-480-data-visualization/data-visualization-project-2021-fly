@@ -6,6 +6,12 @@ Project of Data Visualization (COM-480)
      <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">Visit the Website</a>
 </p>
 
+If you'd rather run the website locally, use the following commands: 
+```
+$ cd website
+$ python3 -m http.server
+```
+
 
 | Student's name | SCIPER |
 | -------------- | ------ |
@@ -14,6 +20,21 @@ Project of Data Visualization (COM-480)
 | Yassine Khalfi | 288599|
 
 [Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+
+## Project structure
+```       
+├───samples             (Images used in milestones)
+├───notebooks           
+├───node_modules
+└───website         (Website files)
+     ├───css       
+     ├───files      (CSV files used by our scripts)
+     ├───images     (Images used in the website and milestones)
+     ├───javascript (Our .js files)
+     ├───lib        (Js files form libraries used)
+     └───style      (CSS)
+
+```
 
 ## Milestone 1 (23rd April, 5pm)
 
