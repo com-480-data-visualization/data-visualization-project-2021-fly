@@ -18,9 +18,9 @@
 			<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 
 		  <!-- favicon.ico. Place these in the root directory. -->
-		  <link rel="shortcut icon" href="favicon.png">
-		  <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-			<link rel="stylesheet" href="style.css">
+		  <link rel="shortcut icon" href="images/favicon.png">
+		  <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+			<link rel="stylesheet" href="css/style.css">
 
 		  <!-- D3.js -->
 		  <script src="https://d3js.org/d3.v4.js"></script>
@@ -30,7 +30,7 @@
 		<div id="fullPage">
 
 				<div class="section s1">
-
+				
 						<div class="title">
 							<h1 class="main_title">From Turntable to Spotify</h1>
 							<h2>How has the music we listen to evolved from the 1950s to nowadays?</h2>
@@ -93,7 +93,7 @@
 								</div>
 						</div>
 					</div>
-
+					
 					<div class="slide">
 						<div class="page-content">
 							<div class="lollipop_chart">
@@ -114,7 +114,7 @@
 
 								<!-- Include D3.js chart -->
 								<div id="lollipop_d3">
-									<script  src="lollipop.js"></script>
+									<script  src="javascript/lollipop.js"></script>
 								</div>
 
 								<div id="buttons">
@@ -134,13 +134,11 @@
 							<div class="comment">
 								<div class="comment-title">What can we see?</div>
 								<div class="comment-content">
-									<p>
-										If we look at the values of the different features, some evolve in a rather small way while others go from one extreme to the other. For example, the <b> tempo of music increases significantly </b> with the appearance of genres such as electro and rap music, whose BPM is very high, even the other genres like pop and rock were influenced by this new kind of music. It's the opposite of what is happening with Acousticness, where today's <b>music relies mainly on electronic instruments such as samplers and synthesizers </b>reducing the acousticity of today's hits.
-									</p>
-
-									<p>
-										Another point that may be interesting to look at is the <b>decrease of valence</b>. Valence represents the musical positiveness conveyed by a track. Tracks with high valence sound more positive (happy, cheerful, euphoric), while tracks with low valence sound more negative (sad, depressed, angry). We can also link this to the evolution of music which has started to deal with sadder topics, we have seen the appearance of hits which talk about violence or depression.<b> Nowadays, music doesn't need to be about positive emotions to become popular.</b>
-									</p>
+									If we look at the values of the different features, some evolve in a rather small way while others go from one
+									extreme to the other. For example, the tempo of music increases significantly with the appearance of genres such
+									as electro and rap music, whose BPM is very high. It's the opposite of what is happening with Acousticness, where
+									today's music relies mainly on electronic instruments such as samplers and synthesizers reducing the acousticity
+									of today's hits.
 								</div>
 							</div>
 						</div>
@@ -169,7 +167,7 @@
 									<label for="checkbox" id="eventCheckboxLabel">Show Events</label>
 									<br>
 									<div id="danceability_speechiness">
-					          			<script src="graph_fusion.js"></script>
+					          			<script src="javascript/graph_fusion.js"></script>
 					        		</div>
 
 								</div>
@@ -181,9 +179,9 @@
 							<div class="comment">
 									<div class="comment-title">More danceable hits...</div>
 									<div class="comment-content">
-										Throughout the 50's and 60's, genres present on the Billboard were a mishmash of <b>mood music</b>, <b>blues</b>, and <b>adult standards</b>. Come the 70's, a.k.a. <b>The Age of Disco</b>, the average danceability of successful hits went up with the rise of <b>funk music</b> and <b>Bubblegum pop</b>: catchy, upbeat songs that create a hypnotic, danceable feel. Between <b>classic rock</b>  and <b>hip hop</b>, the most successful hits of the 80's had variable danceability levels, but the nightclubs started to get more heated in the 90's with the arrival of <b>Electro</b> music, and hip hop becoming more and more geared towards dancing. <br>
+										Throughout the 50's and 60's, genres present on the Billboard were a mishmash of <b>mood music</b>, <b>blues</b>, and <b>adult standards</b>. Come the 70's, a.k.a. <b>The Age of Disco</b>, the average danceability of successful hits went up with the rise of <b>funk music</b> and <b>Bubblegum pop</b>: catchy, upbeat songs that create a hypnotic, danceable feel. Between <b>classic rock</b>  and <b>hip hop</b>, the most successful hits of the 80's had variable danceability levels, but the nightclubs started to get more heated in the 90's with the arrival of <b>Electro</b> music, and hip hop becoming more and more geared towards dancing. <br>  
 
-										The most appreciated tubes of the first decade of the 21st had a lot to do with emo music and indie pop, but <b>Reggaeton</b>  and <b>Latin</b>  pop hits were among the most danceable ones at the time.
+										The most appreciated tubes of the first decade of the 21st had a lot to do with emo music and indie pop, but <b>Reggaeton</b>  and <b>Latin</b>  pop hits were among the most danceable ones at the time. 
 										In the last 10 years, most of the danceable Billboard 100 hits came out of an association of <b>pop</b>, <b>rap</b>  and <b>hip hop</b> . It seems like <b>genres are becoming a thing of the past</b> : for instance, the song 'Old Town Road', from Lil Nas X ft. Billy Ray Cyrus, was one of the most successful hits in the history of the Billboard. Who would've thought that such a risky crossover between country and hip-hop music would break so many records ?
 									</div>
 								</div>
@@ -191,15 +189,15 @@
 								<div class="comment">
 									<div class="comment-title">... and more talkative artists</div>
 									<div class="comment-content">
-										Speechy music often rhymes with <b>rap</b> music. By looking at the evolution of the speechiness feature, we can guess when the public started appreciating 'wordy' music. Between 2000 and 2005, Eminem and Lil' Wayne were often present in the top position, and were joined by Kanye West, Drake and Kendrick Lamar in the following years.
+										Speechy music often rhymes with <b>rap</b> music. By looking at the evolution of the speechiness feature, we can guess when the public started appreciating 'wordy' music. Between 2000 and 2005, Eminem and Lil' Wayne were often present in the top position, and were joined by Kanye West, Drake and Kendrick Lamar in the following years. 
 										Those artists walked in the steps of icons like 2Pac, The Notorious B.I.G., and Ice Cube, who revolutionized rap and hip hop music during the 90's. <br>
-										Starting from the mid-2000's, average danceability and speechiness values more or less follow each other: when observed as a whole, music speechiness throughout the last decades shows how rap music, as a genre that started at block parties in New York City, evolved into mainstream hip hop, and is still rising in popularity nowadays.
+										Starting from the mid-2000's, average danceability and speechiness values more or less follow each other: when observed as a whole, music speechiness throughout the last decades shows how rap music, as a genre that started at block parties in New York City, evolved into mainstream hip hop, and is still rising in popularity nowadays. 
 									</div>
-								</div>
+								</div>							
 						</div>
 					</div>
 
-
+								
 				</div>
 
 				<div class="section">
@@ -224,7 +222,7 @@
 										<label for="option-two">All positions</label>
 								  </div>
 									<div id="spiral">
-					          <script src="spiral.js"></script>
+					          <script src="javascript/spiral.js"></script>
 					        </div>
 								</div>
 						</div>
@@ -235,12 +233,12 @@
 					        <div class="comment">
 									<div class="comment-title"> Coincidence ?</div>
 									<div class="comment-content">
-										The <b>top songs</b> that lasted the longest at position number 1 all feature <b>two or more artists</b>: it seems like the more artists collaborate on a song, the more fame it gains.
+										The <b>top songs</b> that lasted the longest at position number 1 all feature <b>two or more artists</b>: it seems like the more artists collaborate on a song, the more fame it gains. 
 										<br>
-										Another striking fact: the data spans all hot 100 charts from 1958 to 2019. In the age of social media and hyper-connectivity, one would expect trends to change faster than the olden days. However, most top albums and songs in this chart (75% precisely) occur in the last 10 years of the data, which would indicate that <b>hits actually last longer on the charts nowadays</b>.
+										Another striking fact: the data spans all hot 100 charts from 1958 to 2019. In the age of social media and hyper-connectivity, one would expect trends to change faster than the olden days. However, most top albums and songs in this chart (75% precisely) occur in the last 10 years of the data, which would indicate that <b>hits actually last longer on the charts nowadays</b>. 
 									</div>
 								</div>
-						</div>
+						</div>		
 					</div>
 				</div>
 
@@ -259,7 +257,7 @@
 									</div>
 
 									<div id="cloud_d3">
-										<script src="word_cloud.js"></script>
+										<script src="javascript/word_cloud.js"></script>
 									</div>
 								</div>
 						</div>
@@ -291,7 +289,7 @@
 			         			<button	onclick="update_bar_chart('joy')" class="bttn-simple" style="background-color: #eefbfb8a;">Joy</button>
 									</div>
 									<div id="bar_chart_d3">
-										<script src="bar_chart.js"></script>
+										<script src="javascript/bar_chart.js"></script>
 									</div>
 							</div>
 					</div>
@@ -313,7 +311,7 @@
       navigationTooltips: [
         "Introduction",
         "Greatest hits",
-        "Evolution of genres",
+        "Pop and Rock Evolution",
         "Audio Features History",
         "Achievements & Milestones",
         "Sentiment Analysis",
