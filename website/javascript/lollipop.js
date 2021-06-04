@@ -67,6 +67,7 @@ function update_lollipop() {
         lines.enter()
             .append("line")
             .attr("class", "lineInBetween")
+            .style("stroke", "black")
             .merge(lines)
             .transition()
             .duration(1000)
@@ -101,7 +102,7 @@ function update_lollipop() {
                 return y_scale(d.group);
             })
             .attr("r", "8")
-            .style("fill", "#EEFBFB")
+            .style("fill", "rgb(171 207 129)")
             .attr("opacity", 1)
 
         // Select dots for decade 2 when redrawing and update parameters
@@ -134,12 +135,12 @@ svgLollipop.append("text")
     .attr("y", margin.top - DISTANCE + 10)
     .text(genre + " Music")
     .style("font-size", "20px")
-    .style("fill", "#ffffff");
+    .style("fill", "#339fa6");
 
 svgLollipop.append("rect")
         .attr("x", 520)
         .attr("y", margin.top - 20 + DISTANCE)
-        .style("fill", "#EEFBFB")
+        .style("fill", "rgb(171 207 129)")
         .style("height", 10)
         .style("width", 20);
 
@@ -149,7 +150,7 @@ svgLollipop.append("text")
         .attr("y", margin.top -10 + DISTANCE)
         .text(decade_1)
         .style("font-size", "15px")
-        .style("fill", "#EEFBFB");
+        .style("fill", "rgb(171 207 129)");
 
 svgLollipop.append("rect")
         .attr("x", 520)
@@ -198,7 +199,7 @@ function update_2(decade) {
     svgLollipop.append("rect")
         .attr("x", 520)
         .attr("y", margin.top - 10)
-        .style("fill", "#007CC7")
+        .style("fill", "rgb(171 207 129)")
         .style("height", 10)
         .style("width", 20);
 
@@ -208,7 +209,7 @@ function update_2(decade) {
         .attr("y", margin.top)
         .text(decade)
         .style("font-size", "15px")
-        .style("fill", "#007CC7");
+        .style("fill", "rgb(171 207 129)");
 
     decade_2 = decade
     update_lollipop()
@@ -224,7 +225,7 @@ svgLollipop.append("text")
     .attr("y", margin.top - DISTANCE + 10)
     .text(new_genre + " Music")
     .style("font-size", "20px")
-    .style("fill", "#ffffff");
+    .style("fill", "#339fa6");
 
     genre = new_genre
     update_lollipop()

@@ -245,7 +245,7 @@ function cursorout() {
       .attr("x", x(selection.year)+15)
       .attr("y", y_speechiness(selection["speechiness"]))
         .attr("font-size", "10px")
-      .style("fill", "cornsilk")
+      .style("fill", "#339fa6")
     }
 
   function cursorout_speechiness() {
@@ -276,7 +276,7 @@ function cursorout() {
       .attr("x", x(selection.year)+15)
       .attr("y", y_danceability(selection["danceability"]))
         .attr("font-size", "10px")
-      .style("fill", "cornsilk")
+      .style("fill", "#339fa6")
     }
 
   function cursorout_danceability() {

@@ -49,7 +49,7 @@ function update() {
           .attr("transform", "translate(0, " + chart_height/2 + "),rotate(-90)")
           .attr("dy", "1em")
           .attr("class", "axis")
-          .style("fill", "white")
+          .style("fill", "black")
           .attr("font-size", "24px")
           .style("text-anchor", "middle")
           .text("Lexicon of "+sentiment+" (%)");

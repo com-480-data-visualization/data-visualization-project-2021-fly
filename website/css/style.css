@@ -18,7 +18,7 @@ to
     border-radius: 1rem;
     padding: 1px 5px 1px;
     color: white;
-    background: linear-gradient(to right, #C6D537, #777067);
+    background: linear-gradient(to right, #b3d37e, #4a9a9e);
     transition: all 0.5s cubic-bezier(0.47, 1.59, 0.33, 1.53);
 }
 
@@ -51,7 +51,7 @@ to
     height: 4px;
     width: 4px;
     border: 0;
-    background: #c6d537;
+    background: #4a9a9e;
     left: 50%;
     top: 50%;
     margin: -2px 0 0 -2px;
@@ -94,12 +94,11 @@ Make the document fill the whole viewport, this overrides any weird defaults tha
 }
 
 body {
-    background-color: #eaeae7;
+    background-color: #f6f6f2;
     font-family: 'MONTSERRAT';
     font-size: 15px;
-    color: rgb(110, 110, 110);;
+    color: #339fa6;
     width: 100%;
-    color: #777067;
     margin: auto;
     line-height: 2em;
     letter-spacing: 0.1em;
@@ -138,15 +137,15 @@ h2{
     font-family: 'Montserrat';
     font-weight: 300;
     font-size: 19px;
-    color: #333c39;;
+    color: #2d7d82;;
 }
 
 .subtitle, label {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: 15px;
-  fill: cornsilk;
-  color: cornsilk;
+  fill: black;
+  color: black;
 }
 
 .description {
@@ -202,7 +201,7 @@ button {
 }
 
 .tick text {
-    fill: #fff;
+    fill: #339fa6;
 }
 
 .axis {
@@ -211,16 +210,14 @@ button {
 }
 
 .axis line{
-  stroke: cornsilk;
+  stroke: black;
 }
 
 .axis path{
-  stroke: cornsilk;
+  stroke: black;
 }
 
 .axis text{
-/*    color: white;
-  fill: white;*/
   font-size: 12px;
 }  
 
@@ -279,6 +276,10 @@ button {
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
 
+div.comment-title{
+    color:  white;
+}
+
 
 .collapsible:hover {
     opacity: 0.4;
@@ -318,7 +319,7 @@ button {
 }
 
 .comment-content {
-    background-color: rgba(255, 255, 255, 0.12);
+    background-color: rgb(91 34 34 / 12%);
     font-size: 16px;
     padding: 10px 20px 15px 20px;
 }
@@ -331,7 +332,7 @@ button {
 }
 
 .spiral-content+.spiral-element{
-    fill: cornsilk;
+    fill: gray;
     font: 13px Helvetica;
     /*opacity: 0.8;*/
     text-anchor: middle;
@@ -339,7 +340,7 @@ button {
 
 test.spiral-element{
 
-    fill: cornsilk;
+    fill: gray;
 }
 
 svg {
@@ -381,7 +382,7 @@ div.tooltip {
 
 .line-bar {
 fill: none;
-stroke: white;
+stroke: black;
 stroke-width: 3px;
 }
 
@@ -391,3 +392,14 @@ stroke-width: 3px;
     margin-top: 2em;
     margin-left: 40em;
 }
+
+fullPage-nav li, .fullPage-slidesNav li{
+    color: black;
+}
+/*#fullPage-nav li a, .fullPage-slidesNav li a
+#fullPage-nav li, .fullPage-slidesNav li
+#fullPage-nav ul, .fullPage-slidesNav ul
+#fullPage-nav*/
+/*.fullPage-tooltip{*/
+    
+/*}*/
