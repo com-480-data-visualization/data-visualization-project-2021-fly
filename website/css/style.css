@@ -379,6 +379,7 @@ div.tooltip {
     font-size: 15px;
     /*font: 20px Fantasy;*/
     background: var(--comment-title-color);
+    color: cornsilk;
     border: 0px;
     /*border-radius: 8px;*/
     pointer-events: none;         
