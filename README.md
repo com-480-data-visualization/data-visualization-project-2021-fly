@@ -35,6 +35,8 @@ $ python3 -m http.server
      └───style      (CSS)
 
 ```
+## How to Use
+The intended usage is simple: simply head to <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">our website</a> and play with the different visualizations. Happy scrolling !
 
 ## Milestone 1 (23rd April, 5pm)
 
