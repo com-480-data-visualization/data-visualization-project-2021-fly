@@ -1,31 +1,36 @@
 # 🎵 Music Evolution 🎷
-#### From Turntable to Spotify
+## From Turntable to Spotify
 Project of Data Visualization (COM-480)
 
 <p align="center">
      <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">Visit the Website</a>
 </p>
 
-If you'd rather run the website locally, use the following commands: 
+If you'd rather run the website locally, use the following commands after cloning the project: 
 ```
 $ cd website
 $ python3 -m http.server
 ```
-
+## How to Use
+The intended usage is simple: simply head to <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">our website</a> and play with the different visualizations. Happy scrolling (Vertical and Horizontal) !
 
 | Student's name | SCIPER |
 | -------------- | ------ |
 | Lilia Ellouz | 261333|
-| Faten Ghali| | 258260 |
+| Faten Ghali | 258260|
 | Yassine Khalfi | 288599|
 
-[Milestone 1](#milestone-1) • [Milestone 2](#milestone-2) • [Milestone 3](#milestone-3)
+[\[Milestone 1\]](https://github.com/com-480-data-visualization/data-visualization-project-2021-fly/blob/master/Milestone_1.md) • [\[Milestone 2\]](https://github.com/com-480-data-visualization/data-visualization-project-2021-fly/blob/master/Milestone_2.md) • [\[Milestone 3 Website\]](com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/)  • [\[Milestone 3 Process Book\]](https://github.com/com-480-data-visualization/data-visualization-project-2021-fly/blob/master/Process_book.pdf) • [\[Milestone 3 Screencast\]](https://www.youtube.com/watch?v=dvksduPX9GI)
+
+## Abstract
+Did you listen to music today? The answer is probably yes. On average we listen to 2h30 of music a day, there are few things you spend more time on in your day. We suggest you dive into music and see its history and evolution. Our site offers you to look at the evolution of music from several angles. You can first look at the evolution of two genres that you listen to and that were already popular a few decades ago: rock and pop. Secondly, we will let you look at the evolution of the danceability and speechiness of music. Was past music more danceable or not, that's what we'll see? And finally we will be interested in the lyrics of the music, the lyrics of the music are a reflection of the state of society, you also have the opportunity to see how this has evolved.  
+
+Don't hesitate to listen to the evolution of the music, we have put a playlist for that. 
 
 ## Project structure
 ```       
 ├───samples             (Images used in milestones)
 ├───notebooks           
-├───node_modules
 └───website         (Website files)
      ├───css       
      ├───files      (CSV files used by our scripts)
@@ -35,55 +40,10 @@ $ python3 -m http.server
      └───style      (CSS)
 
 ```
-## How to Use
-The intended usage is simple: simply head to <a href="https://com-480-data-visualization.github.io/data-visualization-project-2021-fly/website/">our website</a> and play with the different visualizations. Happy scrolling !
-
-## Milestone 1 (23rd April, 5pm)
-
-**10% of the final grade**
-
-This is a preliminary milestone to let you set up goals for your final project and assess the feasibility of your ideas.
-Please, fill the following sections about your project.
-
-*(max. 2000 characters per section)*
-
-### Dataset
-
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
->
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
-
-### Problematic
-
-> Frame the general topic of your visualization and the main axis that you want to develop.
-> - What am I trying to show with my visualization?
-> - Think of an overview for the project, your motivation, and the target audience.
-
-### Exploratory Data Analysis
-
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
-
-### Related work
 
 
-> - What others have already done with the data?
-> - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
-> - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
+##  Authors
 
-## Milestone 2 (7th May, 5pm)
-
-**10% of the final grade**
-
-
-## Milestone 3 (4th June, 5pm)
-
-**80% of the final grade**
-
-
-## Late policy
-
-- < 24h: 80% of the grade for the milestone
-- < 48h: 70% of the grade for the milestone
-
+ - [Lilia Ellouz](https://github.com/liliaellouz)
+ - [Ghali Faten](https://github.com/ghalifaten)
+ - [Yassine Khalfi](https://github.com/YassineKhalfi)
