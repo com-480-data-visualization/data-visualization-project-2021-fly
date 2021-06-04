@@ -18,7 +18,7 @@ to
     border-radius: 1rem;
     padding: 1px 5px 1px;
     color: white;
-    background: linear-gradient(to right, rgb(141, 15, 63), rgb(220, 57, 43));
+    background: linear-gradient(to right, #C6D537, #777067);
     transition: all 0.5s cubic-bezier(0.47, 1.59, 0.33, 1.53);
 }
 
@@ -51,7 +51,7 @@ to
     height: 4px;
     width: 4px;
     border: 0;
-    background: #fff;
+    background: #c6d537;
     left: 50%;
     top: 50%;
     margin: -2px 0 0 -2px;
@@ -94,12 +94,12 @@ Make the document fill the whole viewport, this overrides any weird defaults tha
 }
 
 body {
-    background-color: #203647;
+    background-color: #eaeae7;
     font-family: 'MONTSERRAT';
     font-size: 15px;
     color: rgba(255, 255, 255, 0.17);
     width: 100%;
-    color: white;
+    color: #777067;
     margin: auto;
     line-height: 2em;
     letter-spacing: 0.1em;
@@ -138,7 +138,7 @@ h2{
     font-family: 'Montserrat';
     font-weight: 300;
     font-size: 19px;
-    fill: #ffffff;
+    color: #333c39;;
 }
 
 .subtitle, label {
@@ -274,7 +274,7 @@ button {
     border-width: 0;
     border-radius: 0px;
     background: rgba(255, 255, 255, 0.08);
-    color: #fff;
+    /*color: #fff;*/
     -webkit-transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
     transition: all 0.3s cubic-bezier(0.02, 0.01, 0.47, 1);
 }
