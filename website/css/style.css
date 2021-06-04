@@ -32,7 +32,7 @@ to
 }
 
 #intro p{
-    font-size: 13px; 
+    font-size: 16px; 
 }
 
 #spirals {
@@ -137,7 +137,7 @@ h2{
     text-align: center;
     width: 80%;
     margin: auto;
-    padding-bottom:6.25%;
+    /*padding-bottom:6.25%;*/
     font-family: 'Montserrat';
     font-weight: 300;
     font-size: 19px;
@@ -379,6 +379,7 @@ div.tooltip {
     font-size: 15px;
     /*font: 20px Fantasy;*/
     background: var(--comment-title-color);
+    color: cornsilk;
     border: 0px;
     /*border-radius: 8px;*/
     pointer-events: none;         
