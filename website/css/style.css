@@ -13,6 +13,24 @@ to
 	box-sizing: border-box;
 }
 
+.page-content a {
+    text-decoration: none;
+    border-radius: 1rem;
+    padding: 1px 5px 1px;
+    color: white;
+    background: linear-gradient(to right, rgb(141, 15, 63), rgb(220, 57, 43));
+    transition: all 0.5s cubic-bezier(0.47, 1.59, 0.33, 1.53);
+}
+
+.page-content a:hover {
+  padding: 1px 10px 1px;
+}
+
+#Spotify-link {
+  color: #1db954;
+  background: none;
+}
+
 #spirals {
     width: 1000px;
     height: 700px;
@@ -91,7 +109,7 @@ body {
 }
 
 p{
-    font-size: 15px; 
+    font-size: 18px; 
     letter-spacing: 0.1em;
     text-align: justify;
     text-justify: inter-word;
@@ -301,8 +319,8 @@ button {
 
 .comment-content {
     background-color: rgba(255, 255, 255, 0.12);
-    font-size: 14px;
-    padding: 10px 10px 10px 10px;
+    font-size: 16px;
+    padding: 10px 20px 15px 20px;
 }
 
 
